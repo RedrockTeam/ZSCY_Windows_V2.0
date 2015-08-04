@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,6 +27,7 @@ namespace ZSCY
     public sealed partial class App : Application
     {
         private TransitionCollection transitions;
+        private ApplicationDataContainer appSettings;
 
         /// <summary>
         /// 初始化单一实例应用程序对象。这是执行的创作代码的第一行，
@@ -35,6 +37,7 @@ namespace ZSCY
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+            appSettings = ApplicationData.Current.LocalSettings;
         }
 
         /// <summary>
@@ -94,7 +97,7 @@ namespace ZSCY
                 // 当导航堆栈尚未还原时，导航到第一页，
                 // 并通过将所需信息作为导航参数传入来配置
                 // 新页面
-                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                if (!rootFrame.Navigate(typeof(LoginPage), e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
