@@ -40,7 +40,23 @@ namespace ZSCY
         {
             this.InitializeComponent();
             appSetting = ApplicationData.Current.LocalSettings;
+        }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
+        }
+
+        //离开页面时，取消事件
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
+        }
+
+        private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)//重写后退按钮，如果要对所有页面使用，可以放在App.Xaml.cs的APP初始化函数中重写。
+        {
+            e.Handled = true;
+            Application.Current.Exit();
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)

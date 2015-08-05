@@ -79,7 +79,7 @@ namespace ZSCY.Util
         }
 
 
-        public static async Task ShowSystemTrayAsync(Color backgroundColor, Color foregroundColor, double opacity = 1,
+        public static async Task ShowSystemTrayAsync(Color backgroundColor , Color foregroundColor, double opacity = 1,
             string text = "", bool isIndeterminate = false)
         {
             StatusBar statusBar = StatusBar.GetForCurrentView();
