@@ -44,6 +44,21 @@ namespace ZSCY
 
             initKB(appSetting.Values["stuNum"].ToString());
             initJW();
+            SetKebiaoGridBorder();
+        }
+
+        private void SetKebiaoGridBorder()
+        {
+            for (int i = 0; i < kebiaoGrid.RowDefinitions.Count; i++)
+            {
+                for (int j = 0; j < kebiaoGrid.ColumnDefinitions.Count; j++)
+                {
+                    var border = new Border() { BorderBrush = new SolidColorBrush(Colors.LightGray), BorderThickness = new Thickness(0.5) };
+                    Grid.SetRow(border, i);
+                    Grid.SetColumn(border, j);
+                    kebiaoGrid.Children.Add(border);
+                }
+            }
         }
 
         /// <summary>

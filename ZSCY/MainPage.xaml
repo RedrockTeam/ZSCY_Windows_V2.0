@@ -5,24 +5,121 @@
     xmlns:local="using:ZSCY"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:ZSCY.Util"
     mc:Ignorable="d"
     FontFamily="Microsoft YaHei UI"
+    FontWeight="Light"
     Background="#068cfd">
+
+    <Page.Resources>
+        <converter:KBGridWidthConverter x:Key="KBGridWidthConverterKey"/>
+        <converter:KBGridHeighConverter x:Key="KBGridHeighConverterKey"/>
+        <converter:KBScrollViewerHeighConverter x:Key="KBScrollViewerHeighConverterKey"/>
+    </Page.Resources>
 
     <Grid Background="#f8f8f8">
         <Grid Name="BlueBackGrid" Background="#068cfd" VerticalAlignment="Top" Height="50"/>
-        <Hub Name="MainHub" Margin="0,20" SectionsInViewChanged="MainHub_SectionsInViewChanged">
+        <Hub Name="MainHub" Margin="0,20,0,0" SectionsInViewChanged="MainHub_SectionsInViewChanged">
             <HubSection Name="KBHubSection">
                 <HubSection.Header >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
-                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0">
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
                             <TextBlock Name="HubSectionKBTitle" Text="我的课表" Foreground="White"  FontSize="35" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                             <TextBlock Name="HubSectionKBNum" Text="第一周" Margin="5,0" Foreground="White"  FontSize="20"  VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                         </StackPanel>
+                        <StackPanel Grid.Row="1" Margin="1,0,0,0">
+                            <Grid Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Height="25">
+                                <Grid.ColumnDefinitions>
+                                    <!--列-->
+                                    <ColumnDefinition Width="2 *"/>
+                                    <ColumnDefinition Width="3 *"/>
+                                    <ColumnDefinition Width="3 *"/>
+                                    <ColumnDefinition Width="3 *"/>
+                                    <ColumnDefinition Width="3 *"/>
+                                    <ColumnDefinition Width="3 *"/>
+                                    <ColumnDefinition Width="3 *"/>
+                                    <ColumnDefinition Width="3 *"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Name="KebiaoWeek1" Text="一" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" FontWeight="Light"></TextBlock>
+                                <TextBlock Name="KebiaoWeek2" Text="二" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" FontWeight="Light"></TextBlock>
+                                <TextBlock Name="KebiaoWeek3" Text="三" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" FontWeight="Light"></TextBlock>
+                                <TextBlock Name="KebiaoWeek4" Text="四" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" FontWeight="Light"></TextBlock>
+                                <TextBlock Name="KebiaoWeek5" Text="五" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="5" FontWeight="Light"></TextBlock>
+                                <TextBlock Name="KebiaoWeek6" Text="六" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="6" FontWeight="Light"></TextBlock>
+                                <TextBlock Name="KebiaoWeek7" Text="日" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" FontWeight="Light"></TextBlock>
+                            </Grid>
+                            <ScrollViewer Name="KebiaoScrollViewer" Height="{Binding ActualHeight, Converter={StaticResource KBScrollViewerHeighConverterKey}, ElementName=AppCommandBar, Mode=OneWay}" Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" VerticalAlignment="Stretch">
+                                <Grid VerticalAlignment="Stretch" Name="kebiaoGrid">
+                                    <Grid.ColumnDefinitions>
+                                        <!--列-->
+                                        <ColumnDefinition Width="2 *"/>
+                                        <ColumnDefinition Width="3 *" x:Name="KBGridColumnDefinition"/>
+                                        <ColumnDefinition Width="3 *"/>
+                                        <ColumnDefinition Width="3 *"/>
+                                        <ColumnDefinition Width="3 *"/>
+                                        <ColumnDefinition Width="3 *"/>
+                                        <ColumnDefinition Width="3 *"/>
+                                        <ColumnDefinition Width="3 *"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <!--行-->
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                        <RowDefinition Height="1 *"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">1</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="1" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">2</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="2" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">3</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="3" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">4</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="4" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">5</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="5" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">6</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="6" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">7</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="7" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">8</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="8" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">9</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="9" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">10</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="10" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">11</TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="11" Grid.Column="0" Height="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridHeighConverterKey}}">
+                                        <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">12</TextBlock>
+                                    </Grid>
+                                </Grid>
+                            </ScrollViewer>
+                        </StackPanel>
+
                     </Grid>
                 </HubSection.Header>
             </HubSection>

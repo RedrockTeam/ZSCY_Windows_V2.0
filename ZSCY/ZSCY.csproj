@@ -89,6 +89,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\KBScrollViewerHeighConverter.cs" />
+    <Compile Include="Util\KBGridHeighConverter.cs" />
+    <Compile Include="Util\KBGridWidthConverter.cs" />
     <Compile Include="Util\NetWork.cs" />
     <Compile Include="Util\Utils.cs" />
   </ItemGroup>
