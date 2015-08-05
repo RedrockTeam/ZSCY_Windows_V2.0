@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Popups;
 
-namespace Date.Util
+namespace ZSCY.Util
 {
     class NetWork
     {
@@ -25,6 +25,8 @@ namespace Date.Util
                    {
                        HttpClient httpClient = new HttpClient();
                        string uri = "http://hongyan.cqupt.edu.cn/" + api;
+                       httpClient.DefaultRequestHeaders.Add("API_APP", "winphone");
+                       httpClient.DefaultRequestHeaders.Add("API_TOKEN", "0zLUZA0j+OL77OsjXC0ulOz50KaI6yANZtkOk2vQIDg=");
                        HttpResponseMessage response = httpClient.PostAsync(new Uri(uri), new FormUrlEncodedContent(paramList)).Result;
                        content = response.Content.ReadAsStringAsync().Result;
                    }

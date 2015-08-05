@@ -15,7 +15,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 using System.IO;
 using System.Net;
-//using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Graphics.Imaging;
@@ -24,7 +23,7 @@ using Windows.Web.Http;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
-namespace Date.Util
+namespace ZSCY.Util
 {
     internal class Utils
     {
