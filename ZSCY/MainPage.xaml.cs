@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -27,12 +29,45 @@ namespace ZSCY
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private ApplicationDataContainer appSetting;
+
         private bool isExit = false;
+        private int page = 1;
+        private string hubSectionChange = "KBHubSection";
+
+
         public MainPage()
         {
+            appSetting = ApplicationData.Current.LocalSettings; //本地存储
             this.InitializeComponent();
-
             this.NavigationCacheMode = NavigationCacheMode.Required;
+
+            initKB(appSetting.Values["stuNum"].ToString());
+            initJW();
+        }
+
+        /// <summary>
+        /// 课表网络请求
+        /// </summary>
+        /// <param name="stuNum"></param>
+        private async void initKB(string stuNum)
+        {
+            List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
+            paramList.Add(new KeyValuePair<string, string>("stuNum", stuNum));
+            string kb = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
+            Debug.WriteLine("kb->" + kb);
+        }
+
+        /// <summary>
+        /// 教务信息网络请求
+        /// </summary>
+        /// <param name="page"></param>
+        private async void initJW(int page = 1)
+        {
+            List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
+            paramList.Add(new KeyValuePair<string, string>("page", page.ToString()));
+            string jw = await NetWork.getHttpWebRequest("api/jwNewsList", paramList);
+            Debug.WriteLine("jw->" + jw);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -66,6 +101,41 @@ namespace ZSCY
         private void JiaowuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
 
+        }
+
+        private void MainHub_SectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
+        {
+            var hubSection = MainHub.SectionsInView[0];
+            Debug.WriteLine(hubSection.Name);
+            CommandBar commandbar = ((CommandBar)this.BottomAppBar);
+            if (hubSection.Name != hubSectionChange)
+            {
+                switch (hubSection.Name)
+                {
+                    case "KBHubSection":
+                        KBRefreshAppBarButton.Visibility = Visibility.Visible;
+                        KBZoomAppBarButton.Visibility = Visibility.Visible;
+                        KBCalendarAppBarButton.Visibility = Visibility.Visible;
+                        JWRefreshAppBarButton.Visibility = Visibility.Collapsed;
+                        MoreSwitchAppBarButton.Visibility = Visibility.Collapsed;
+                        break;
+                    case "JWHubSection":
+                        KBRefreshAppBarButton.Visibility = Visibility.Collapsed;
+                        KBZoomAppBarButton.Visibility = Visibility.Collapsed;
+                        KBCalendarAppBarButton.Visibility = Visibility.Collapsed;
+                        JWRefreshAppBarButton.Visibility = Visibility.Visible;
+                        MoreSwitchAppBarButton.Visibility = Visibility.Collapsed;
+                        break;
+                    case "MoreHubSection":
+                        KBRefreshAppBarButton.Visibility = Visibility.Collapsed;
+                        KBZoomAppBarButton.Visibility = Visibility.Collapsed;
+                        KBCalendarAppBarButton.Visibility = Visibility.Collapsed;
+                        JWRefreshAppBarButton.Visibility = Visibility.Collapsed;
+                        MoreSwitchAppBarButton.Visibility = Visibility.Visible;
+                        break;
+                }
+            }
+            hubSectionChange = hubSection.Name;
         }
     }
 }

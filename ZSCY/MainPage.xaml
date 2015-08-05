@@ -11,8 +11,8 @@
 
     <Grid Background="#f8f8f8">
         <Grid Name="BlueBackGrid" Background="#068cfd" VerticalAlignment="Top" Height="50"/>
-        <Hub Margin="0,20" >
-            <HubSection>
+        <Hub Name="MainHub" Margin="0,20" SectionsInViewChanged="MainHub_SectionsInViewChanged">
+            <HubSection Name="KBHubSection">
                 <HubSection.Header >
                     <Grid>
                         <Grid.RowDefinitions>
@@ -26,7 +26,7 @@
                     </Grid>
                 </HubSection.Header>
             </HubSection>
-            <HubSection>
+            <HubSection Name="JWHubSection">
                 <HubSection.Header>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -60,7 +60,7 @@
                     </Grid>
                 </HubSection.Header>
             </HubSection>
-            <HubSection>
+            <HubSection Name="MoreHubSection">
                 <HubSection.Header>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -75,4 +75,14 @@
             </HubSection>
         </Hub>
     </Grid>
+
+    <Page.BottomAppBar >
+        <CommandBar Name="AppCommandBar">
+            <AppBarButton Name="KBRefreshAppBarButton" Icon="Refresh" Label="刷新"/>
+            <AppBarButton Name="KBZoomAppBarButton" Icon="Zoom" Label="查看他人"/>
+            <AppBarButton Name="KBCalendarAppBarButton" Icon="Calendar" Label="学期/本周"/>
+            <AppBarButton Name="JWRefreshAppBarButton" Icon="Refresh" Label="刷新" Visibility="Collapsed"/>
+            <AppBarButton Name="MoreSwitchAppBarButton" Icon="Switch" Label="切换账号" Visibility="Collapsed"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
