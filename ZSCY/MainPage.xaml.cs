@@ -137,5 +137,57 @@ namespace ZSCY
             }
             hubSectionChange = hubSection.Name;
         }
+
+        /// <summary>
+        /// 课表刷新
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KBRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 查询他人
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KBZoomAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 切换课表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KBCalendarAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 教务刷新
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void JWRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        /// <summary>
+        /// 切换账号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MoreSwitchAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            appSetting.Values.Remove("idNum");
+            Frame.Navigate(typeof(LoginPage));
+        }
     }
 }

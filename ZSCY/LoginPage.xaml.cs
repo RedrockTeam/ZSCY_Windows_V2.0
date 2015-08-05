@@ -40,6 +40,8 @@ namespace ZSCY
         {
             this.InitializeComponent();
             appSetting = ApplicationData.Current.LocalSettings;
+            if (appSetting.Values.ContainsKey("stuNum"))
+                StuNumTextBox.Text = appSetting.Values["stuNum"].ToString();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

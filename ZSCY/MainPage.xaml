@@ -78,11 +78,11 @@
 
     <Page.BottomAppBar >
         <CommandBar Name="AppCommandBar">
-            <AppBarButton Name="KBRefreshAppBarButton" Icon="Refresh" Label="刷新"/>
-            <AppBarButton Name="KBZoomAppBarButton" Icon="Zoom" Label="查看他人"/>
-            <AppBarButton Name="KBCalendarAppBarButton" Icon="Calendar" Label="学期/本周"/>
-            <AppBarButton Name="JWRefreshAppBarButton" Icon="Refresh" Label="刷新" Visibility="Collapsed"/>
-            <AppBarButton Name="MoreSwitchAppBarButton" Icon="Switch" Label="切换账号" Visibility="Collapsed"/>
+            <AppBarButton Name="KBRefreshAppBarButton" Icon="Refresh" Label="刷新" Click="KBRefreshAppBarButton_Click"/>
+            <AppBarButton Name="KBZoomAppBarButton" Icon="Zoom" Label="查看他人" Click="KBZoomAppBarButton_Click"/>
+            <AppBarButton Name="KBCalendarAppBarButton" Icon="Calendar" Label="学期/本周" Click="KBCalendarAppBarButton_Click"/>
+            <AppBarButton Name="JWRefreshAppBarButton" Icon="Refresh" Label="刷新" Click="JWRefreshAppBarButton_Click" Visibility="Collapsed"/>
+            <AppBarButton Name="MoreSwitchAppBarButton" Icon="Switch" Label="切换账号" Click="MoreSwitchAppBarButton_Click" Visibility="Collapsed"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>
