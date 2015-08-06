@@ -28,7 +28,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
-                            <TextBlock Name="HubSectionKBTitle" Text="我的课表" Foreground="White"  FontSize="35" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                            <TextBlock Name="HubSectionKBTitle" Text="我的课表" Foreground="White"  FontSize="35" FontWeight="Light" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI"/>
                             <TextBlock Name="HubSectionKBNum" Text="第  周" Margin="5,0" Foreground="White"  FontSize="20"  VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Margin="-10,0,0,0">
@@ -147,7 +147,7 @@
                                                         <ListView Name="KBCLassFlyoutListView" >
                                                             <ListView.ItemTemplate>
                                                                 <DataTemplate>
-                                                                    <Grid Width="{Binding ElementName=AppCommandBar,Path=Width}">
+                                                                    <Grid Width="{Binding ElementName=AppCommandBar,Path=Width}" Margin="0,0,0,10">
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="auto"/>
                                                                             <ColumnDefinition Width="auto"/>
@@ -190,9 +190,9 @@
                             <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <StackPanel VerticalAlignment="Center" Grid.Row="0">
-                            <TextBlock Name="HubSectionJWTitle" Text="教务信息" Foreground="White"  FontSize="35" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
-                        </StackPanel>
+                        <Grid VerticalAlignment="Center" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
+                            <TextBlock Name="HubSectionJWTitle" Text="教务信息" Foreground="White"  FontSize="35" FontWeight="Light" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI"/>
+                        </Grid>
 
                         <Grid Grid.Row="1" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}">
                             <ScrollViewer Grid.Row="1">
@@ -237,9 +237,9 @@
                             <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <StackPanel VerticalAlignment="Center" Grid.Row="0">
-                            <TextBlock Name="HubSectionMoreTitle" Text="更多" Foreground="White"  FontSize="35" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
-                        </StackPanel>
+                        <Grid VerticalAlignment="Center" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
+                            <TextBlock Name="HubSectionMoreTitle" Text="更多" Foreground="White"  FontSize="35" VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                        </Grid>
 
                         <Grid Grid.Row="1" Margin="-20,0,0,0" Height="200" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Background="#068cfd">
                             <StackPanel>
