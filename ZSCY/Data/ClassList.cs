@@ -45,7 +45,7 @@ namespace ZSCY.Data
             Type = classDetailJObject["type"].ToString();
             Status = classDetailJObject["status"].ToString();
             Period = (int)classDetailJObject["period"];
-            _Id = classDetailJObject["_id"].ToString();
+            _Id = classDetailJObject["_id"] != null? classDetailJObject["_id"].ToString():"";
             var gradelimit = JArray.Parse(classDetailJObject["week"].ToString());
             int[] temp = new int[gradelimit.Count];
             for (int i = 0; i < gradelimit.Count; ++i)

@@ -10,6 +10,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -35,8 +36,11 @@ namespace ZSCY
 
         private bool isExit = false;
         private int page = 1;
+        private int wOa = 1;
         private string hubSectionChange = "KBHubSection";
+        private string kb = "";
 
+        IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
 
         public MainPage()
         {
@@ -50,7 +54,6 @@ namespace ZSCY
 
             initKB(appSetting.Values["stuNum"].ToString());
             initJW();
-            SetKebiaoGridBorder();
         }
 
         private void SetKebiaoGridBorder()
@@ -71,41 +74,99 @@ namespace ZSCY
         /// 课表网络请求
         /// </summary>
         /// <param name="stuNum"></param>
-        private async void initKB(string stuNum)
+        private async void initKB(string stuNum,bool isRefresh = false)
         {
+            if (stuNum == appSetting.Values["stuNum"].ToString() && !isRefresh)
+            {
+                try
+                {
+                    IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
+                    IStorageFile storageFileRE = await applicationFolder.GetFileAsync("kb");
+                    IRandomAccessStream accessStream = await storageFileRE.OpenReadAsync();
+                    using (StreamReader streamReader = new StreamReader(accessStream.AsStreamForRead((int)accessStream.Size)))
+                    {
+                        kb = streamReader.ReadToEnd();
+                    }
+                }
+                catch (Exception) { Debug.WriteLine("主页->课表数据缓存异常"); }
+                showKB(2);
+            }
+
+            await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "课表刷新中...",isIndeterminate:true);
+
+
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("stuNum", stuNum));
-            string kb = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
+            kb = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
             Debug.WriteLine("kb->" + kb);
             if (kb != "")
             {
                 JObject obj = JObject.Parse(kb);
                 if (Int32.Parse(obj["status"].ToString()) == 200)
                 {
-                    JArray dateListArray = Utils.ReadJso(kb);
-                    int ColorI = 0;
-                    for (int i = 0; i < dateListArray.Count; i++)
+                    IStorageFile storageFileWR = await applicationFolder.CreateFileAsync("kb", CreationCollisionOption.OpenIfExists);
+                    await FileIO.WriteTextAsync(storageFileWR, kb);
+
+                    //保存当前星期
+                    appSetting.Values["nowWeek"] = obj["nowWeek"].ToString();
+                    //showKB(2, Int32.Parse(appSetting.Values["nowWeek"].ToString()));
+                    showKB(2, 5);
+                }
+            }
+            StatusBar statusBar = StatusBar.GetForCurrentView();
+            await statusBar.ProgressIndicator.HideAsync();
+        }
+
+        /// <summary>
+        /// 显示课表
+        /// </summary>
+        /// <param name="weekOrAll">1学期课表;2周课表</param>
+        /// <param name="week">指定课表周次，默认0为本周</param>
+        private void showKB(int weekOrAll = 1, int week = 0)
+        {
+            kebiaoGrid.Children.Clear();
+            SetKebiaoGridBorder();
+            JArray dateListArray = Utils.ReadJso(kb);
+            int ColorI = 0;
+            for (int i = 0; i < dateListArray.Count; i++)
+            {
+                ClassList classitem = new ClassList();
+                classitem.GetAttribute((JObject)dateListArray[i]);
+                int ClassColor = 0;
+                if (!appSetting.Values.ContainsKey(classitem.Course))
+                {
+                    appSetting.Values[classitem.Course] = ColorI;
+                    ClassColor = ColorI;
+                    ColorI++;
+                    if (ColorI > 10)
+                        ColorI = 0;
+                }
+                else
+                {
+                    ClassColor = System.Int32.Parse(appSetting.Values[classitem.Course].ToString());
+                }
+                if (weekOrAll == 1)
+                    SetClass(classitem, ClassColor);
+                else
+                {
+                    if (week == 0)
                     {
-                        ClassList classitem = new ClassList();
-                        classitem.GetAttribute((JObject)dateListArray[i]);
-                        int ClassColor = 0;
-                        if (!appSetting.Values.ContainsKey(classitem.Course))
+                        if (Array.IndexOf(classitem.week, Int32.Parse(appSetting.Values["nowWeek"].ToString())) != -1)
                         {
-                            appSetting.Values[classitem.Course] = ColorI;
-                            ClassColor = ColorI;
-                            ColorI++;
-                            if (ColorI > 10)
-                                ColorI = 0;
+                            SetClass(classitem, ClassColor);
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (Array.IndexOf(classitem.week, week) != -1)
                         {
-                            ClassColor = System.Int32.Parse(appSetting.Values[classitem.Course].ToString());
+                            SetClass(classitem, ClassColor);
                         }
-                        SetClass(classitem, ClassColor);
                     }
                 }
             }
         }
+
 
         //课程格子的填充
         private void SetClass(ClassList item, int ClassColor)
@@ -125,10 +186,8 @@ namespace ZSCY
                 };
 
             TextBlock ClassTextBlock = new TextBlock();
-            //TextBlock RoomTextBlock = new TextBlock();
-            //TextBlock TeacherTextBlock = new TextBlock();
 
-            ClassTextBlock.Text = item.Course +"\n"+ item.Classroom + "\n" + item.Teacher;
+            ClassTextBlock.Text = item.Course + "\n" + item.Classroom + "\n" + item.Teacher;
             ClassTextBlock.Foreground = this.Foreground;
             ClassTextBlock.FontSize = 12;
             ClassTextBlock.TextWrapping = TextWrapping.WrapWholeWords;
@@ -140,9 +199,9 @@ namespace ZSCY
 
             Grid BackGrid = new Grid();
             BackGrid.Background = new SolidColorBrush(colors[ClassColor]);
-            BackGrid.SetValue(Grid.RowProperty, System.Int32.Parse(item.Hash_lesson*2  + ""));
-            BackGrid.SetValue(Grid.ColumnProperty, System.Int32.Parse(item.Hash_day  + ""));
-            BackGrid.SetValue(Grid.RowSpanProperty, System.Int32.Parse(item.Period  + ""));
+            BackGrid.SetValue(Grid.RowProperty, System.Int32.Parse(item.Hash_lesson * 2 + ""));
+            BackGrid.SetValue(Grid.ColumnProperty, System.Int32.Parse(item.Hash_day + ""));
+            BackGrid.SetValue(Grid.RowSpanProperty, System.Int32.Parse(item.Period + ""));
 
             BackGrid.Children.Add(ClassTextBlock);
 
@@ -260,7 +319,7 @@ namespace ZSCY
         /// <param name="e"></param>
         private void KBRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-
+            initKB(appSetting.Values["stuNum"].ToString(),true);
         }
 
         /// <summary>
@@ -270,7 +329,7 @@ namespace ZSCY
         /// <param name="e"></param>
         private void KBZoomAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-
+            KBZoomFlyout.ShowAt(MainHub);
         }
 
         /// <summary>
@@ -280,7 +339,11 @@ namespace ZSCY
         /// <param name="e"></param>
         private void KBCalendarAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-
+            showKB(wOa);
+            if (wOa == 1)
+                wOa = 2;
+            else
+                wOa = 1;
         }
 
         /// <summary>
@@ -305,6 +368,15 @@ namespace ZSCY
             Frame.Navigate(typeof(LoginPage));
         }
 
-
+        /// <summary>
+        /// Flyout关闭事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KBZoomFlyout_Closed(object sender, object e)
+        {
+            if (KBZoomFlyoutTextBox.Text != "" && KBZoomFlyoutTextBox.Text.Length ==10)
+                initKB(KBZoomFlyoutTextBox.Text);
+        }
     }
 }
