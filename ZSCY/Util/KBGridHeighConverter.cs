@@ -11,7 +11,7 @@ namespace ZSCY.Util
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return (double.Parse(value.ToString())-20) / 23 * 3;
+            return ((double.Parse(value.ToString())-20) / 23 * 3)*1.2;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

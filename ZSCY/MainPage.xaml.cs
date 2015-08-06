@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -59,6 +60,13 @@ namespace ZSCY
                     kebiaoGrid.Children.Add(border);
                 }
             }
+
+            Grid BackGrid = new Grid();
+            BackGrid.Background = new SolidColorBrush(Color.FromArgb(255, 132, 191, 19));
+            BackGrid.SetValue(Grid.RowProperty, 2);
+            BackGrid.SetValue(Grid.ColumnProperty, 3);
+            BackGrid.SetValue(Grid.RowSpanProperty, 2);
+            kebiaoGrid.Children.Add(BackGrid);
         }
 
         /// <summary>
@@ -79,10 +87,34 @@ namespace ZSCY
         /// <param name="page"></param>
         private async void initJW(int page = 1)
         {
+            JWListFailedStackPanel.Visibility = Visibility.Collapsed;
+            JWListProgressStackPanel.Visibility = Visibility.Visible;
+
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("page", page.ToString()));
             string jw = await NetWork.getHttpWebRequest("api/jwNewsList", paramList);
             Debug.WriteLine("jw->" + jw);
+            JWListProgressStackPanel.Visibility = Visibility.Collapsed;
+            if (jw != "")
+            {
+                JObject obj = JObject.Parse(jw);
+                if (Int32.Parse(obj["status"].ToString()) == 200)
+                {
+                }
+                else
+                {
+                    JWListFailedStackPanel.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                JWListFailedStackPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void JWListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            initJW();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -190,7 +222,7 @@ namespace ZSCY
         /// <param name="e"></param>
         private void JWRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-
+            initJW();
         }
 
 
@@ -204,5 +236,7 @@ namespace ZSCY
             appSetting.Values.Remove("idNum");
             Frame.Navigate(typeof(LoginPage));
         }
+
+        
     }
 }
