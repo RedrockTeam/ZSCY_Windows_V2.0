@@ -65,13 +65,6 @@ namespace ZSCY
                     kebiaoGrid.Children.Add(border);
                 }
             }
-
-            Grid BackGrid = new Grid();
-            BackGrid.Background = new SolidColorBrush(Color.FromArgb(255, 132, 191, 19));
-            BackGrid.SetValue(Grid.RowProperty, 2);
-            BackGrid.SetValue(Grid.ColumnProperty, 3);
-            BackGrid.SetValue(Grid.RowSpanProperty, 2);
-            kebiaoGrid.Children.Add(BackGrid);
         }
 
         /// <summary>
@@ -90,13 +83,70 @@ namespace ZSCY
                 if (Int32.Parse(obj["status"].ToString()) == 200)
                 {
                     JArray dateListArray = Utils.ReadJso(kb);
+                    int ColorI = 0;
                     for (int i = 0; i < dateListArray.Count; i++)
                     {
                         ClassList classitem = new ClassList();
                         classitem.GetAttribute((JObject)dateListArray[i]);
+                        int ClassColor = 0;
+                        if (!appSetting.Values.ContainsKey(classitem.Course))
+                        {
+                            appSetting.Values[classitem.Course] = ColorI;
+                            ClassColor = ColorI;
+                            ColorI++;
+                            if (ColorI > 10)
+                                ColorI = 0;
+                        }
+                        else
+                        {
+                            ClassColor = System.Int32.Parse(appSetting.Values[classitem.Course].ToString());
+                        }
+                        SetClass(classitem, ClassColor);
                     }
                 }
             }
+        }
+
+        //课程格子的填充
+        private void SetClass(ClassList item, int ClassColor)
+        {
+            Color[] colors = new Color[]{
+                   Color.FromArgb(255,132, 191, 19),
+                   Color.FromArgb(255,67, 182, 229),
+                   Color.FromArgb(255,253, 137, 1),
+                   Color.FromArgb(255,128, 79, 242),
+                   Color.FromArgb(255,240, 68, 189),
+                   Color.FromArgb(255,229, 28, 35),
+                   Color.FromArgb(255,156, 39, 176),
+                   Color.FromArgb(255,3, 169, 244),
+                   Color.FromArgb(255,255, 193, 7),
+                   Color.FromArgb(255,255, 152, 0),
+                   Color.FromArgb(255,96, 125, 139),
+                };
+
+            TextBlock ClassTextBlock = new TextBlock();
+            //TextBlock RoomTextBlock = new TextBlock();
+            //TextBlock TeacherTextBlock = new TextBlock();
+
+            ClassTextBlock.Text = item.Course +"\n"+ item.Classroom + "\n" + item.Teacher;
+            ClassTextBlock.Foreground = this.Foreground;
+            ClassTextBlock.FontSize = 12;
+            ClassTextBlock.TextWrapping = TextWrapping.WrapWholeWords;
+            ClassTextBlock.VerticalAlignment = VerticalAlignment.Center;
+            ClassTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            ClassTextBlock.Margin = new Thickness(3);
+            ClassTextBlock.MaxLines = 6;
+
+
+            Grid BackGrid = new Grid();
+            BackGrid.Background = new SolidColorBrush(colors[ClassColor]);
+            BackGrid.SetValue(Grid.RowProperty, System.Int32.Parse(item.Hash_lesson*2  + ""));
+            BackGrid.SetValue(Grid.ColumnProperty, System.Int32.Parse(item.Hash_day  + ""));
+            BackGrid.SetValue(Grid.RowSpanProperty, System.Int32.Parse(item.Period  + ""));
+
+            BackGrid.Children.Add(ClassTextBlock);
+
+            kebiaoGrid.Children.Add(BackGrid);
         }
 
         /// <summary>
