@@ -78,6 +78,10 @@ namespace ZSCY
                     {
                         appSetting.Values["stuNum"] = StuNumTextBox.Text;
                         appSetting.Values["idNum"] = IdNumPasswordBox.Password;
+                        JObject dataobj = JObject.Parse(obj["data"].ToString());
+                        appSetting.Values["name"] = dataobj["name"].ToString();
+                        appSetting.Values["classNum"] = dataobj["classNum"].ToString();
+
                         Frame.Navigate(typeof(MainPage));
                     }
                     else if (Int32.Parse(obj["status"].ToString()) == -100)

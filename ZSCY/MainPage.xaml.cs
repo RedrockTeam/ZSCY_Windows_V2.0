@@ -43,6 +43,10 @@ namespace ZSCY
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
+            MoreGRNameTextBlock.Text = appSetting.Values["name"].ToString() ;
+            MoreGRClassTextBlock.Text = appSetting.Values["classNum"].ToString() ;
+            MoreGRNumTextBlock.Text = appSetting.Values["stuNum"].ToString();
+
             initKB(appSetting.Values["stuNum"].ToString());
             initJW();
             SetKebiaoGridBorder();
