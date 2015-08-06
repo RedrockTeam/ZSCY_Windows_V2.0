@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ZSCY.Data;
 using ZSCY.Util;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=391641 上有介绍
@@ -43,8 +44,8 @@ namespace ZSCY
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            MoreGRNameTextBlock.Text = appSetting.Values["name"].ToString() ;
-            MoreGRClassTextBlock.Text = appSetting.Values["classNum"].ToString() ;
+            MoreGRNameTextBlock.Text = appSetting.Values["name"].ToString();
+            MoreGRClassTextBlock.Text = appSetting.Values["classNum"].ToString();
             MoreGRNumTextBlock.Text = appSetting.Values["stuNum"].ToString();
 
             initKB(appSetting.Values["stuNum"].ToString());
@@ -83,6 +84,19 @@ namespace ZSCY
             paramList.Add(new KeyValuePair<string, string>("stuNum", stuNum));
             string kb = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
             Debug.WriteLine("kb->" + kb);
+            if (kb != "")
+            {
+                JObject obj = JObject.Parse(kb);
+                if (Int32.Parse(obj["status"].ToString()) == 200)
+                {
+                    JArray dateListArray = Utils.ReadJso(kb);
+                    for (int i = 0; i < dateListArray.Count; i++)
+                    {
+                        ClassList classitem = new ClassList();
+                        classitem.GetAttribute((JObject)dateListArray[i]);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -241,6 +255,6 @@ namespace ZSCY
             Frame.Navigate(typeof(LoginPage));
         }
 
-        
+
     }
 }
