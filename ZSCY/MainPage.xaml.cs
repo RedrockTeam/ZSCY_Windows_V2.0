@@ -19,7 +19,9 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 using ZSCY.Data;
 using ZSCY.Util;
 
@@ -39,7 +41,9 @@ namespace ZSCY
         private int wOa = 1;
         private string hubSectionChange = "KBHubSection";
         private string kb = "";
-
+        //private string[,,] classtime = new string[7, 6,*];
+        string[,][] classtime = new string[7, 6][];
+        List<ClassList> classList = new List<ClassList>();
         IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
 
         public MainPage()
@@ -74,7 +78,7 @@ namespace ZSCY
         /// 课表网络请求
         /// </summary>
         /// <param name="stuNum"></param>
-        private async void initKB(string stuNum,bool isRefresh = false)
+        private async void initKB(string stuNum, bool isRefresh = false)
         {
             if (stuNum == appSetting.Values["stuNum"].ToString() && !isRefresh)
             {
@@ -87,12 +91,13 @@ namespace ZSCY
                     {
                         kb = streamReader.ReadToEnd();
                     }
+                    HubSectionKBNum.Text = "第" + appSetting.Values["nowWeek"].ToString() + "周";
                 }
                 catch (Exception) { Debug.WriteLine("主页->课表数据缓存异常"); }
                 showKB(2);
             }
 
-            await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "课表刷新中...",isIndeterminate:true);
+            await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "课表刷新中...", isIndeterminate: true);
 
 
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
@@ -109,6 +114,7 @@ namespace ZSCY
 
                     //保存当前星期
                     appSetting.Values["nowWeek"] = obj["nowWeek"].ToString();
+                    HubSectionKBNum.Text = "第" + obj["nowWeek"].ToString() + "周";
                     //showKB(2, Int32.Parse(appSetting.Values["nowWeek"].ToString()));
                     showKB(2, 5);
                 }
@@ -124,14 +130,19 @@ namespace ZSCY
         /// <param name="week">指定课表周次，默认0为本周</param>
         private void showKB(int weekOrAll = 1, int week = 0)
         {
+            for (int i = 0; i < 7; i++)
+                for (int j = 0; j < 6; j++)
+                    classtime[i, j] = null;
             kebiaoGrid.Children.Clear();
             SetKebiaoGridBorder();
+            classList.Clear();
             JArray dateListArray = Utils.ReadJso(kb);
             int ColorI = 0;
             for (int i = 0; i < dateListArray.Count; i++)
             {
                 ClassList classitem = new ClassList();
                 classitem.GetAttribute((JObject)dateListArray[i]);
+                classList.Add(classitem);
                 int ClassColor = 0;
                 if (!appSetting.Values.ContainsKey(classitem.Course))
                 {
@@ -171,6 +182,7 @@ namespace ZSCY
         //课程格子的填充
         private void SetClass(ClassList item, int ClassColor)
         {
+
             Color[] colors = new Color[]{
                    Color.FromArgb(255,132, 191, 19),
                    Color.FromArgb(255,67, 182, 229),
@@ -196,7 +208,6 @@ namespace ZSCY
             ClassTextBlock.Margin = new Thickness(3);
             ClassTextBlock.MaxLines = 6;
 
-
             Grid BackGrid = new Grid();
             BackGrid.Background = new SolidColorBrush(colors[ClassColor]);
             BackGrid.SetValue(Grid.RowProperty, System.Int32.Parse(item.Hash_lesson * 2 + ""));
@@ -205,7 +216,65 @@ namespace ZSCY
 
             BackGrid.Children.Add(ClassTextBlock);
 
+            if (classtime[item.Hash_day, item.Hash_lesson] != null)
+            {
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri("ms-appx:///Assets/shape.png", UriKind.Absolute));
+                img.VerticalAlignment = VerticalAlignment.Bottom;
+                img.HorizontalAlignment = HorizontalAlignment.Right;
+                img.Width = 10;
+                BackGrid.Children.Add(img);
+
+                string[] temp = classtime[item.Hash_day, item.Hash_lesson];
+                string[] tempnew = new string[temp.Length + 1];
+                for (int i = 0; i < temp.Length; i++)
+                    tempnew[i] = temp[i];
+                tempnew[temp.Length] = item._Id;
+                classtime[item.Hash_day, item.Hash_lesson] = tempnew;
+            }
+            else
+            {
+                string[] tempnew = new string[1];
+                tempnew[0] = item._Id;
+                classtime[item.Hash_day, item.Hash_lesson] = tempnew;
+            }
+
+            BackGrid.Tapped += BackGrid_Tapped;
             kebiaoGrid.Children.Add(BackGrid);
+        }
+
+        private void BackGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Debug.WriteLine("前" + KBCLassFlyoutPivot.Items.Count.ToString());
+            do
+            {
+                KBCLassFlyoutPivot.Items.RemoveAt(0);
+            }
+            while (KBCLassFlyoutPivot.Items.Count.ToString() != "0");
+            Debug.WriteLine("删除" + KBCLassFlyoutPivot.Items.Count.ToString());
+            Grid g = sender as Grid;
+            Debug.WriteLine(g.GetValue(Grid.ColumnProperty));
+            Debug.WriteLine(g.GetValue(Grid.RowProperty));
+            string[] temp = classtime[Int32.Parse(g.GetValue(Grid.ColumnProperty).ToString()), Int32.Parse(g.GetValue(Grid.RowProperty).ToString()) / 2];
+            for (int i = 0; i < temp.Length; i++)
+            {
+                ClassList c = classList.Find(p => p._Id.Equals(temp[i]));
+
+                PivotItem pi = new PivotItem();
+                TextBlock HeaderTextBlock = new TextBlock();
+                HeaderTextBlock.Text = c.Course;
+                HeaderTextBlock.FontSize = 25;
+                pi.Header = HeaderTextBlock;
+                ListView lv = new ListView();
+                lv.ItemTemplate = KBCLassFlyoutListView.ItemTemplate;
+                List<ClassList> cc = new List<ClassList>();
+                cc.Add(c);
+                lv.ItemsSource = cc;
+                pi.Content = lv;
+                KBCLassFlyoutPivot.Items.Add(pi);
+                Debug.WriteLine("后" + KBCLassFlyoutPivot.Items.Count.ToString());
+            }
+            KBCLassFlyout.ShowAt(MainHub);
         }
 
         /// <summary>
@@ -319,7 +388,7 @@ namespace ZSCY
         /// <param name="e"></param>
         private void KBRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            initKB(appSetting.Values["stuNum"].ToString(),true);
+            initKB(appSetting.Values["stuNum"].ToString(), true);
         }
 
         /// <summary>
@@ -375,7 +444,7 @@ namespace ZSCY
         /// <param name="e"></param>
         private void KBZoomFlyout_Closed(object sender, object e)
         {
-            if (KBZoomFlyoutTextBox.Text != "" && KBZoomFlyoutTextBox.Text.Length ==10)
+            if (KBZoomFlyoutTextBox.Text != "" && KBZoomFlyoutTextBox.Text.Length == 10)
                 initKB(KBZoomFlyoutTextBox.Text);
         }
     }
