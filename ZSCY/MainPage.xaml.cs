@@ -41,6 +41,7 @@ namespace ZSCY
         private int wOa = 1;
         private string hubSectionChange = "KBHubSection";
         private string kb = "";
+        private string stuNum = "";
         //private string[,,] classtime = new string[7, 6,*];
         string[,][] classtime = new string[7, 6][];
         List<ClassList> classList = new List<ClassList>();
@@ -56,7 +57,8 @@ namespace ZSCY
             MoreGRClassTextBlock.Text = appSetting.Values["classNum"].ToString();
             MoreGRNumTextBlock.Text = appSetting.Values["stuNum"].ToString();
 
-            initKB(appSetting.Values["stuNum"].ToString());
+            stuNum = appSetting.Values["stuNum"].ToString();
+            initKB();
             initJW();
         }
 
@@ -77,8 +79,8 @@ namespace ZSCY
         /// <summary>
         /// 课表网络请求
         /// </summary>
-        /// <param name="stuNum"></param>
-        private async void initKB(string stuNum, bool isRefresh = false)
+        /// <param name="isRefresh"> 是否为刷新</param>
+        private async void initKB( bool isRefresh = false)
         {
             if (stuNum == appSetting.Values["stuNum"].ToString() && !isRefresh)
             {
@@ -116,7 +118,11 @@ namespace ZSCY
                     appSetting.Values["nowWeek"] = obj["nowWeek"].ToString();
                     HubSectionKBNum.Text = "第" + obj["nowWeek"].ToString() + "周";
                     //showKB(2, Int32.Parse(appSetting.Values["nowWeek"].ToString()));
+#if DEBUG
                     showKB(2, 5);
+#else
+                    showKB(2);
+#endif
                 }
             }
             StatusBar statusBar = StatusBar.GetForCurrentView();
@@ -162,14 +168,14 @@ namespace ZSCY
                 {
                     if (week == 0)
                     {
-                        if (Array.IndexOf(classitem.week, Int32.Parse(appSetting.Values["nowWeek"].ToString())) != -1)
+                        if (Array.IndexOf(classitem.Week, Int32.Parse(appSetting.Values["nowWeek"].ToString())) != -1)
                         {
                             SetClass(classitem, ClassColor);
                         }
                     }
                     else
                     {
-                        if (Array.IndexOf(classitem.week, week) != -1)
+                        if (Array.IndexOf(classitem.Week, week) != -1)
                         {
                             SetClass(classitem, ClassColor);
                         }
@@ -179,7 +185,11 @@ namespace ZSCY
         }
 
 
-        //课程格子的填充
+        /// <summary>
+        /// 课程格子的填充
+        /// </summary>
+        /// <param name="item">ClassList类型的item</param>
+        /// <param name="ClassColor">颜色数组，0~9</param>
         private void SetClass(ClassList item, int ClassColor)
         {
 
@@ -280,7 +290,7 @@ namespace ZSCY
         /// <summary>
         /// 教务信息网络请求
         /// </summary>
-        /// <param name="page"></param>
+        /// <param name="page">页码</param>
         private async void initJW(int page = 1)
         {
             JWListFailedStackPanel.Visibility = Visibility.Collapsed;
@@ -388,7 +398,8 @@ namespace ZSCY
         /// <param name="e"></param>
         private void KBRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            initKB(appSetting.Values["stuNum"].ToString(), true);
+            stuNum = appSetting.Values["stuNum"].ToString();
+            initKB( true);
         }
 
         /// <summary>
@@ -410,9 +421,16 @@ namespace ZSCY
         {
             showKB(wOa);
             if (wOa == 1)
+            {
                 wOa = 2;
+                HubSectionKBNum.Visibility = Visibility.Collapsed;
+                HubSectionKBNum.Text = "第" + appSetting.Values["nowWeek"].ToString() + "周";
+            }
             else
+            {
                 wOa = 1;
+                HubSectionKBNum.Visibility = Visibility.Visible;
+            }
         }
 
         /// <summary>
@@ -439,13 +457,31 @@ namespace ZSCY
 
         private void KBSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (KBZoomFlyoutTextBox.Text != "" && KBZoomFlyoutTextBox.Text.Length == 10)
+            if (KBZoomFlyoutTextBox.Text != "" && KBZoomFlyoutTextBox.Text.Length == 10 && KBZoomFlyoutTextBox.Text.IndexOf(".") == -1)
             {
-                initKB(KBZoomFlyoutTextBox.Text);
+                stuNum = KBZoomFlyoutTextBox.Text;
+                initKB();
                 KBZoomFlyout.Hide();
             }
             else
                 Utils.Message("请输入正确的学号");
         }
+        private void HubSectionKBNum_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            KBNumFlyout.ShowAt(MainHub);
+        }
+        private void KBNumSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (KBNumFlyoutTextBox.Text != "" && KBNumFlyoutTextBox.Text.IndexOf(".")==-1)
+            {
+                showKB(2, Int16.Parse(KBNumFlyoutTextBox.Text));
+                HubSectionKBNum.Text = "第" + KBNumFlyoutTextBox.Text + "周";
+                KBNumFlyout.Hide();
+            }
+            else
+                Utils.Message("请输入正确的周次");
+        }
+
+        
     }
 }

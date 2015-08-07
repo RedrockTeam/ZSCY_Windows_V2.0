@@ -29,7 +29,22 @@
                         </Grid.RowDefinitions>
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
                             <TextBlock Name="HubSectionKBTitle" Text="我的课表" Foreground="White"  FontSize="35" FontWeight="Light" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI"/>
-                            <TextBlock Name="HubSectionKBNum" Text="第  周" Margin="5,0" Foreground="White"  FontSize="20"  VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                            <TextBlock Name="HubSectionKBNum" Text="第  周" Margin="5,0" Foreground="White"  FontSize="20"  VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI" Tapped="HubSectionKBNum_Tapped"/>
+                            <FlyoutBase.AttachedFlyout>
+                                <Flyout x:Name="KBNumFlyout" >
+                                    <StackPanel Margin="10">
+                                        <TextBlock Text="输入要查询的周次" FontSize="20"/>
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox  Grid.Column="0" Name="KBNumFlyoutTextBox" PlaceholderText="输入要查询的周次" InputScope="Number"/>
+                                            <AppBarButton Grid.Column="1"  Name="KBNumSearchButton" Icon="Zoom" Click="KBNumSearchButton_Click"/>
+                                        </Grid>
+                                    </StackPanel>
+                                </Flyout>
+                            </FlyoutBase.AttachedFlyout>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Margin="-10,0,0,0">
                             <Grid Margin="0,5" Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Height="25">
@@ -166,7 +181,7 @@
                                                                         <TextBlock Text="{Binding Classroom}" Grid.Column="1" Grid.Row="0" FontSize="18" VerticalAlignment="Center"/>
                                                                         <TextBlock Text="{Binding Teacher}" Grid.Column="1" Grid.Row="1" FontSize="18" VerticalAlignment="Center"/>
                                                                         <TextBlock Text="{Binding Type}" Grid.Column="1" Grid.Row="2" FontSize="18" VerticalAlignment="Center"/>
-                                                                        <TextBlock Text="{Binding Teacher}" Grid.Column="1" Grid.Row="3" FontSize="18" VerticalAlignment="Center"/>
+                                                                        <TextBlock Text="{Binding RawWeek}" Grid.Column="1" Grid.Row="3" FontSize="18" VerticalAlignment="Center"/>
                                                                     </Grid>
                                                                 </DataTemplate>
                                                             </ListView.ItemTemplate>

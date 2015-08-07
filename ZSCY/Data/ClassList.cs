@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,9 @@ namespace ZSCY.Data
         public string Status { get; set; }
         public int Period { get; set; }
         public string _Id { get; set; }
-        public int[] week { get; set; }
+        public int[] Week { get; set; }
+
+        public string Classtime { get; set; }
 
         public void GetAttribute(JObject classDetailJObject)
         {
@@ -45,14 +48,16 @@ namespace ZSCY.Data
             Type = classDetailJObject["type"].ToString();
             Status = classDetailJObject["status"].ToString();
             Period = (int)classDetailJObject["period"];
-            _Id = classDetailJObject["_id"] != null? classDetailJObject["_id"].ToString():"";
+            _Id = classDetailJObject["_id"] != null ? classDetailJObject["_id"].ToString() : "";
             var gradelimit = JArray.Parse(classDetailJObject["week"].ToString());
             int[] temp = new int[gradelimit.Count];
             for (int i = 0; i < gradelimit.Count; ++i)
             {
                 temp[i] = Int32.Parse(gradelimit[i].ToString());
             }
-            week = temp;
+            Week = temp;
+            //Classtime = (RawWeek != "单周" && RawWeek !="双周" ? RawWeek : "") + " " +( WeekModel == "all" ? "" : (WeekModel == "double" ? "双周" : "单周")) ;
+            Debug.WriteLine(RawWeek);
         }
 
     }
