@@ -28,7 +28,6 @@ namespace ZSCY.Data
         public int Period { get; set; }
         public string _Id { get; set; }
         public int[] Week { get; set; }
-
         public string Classtime { get; set; }
 
         public void GetAttribute(JObject classDetailJObject)

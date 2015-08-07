@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using ZSCY.Data;
+using ZSCY.Pages;
 using ZSCY.Util;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=391641 上有介绍
@@ -44,7 +46,10 @@ namespace ZSCY
         private string stuNum = "";
         //private string[,,] classtime = new string[7, 6,*];
         string[,][] classtime = new string[7, 6][];
+
         List<ClassList> classList = new List<ClassList>();
+        ObservableCollection<JWList> JWList = new ObservableCollection<JWList>();
+
         IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
 
         public MainPage()
@@ -80,7 +85,7 @@ namespace ZSCY
         /// 课表网络请求
         /// </summary>
         /// <param name="isRefresh"> 是否为刷新</param>
-        private async void initKB( bool isRefresh = false)
+        private async void initKB(bool isRefresh = false)
         {
             if (stuNum == appSetting.Values["stuNum"].ToString() && !isRefresh)
             {
@@ -97,6 +102,11 @@ namespace ZSCY
                     showKB(2);
                 }
                 catch (Exception) { Debug.WriteLine("主页->课表数据缓存异常"); }
+            }
+            if (stuNum == appSetting.Values["stuNum"].ToString())
+            {
+                HubSectionKBTitle.Text = "我的课表";
+                HubSectionKBTitle.FontSize = 35;
             }
 
             await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "课表刷新中...", isIndeterminate: true);
@@ -142,12 +152,12 @@ namespace ZSCY
             kebiaoGrid.Children.Clear();
             SetKebiaoGridBorder();
             classList.Clear();
-            JArray dateListArray = Utils.ReadJso(kb);
+            JArray ClassListArray = Utils.ReadJso(kb);
             int ColorI = 0;
-            for (int i = 0; i < dateListArray.Count; i++)
+            for (int i = 0; i < ClassListArray.Count; i++)
             {
                 ClassList classitem = new ClassList();
-                classitem.GetAttribute((JObject)dateListArray[i]);
+                classitem.GetAttribute((JObject)ClassListArray[i]);
                 classList.Add(classitem);
                 int ClassColor = 0;
                 if (!appSetting.Values.ContainsKey(classitem.Course))
@@ -306,15 +316,39 @@ namespace ZSCY
                 JObject obj = JObject.Parse(jw);
                 if (Int32.Parse(obj["status"].ToString()) == 200)
                 {
+                    JArray JWListArray = Utils.ReadJso(jw);
+                    for (int i = 0; i < JWListArray.Count; i++)
+                    {
+                        JWList JWitem = new JWList();
+                        JWitem.GetListAttribute((JObject)JWListArray[i]);
+                        List<KeyValuePair<String, String>> contentparamList = new List<KeyValuePair<String, String>>();
+                        contentparamList.Add(new KeyValuePair<string, string>("id", JWitem.ID));
+                        string jwContent = await NetWork.getHttpWebRequest("api/jwNewsContent", contentparamList);
+                        string JWContentText = jwContent.Replace("(\r?\n(\\s*\r?\n)+)", "\r\n");
+                        while (JWContentText.StartsWith("\r\n "))
+                            JWContentText = JWContentText.Substring(3);
+                        while (JWContentText.StartsWith("\r\n"))
+                            JWContentText = JWContentText.Substring(2);
+                        JObject jwContentobj = JObject.Parse(JWContentText);
+                        if (Int32.Parse(jwContentobj["status"].ToString()) == 200)
+                            JWitem.Content = jwContentobj["data"]["content"].ToString();
+                        else
+                            JWitem.Content = "";
+                        JWList.Add(new JWList { Title = JWitem.Title, Date = "时间：" + JWitem.Date, Read = "阅读量：" + JWitem.Read, Content = JWitem.Content, ID = JWitem.ID });
+                        JWListView.ItemsSource = JWList;
+                    }
+                    continueJWGrid.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     JWListFailedStackPanel.Visibility = Visibility.Visible;
+                    continueJWGrid.Visibility = Visibility.Collapsed;
                 }
             }
             else
             {
                 JWListFailedStackPanel.Visibility = Visibility.Visible;
+                continueJWGrid.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -353,7 +387,9 @@ namespace ZSCY
 
         private void JiaowuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            JWList JWItem = new JWList(((JWList)e.ClickedItem).Title, ((JWList)e.ClickedItem).Date, ((JWList)e.ClickedItem).Read, ((JWList)e.ClickedItem).Content);
 
+            this.Frame.Navigate(typeof(JWContentPage), JWItem);
         }
 
         private void MainHub_SectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
@@ -366,6 +402,8 @@ namespace ZSCY
                 switch (hubSection.Name)
                 {
                     case "KBHubSection":
+                        MoreBlueGRGrid.Opacity = 0;
+
                         KBRefreshAppBarButton.Visibility = Visibility.Visible;
                         KBZoomAppBarButton.Visibility = Visibility.Visible;
                         KBCalendarAppBarButton.Visibility = Visibility.Visible;
@@ -373,6 +411,8 @@ namespace ZSCY
                         MoreSwitchAppBarButton.Visibility = Visibility.Collapsed;
                         break;
                     case "JWHubSection":
+                        MoreBlueGRGrid.Opacity = 0;
+
                         KBRefreshAppBarButton.Visibility = Visibility.Collapsed;
                         KBZoomAppBarButton.Visibility = Visibility.Collapsed;
                         KBCalendarAppBarButton.Visibility = Visibility.Collapsed;
@@ -380,6 +420,9 @@ namespace ZSCY
                         MoreSwitchAppBarButton.Visibility = Visibility.Collapsed;
                         break;
                     case "MoreHubSection":
+                        //MoreGRGrid.Margin = new Thickness(-20,0,0,0);
+                        MoveMoreBlueGRGrid.Begin();
+
                         KBRefreshAppBarButton.Visibility = Visibility.Collapsed;
                         KBZoomAppBarButton.Visibility = Visibility.Collapsed;
                         KBCalendarAppBarButton.Visibility = Visibility.Collapsed;
@@ -399,7 +442,7 @@ namespace ZSCY
         private void KBRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
             stuNum = appSetting.Values["stuNum"].ToString();
-            initKB( true);
+            initKB(true);
         }
 
         /// <summary>
@@ -440,6 +483,8 @@ namespace ZSCY
         /// <param name="e"></param>
         private void JWRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            JWList.Clear();
+            continueJWGrid.Visibility = Visibility.Collapsed;
             initJW();
         }
 
@@ -460,6 +505,8 @@ namespace ZSCY
             if (KBZoomFlyoutTextBox.Text != "" && KBZoomFlyoutTextBox.Text.Length == 10 && KBZoomFlyoutTextBox.Text.IndexOf(".") == -1)
             {
                 stuNum = KBZoomFlyoutTextBox.Text;
+                HubSectionKBTitle.Text = stuNum + "的课表";
+                HubSectionKBTitle.FontSize = 30;
                 initKB();
                 KBZoomFlyout.Hide();
             }
@@ -472,7 +519,7 @@ namespace ZSCY
         }
         private void KBNumSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (KBNumFlyoutTextBox.Text != "" && KBNumFlyoutTextBox.Text.IndexOf(".")==-1)
+            if (KBNumFlyoutTextBox.Text != "" && KBNumFlyoutTextBox.Text.IndexOf(".") == -1)
             {
                 showKB(2, Int16.Parse(KBNumFlyoutTextBox.Text));
                 HubSectionKBNum.Text = "第" + KBNumFlyoutTextBox.Text + "周";
@@ -482,6 +529,11 @@ namespace ZSCY
                 Utils.Message("请输入正确的周次");
         }
 
-        
+
+        private void continueJWGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            page++;
+            initJW(page);
+        }
     }
 }

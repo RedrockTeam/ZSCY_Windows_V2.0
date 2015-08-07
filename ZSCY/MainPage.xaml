@@ -5,7 +5,7 @@
     xmlns:local="using:ZSCY"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converter="using:ZSCY.Util"
+    xmlns:converter="using:ZSCY.Util.Converter"
     mc:Ignorable="d"
     FontFamily="Microsoft YaHei UI"
     FontWeight="Light"
@@ -15,6 +15,7 @@
         <converter:KBGridWidthConverter x:Key="KBGridWidthConverterKey"/>
         <converter:KBGridHeighConverter x:Key="KBGridHeighConverterKey"/>
         <converter:KBScrollViewerHeighConverter x:Key="KBScrollViewerHeighConverterKey"/>
+        <converter:JWScrollViewerHeighConverter x:Key="JWScrollViewerHeighConverter"/>
     </Page.Resources>
 
     <Grid Background="#f8f8f8">
@@ -209,38 +210,46 @@
                             <TextBlock Name="HubSectionJWTitle" Text="教务信息" Foreground="White"  FontSize="35" FontWeight="Light" VerticalAlignment="Bottom" FontFamily="Microsoft YaHei UI"/>
                         </Grid>
 
-                        <Grid Grid.Row="1" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}">
-                            <ScrollViewer Grid.Row="1">
-                                <ListView Name="JWListView" IsItemClickEnabled="True" ItemClick="JiaowuListView_ItemClick" HorizontalAlignment="Stretch" >
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Background="White" HorizontalAlignment="Stretch" Margin="0,2,0,2">
-                                                <StackPanel Margin="10">
-                                                    <TextBlock Text="{Binding Title}" TextTrimming="WordEllipsis" FontWeight="Bold" HorizontalAlignment="Stretch" FontSize="20" Foreground="Black" FontFamily="Microsoft YaHei UI" ></TextBlock>
-                                                    <Grid Margin="0,10,0,0">
-                                                        <TextBlock Text="{Binding Date}" Foreground="Black" FontSize="16" FontFamily="Microsoft YaHei UI" ></TextBlock>
-                                                        <TextBlock Text="{Binding Read}" Foreground="Black" FontSize="16" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI" ></TextBlock>
-                                                    </Grid>
-                                                    <Line Margin="0,0,0,10" X1="0" X2="600" Stroke="Black" StrokeThickness="1"></Line>
-                                                    <TextBlock Text="{Binding Content}" MaxLines="3" TextTrimming="WordEllipsis" FontSize="16" FontFamily="Microsoft YaHei UI"  Foreground="Black"></TextBlock>
-                                                </StackPanel>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
+                        <StackPanel Grid.Row="1" Margin="0,10,0,0" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}">
+                            <ScrollViewer Grid.Row="1" Height="{Binding ActualHeight, Converter={StaticResource JWScrollViewerHeighConverter}, ElementName=AppCommandBar, Mode=OneWay}" Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" >
+                                <StackPanel>
+                                    <ListView Name="JWListView" IsItemClickEnabled="True" ItemClick="JiaowuListView_ItemClick" HorizontalAlignment="Stretch" >
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Background="White" HorizontalAlignment="Stretch" Margin="0,2,0,2">
+                                                    <StackPanel Margin="10">
+                                                        <TextBlock Text="{Binding Title}" TextTrimming="WordEllipsis" FontWeight="Bold" HorizontalAlignment="Stretch" FontSize="20" Foreground="Black" FontFamily="Microsoft YaHei UI" ></TextBlock>
+                                                        <Grid Margin="0,10,0,0">
+                                                            <TextBlock Text="{Binding Date}" FontWeight="Light" Foreground="Black" FontSize="16" FontFamily="Microsoft YaHei UI" ></TextBlock>
+                                                            <TextBlock Text="{Binding Read}" FontWeight="Light" Foreground="Black" FontSize="16" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI" ></TextBlock>
+                                                        </Grid>
+                                                        <Line Margin="0,0,0,10" X1="0" X2="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Stroke="Black" StrokeThickness="1"></Line>
+                                                        <TextBlock Text="{Binding Content}" FontWeight="Light" MaxLines="3" TextTrimming="WordEllipsis" FontSize="16" FontFamily="Microsoft YaHei UI"  Foreground="Black"></TextBlock>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                   
+                                    <!--列表的加载条-->
+                                    <StackPanel Name="JWListProgressStackPanel" VerticalAlignment="Center" Margin="0,20">
+                                        <ProgressBar IsIndeterminate="True" />
+                                        <TextBlock Text="疯狂加载中..." HorizontalAlignment="Center" FontWeight="Light" Foreground="Gray" FontSize="15" Margin="0,5" FontFamily="Microsoft YaHei UI" />
+                                    </StackPanel>
+                                    <!--列表的失败报错-->
+                                    <StackPanel Name="JWListFailedStackPanel" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,20" Tapped="JWListFailedStackPanel_Tapped">
+                                        <Image Source="Assets/ic_failed.png" Width="80" HorizontalAlignment="Center" />
+                                        <TextBlock Text="加载失败，点击重试" HorizontalAlignment="Center" FontWeight="Light" Foreground="Gray" FontSize="15" FontFamily="Microsoft YaHei UI"  />
+                                    </StackPanel>
+                                    <!--继续加载-->
+                                    <Grid Name="continueJWGrid" Height="50" Tapped="continueJWGrid_Tapped" Visibility="Collapsed">
+                                        <TextBlock VerticalAlignment="Center" Text="继续加载..." HorizontalAlignment="Center" FontWeight="Light" Foreground="Gray" FontSize="15" Margin="0,5" FontFamily="Microsoft YaHei UI"/>
+                                    </Grid>
+                                </StackPanel>
                             </ScrollViewer>
 
-                            <!--列表的加载条-->
-                            <StackPanel Name="JWListProgressStackPanel" VerticalAlignment="Center" Margin="0,20">
-                                <ProgressBar IsIndeterminate="True" />
-                                <TextBlock Text="疯狂加载中..." HorizontalAlignment="Center" FontWeight="Light" Foreground="Gray" FontSize="15" Margin="0,5" FontFamily="Microsoft YaHei UI" />
-                            </StackPanel>
-                            <!--列表的失败报错-->
-                            <StackPanel Name="JWListFailedStackPanel" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,20" Tapped="JWListFailedStackPanel_Tapped">
-                                <Image Source="Assets/ic_failed.png" Width="80" HorizontalAlignment="Center" />
-                                <TextBlock Text="加载失败，点击重试" HorizontalAlignment="Center" FontWeight="Light" Foreground="Gray" FontSize="15" FontFamily="Microsoft YaHei UI"  />
-                            </StackPanel>
-                        </Grid>
+                           
+                        </StackPanel>
                     </Grid>
                 </HubSection.Header>
 
@@ -256,12 +265,19 @@
                             <TextBlock Name="HubSectionMoreTitle" Text="更多" Foreground="White"  FontSize="35" VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                         </Grid>
 
-                        <Grid Grid.Row="1" Margin="-20,0,0,0" Height="200" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Background="#068cfd">
+                        <Grid Name="MoreGRGrid" Margin="0" Grid.Row="1"  Height="200" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Background="#068cfd">
                             <StackPanel>
                                 <TextBlock Name="MoreGRNameTextBlock"  Foreground="White"  FontSize="35" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                 <TextBlock Name="MoreGRClassTextBlock"  Foreground="White"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                 <TextBlock Name="MoreGRNumTextBlock"  Foreground="White"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                             </StackPanel>
+                        </Grid>
+                        <Grid Name="MoreBlueGRGrid" HorizontalAlignment="Left" Margin="-20,0,0,0" Background="#068cfd" Grid.Row="1" Width="20" Height="{Binding ElementName=MoreGRGrid,Path=Height}" Opacity="0">
+                            <Grid.Resources>
+                                <Storyboard x:Name="MoveMoreBlueGRGrid">
+                                    <DoubleAnimation Storyboard.TargetName="MoreBlueGRGrid" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.5" />
+                                </Storyboard>
+                            </Grid.Resources>
                         </Grid>
                     </Grid>
                 </HubSection.Header>

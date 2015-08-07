@@ -1,0 +1,41 @@
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZSCY.Data
+{
+    class JWList
+    {
+        public JWList(string title, string date, string read, string content)
+        {
+            Title = title;
+            Date = date;
+            Read = read;
+            Content = content;
+        }
+
+        public JWList()
+        {
+        }
+
+        public string ID { get; set; }
+        public string Title { get; set; }
+        public string Date { get; set; }
+        public string Read { get; set; }
+        public string Content { get; set; }
+
+        
+        public void GetListAttribute(JObject JWListJObject)
+        {
+            ID = JWListJObject["id"].ToString();
+            Title = JWListJObject["title"].ToString();
+            Date = JWListJObject["date"].ToString();
+            Read = JWListJObject["read"].ToString();
+            //Content = JWListJObject["content"].ToString();
+        }
+    }
+
+}
