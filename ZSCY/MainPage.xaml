@@ -32,7 +32,7 @@
                             <TextBlock Name="HubSectionKBNum" Text="第  周" Margin="5,0" Foreground="White"  FontSize="20"  VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Margin="-10,0,0,0">
-                            <Grid Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Height="25">
+                            <Grid Margin="0,5" Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Height="25">
                                 <Grid.ColumnDefinitions>
                                     <!--列-->
                                     <ColumnDefinition Width="2 *"/>
@@ -141,7 +141,7 @@
                                             <RowDefinition Height="1 *"/>
                                         </Grid.RowDefinitions>
                                         <FlyoutBase.AttachedFlyout>
-                                            <Flyout x:Name="KBCLassFlyout" Closed="KBZoomFlyout_Closed" >
+                                            <Flyout x:Name="KBCLassFlyout"  >
                                                 <Pivot Name="KBCLassFlyoutPivot">
                                                     <PivotItem Name="KBCLassFlyoutPivotItem" >
                                                         <ListView Name="KBCLassFlyoutListView" >
@@ -259,10 +259,17 @@
             <AppBarButton Name="KBRefreshAppBarButton" Icon="Refresh" Label="刷新" Click="KBRefreshAppBarButton_Click"/>
             <AppBarButton Name="KBZoomAppBarButton" Icon="Zoom" Label="查看他人" Click="KBZoomAppBarButton_Click">
                 <FlyoutBase.AttachedFlyout>
-                    <Flyout x:Name="KBZoomFlyout" Closed="KBZoomFlyout_Closed" >
+                    <Flyout x:Name="KBZoomFlyout" >
                         <StackPanel Margin="10">
                             <TextBlock Text="输入学号以查询" FontSize="20"/>
-                            <TextBox Name="KBZoomFlyoutTextBox" PlaceholderText="输入学号以查询" InputScope="Number"/>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox  Grid.Column="0" Name="KBZoomFlyoutTextBox" PlaceholderText="输入学号以查询" InputScope="Number"/>
+                                <AppBarButton Grid.Column="1"  Name="KBSearchButton" Icon="Zoom" Click="KBSearchButton_Click"/>
+                            </Grid>
                         </StackPanel>
                     </Flyout>
                 </FlyoutBase.AttachedFlyout>

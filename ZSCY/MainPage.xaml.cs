@@ -92,9 +92,9 @@ namespace ZSCY
                         kb = streamReader.ReadToEnd();
                     }
                     HubSectionKBNum.Text = "第" + appSetting.Values["nowWeek"].ToString() + "周";
+                    showKB(2);
                 }
                 catch (Exception) { Debug.WriteLine("主页->课表数据缓存异常"); }
-                showKB(2);
             }
 
             await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "课表刷新中...", isIndeterminate: true);
@@ -437,15 +437,15 @@ namespace ZSCY
             Frame.Navigate(typeof(LoginPage));
         }
 
-        /// <summary>
-        /// Flyout关闭事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void KBZoomFlyout_Closed(object sender, object e)
+        private void KBSearchButton_Click(object sender, RoutedEventArgs e)
         {
             if (KBZoomFlyoutTextBox.Text != "" && KBZoomFlyoutTextBox.Text.Length == 10)
+            {
                 initKB(KBZoomFlyoutTextBox.Text);
+                KBZoomFlyout.Hide();
+            }
+            else
+                Utils.Message("请输入正确的学号");
         }
     }
 }

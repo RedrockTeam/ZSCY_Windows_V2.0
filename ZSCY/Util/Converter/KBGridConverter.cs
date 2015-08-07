@@ -11,7 +11,7 @@ namespace ZSCY.Util
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return Int16.Parse(value.ToString()) - 10;
+            return double.Parse(value.ToString()) - 10;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -37,7 +37,7 @@ namespace ZSCY.Util
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return Utils.getPhoneHeight() - double.Parse(value.ToString()) - 50 - 25 - 30;
+            return Utils.getPhoneHeight() - double.Parse(value.ToString()) - 50 - 25 - 45;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
