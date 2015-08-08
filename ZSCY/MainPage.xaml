@@ -16,11 +16,16 @@
         <converter:KBGridHeighConverter x:Key="KBGridHeighConverterKey"/>
         <converter:KBScrollViewerHeighConverter x:Key="KBScrollViewerHeighConverterKey"/>
         <converter:JWScrollViewerHeighConverter x:Key="JWScrollViewerHeighConverter"/>
+        <Style x:Key="StackStyle" TargetType="StackPanel" >
+            <Setter Property="Margin" Value="0,20,20,0"></Setter>
+            <Setter Property ="Orientation" Value="Vertical"></Setter>
+        </Style>
     </Page.Resources>
 
     <Grid Background="#f8f8f8">
         <Grid Name="BlueBackGrid" Background="#068cfd" VerticalAlignment="Top" Height="50"/>
         <Hub Name="MainHub" Margin="0,20,0,0" SectionsInViewChanged="MainHub_SectionsInViewChanged">
+            <!--课表hubsection-->
             <HubSection Name="KBHubSection">
                 <HubSection.Header >
                     <Grid>
@@ -199,6 +204,7 @@
                     </Grid>
                 </HubSection.Header>
             </HubSection>
+            <!--教务信息hubsection-->
             <HubSection Name="JWHubSection">
                 <HubSection.Header>
                     <Grid>
@@ -254,24 +260,62 @@
                 </HubSection.Header>
 
             </HubSection>
+            <!--更多hubsection-->
             <HubSection Name="MoreHubSection">
                 <HubSection.Header>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
-                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid VerticalAlignment="Center" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
                             <TextBlock Name="HubSectionMoreTitle" Text="更多" Foreground="White"  FontSize="35" VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                         </Grid>
 
-                        <Grid Name="MoreGRGrid" Margin="0" Grid.Row="1"  Height="200" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Background="#068cfd">
+                        <Grid Name="MoreGRGrid" Margin="0" Grid.Row="1"  Height="100" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Background="#068cfd">
                             <StackPanel>
                                 <TextBlock Name="MoreGRNameTextBlock"  Foreground="White"  FontSize="35" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                 <TextBlock Name="MoreGRClassTextBlock"  Foreground="White"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                 <TextBlock Name="MoreGRNumTextBlock"  Foreground="White"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                             </StackPanel>
                         </Grid>
+                        <Grid Grid.Row="2" VerticalAlignment="Bottom" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Row="0" Grid.Column="0"  Style="{StaticResource StackStyle }" Tapped="Calendar_OnTapped">
+                                <Image  Source="Assets/more_calendar.png" Stretch="Fill"  Width="64" Height="64"/>
+                                <TextBlock Text="校历查询" Foreground="Black" HorizontalAlignment="Center"/>
+                            </StackPanel >
+                            <StackPanel  Grid.Row="0" Grid.Column="1" Style="{StaticResource StackStyle }" Tapped="Empty_OnTapped">
+                                <Image Source="Assets/more_empty.png" Stretch="Fill"  Width="64" Height="64"/>
+                                <TextBlock Text="教室查询" Foreground="Black" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel  Grid.Row="0" Grid.Column="2"  Style="{StaticResource StackStyle }" Tapped="Exam_OnTapped">
+                                <Image Source="Assets/more_exam.png" Stretch="Fill"  Width="64" Height="64"/>
+                                <TextBlock Text="考试查询" Foreground="Black" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel  Grid.Row="1" Grid.Column="0" Style="{StaticResource StackStyle }" Tapped="Score_OnTapped">
+                                <Image Source="Assets/more_score.png" Stretch="Fill"  Width="64" Height="64"/>
+                                <TextBlock Text="成绩查询" Foreground="Black" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel  Grid.Row="1" Grid.Column="1" Style="{StaticResource StackStyle }" Tapped="ReExam_OnTapped">
+                                <Image Source="Assets/more_reexam.png" Stretch="Fill"  Width="64" Height="64"/>
+                                <TextBlock Text="补考查询" Foreground="Black" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel  Grid.Row="1" Grid.Column="2"  Style="{StaticResource StackStyle }" Tapped="Setting_OnTapped">
+                                <Image Source="Assets/more_reexam.png" Stretch="Fill"  Width="64" Height="64"/>
+                                <TextBlock Text="设置" Foreground="Black" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+
                         <Grid Name="MoreBlueGRGrid" HorizontalAlignment="Left" Margin="-20,0,0,0" Background="#068cfd" Grid.Row="1" Width="20" Height="{Binding ElementName=MoreGRGrid,Path=Height}" Opacity="0">
                             <Grid.Resources>
                                 <Storyboard x:Name="MoveMoreBlueGRGrid">
@@ -281,6 +325,9 @@
                         </Grid>
                     </Grid>
                 </HubSection.Header>
+
+
+
             </HubSection>
         </Hub>
     </Grid>

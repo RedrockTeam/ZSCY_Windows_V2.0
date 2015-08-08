@@ -564,5 +564,40 @@ namespace ZSCY
             page++;
             initJW(page);
         }
+
+        private void Calendar_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof (CalendarPage));
+        }
+
+        private void Empty_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(EmptyRoomsPage));
+
+        }
+
+        private void Exam_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ExamPage));
+
+        }
+
+        private void Score_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ScorePage));
+
+        }
+
+        private void ReExam_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ExamPage));
+
+        }
+
+        private void Setting_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingPage));
+
+        }
     }
 }
