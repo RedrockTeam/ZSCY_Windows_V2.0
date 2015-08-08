@@ -141,7 +141,9 @@ namespace ZSCY
 
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("stuNum", stuNum));
-            kb = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
+            string kbtemp = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
+            if (kb != "" && kbtemp != "")
+                kb = kbtemp;
             Debug.WriteLine("kb->" + kb);
             if (kb != "")
             {
@@ -567,7 +569,7 @@ namespace ZSCY
 
         private void Calendar_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof (CalendarPage));
+            Frame.Navigate(typeof(CalendarPage));
         }
 
         private void Empty_OnTapped(object sender, TappedRoutedEventArgs e)
