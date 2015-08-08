@@ -79,7 +79,7 @@ namespace ZSCY.Util
         }
 
 
-        public static async Task ShowSystemTrayAsync(Color backgroundColor , Color foregroundColor, double opacity = 1,
+        public static async Task ShowSystemTrayAsync(Color backgroundColor, Color foregroundColor, double opacity = 1,
             string text = "", bool isIndeterminate = false)
         {
             StatusBar statusBar = StatusBar.GetForCurrentView();
@@ -93,6 +93,7 @@ namespace ZSCY.Util
                 statusBar.ProgressIndicator.ProgressValue = 0;
             }
             await statusBar.ProgressIndicator.ShowAsync();
+
         }
 
         /// <summary>
@@ -233,5 +234,46 @@ namespace ZSCY.Util
             }
             catch (Exception) { Debug.WriteLine("工具，图片异常"); }
         }
+
+        /// <summary>
+        /// 获取星期
+        /// </summary>
+        /// <param name="mode">默认1.返回数字，2.返回中文</param>
+        /// <returns></returns>
+        public static string GetWeek(int mode = 1)
+        {
+            DateTimeOffset date = DateTimeOffset.Now;
+            if (mode == 1)
+                return ((Int16)date.DayOfWeek).ToString();
+            else
+                switch ((Int16)date.DayOfWeek)
+                {
+                    case 0:
+                        return "日";
+                        break;
+                    case 1:
+                        return "一";
+                        break;
+                    case 2:
+                        return "二";
+                        break;
+                    case 3:
+                        return "三";
+                        break;
+                    case 4:
+                        return "四";
+                        break;
+                    case 5:
+                        return "五";
+                        break;
+                    case 6:
+                        return "六";
+                        break;
+                    default:
+                        return "";
+                }
+        }
+
+
     }
 }

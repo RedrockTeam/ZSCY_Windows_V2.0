@@ -47,8 +47,8 @@
                                 </Flyout>
                             </FlyoutBase.AttachedFlyout>
                         </StackPanel>
-                        <StackPanel Grid.Row="1" Margin="-10,0,0,0">
-                            <Grid Margin="0,5" Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Height="25">
+                        <StackPanel Grid.Row="1" Margin="-7,0,0,0">
+                            <Grid Name="KebiaoWeekGrid" Margin="0,5,0,0" Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Height="25">
                                 <Grid.ColumnDefinitions>
                                     <!--列-->
                                     <ColumnDefinition Width="2 *"/>
@@ -60,13 +60,13 @@
                                     <ColumnDefinition Width="3 *"/>
                                     <ColumnDefinition Width="3 *"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Name="KebiaoWeek1" Text="一" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" FontWeight="Light"></TextBlock>
-                                <TextBlock Name="KebiaoWeek2" Text="二" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" FontWeight="Light"></TextBlock>
-                                <TextBlock Name="KebiaoWeek3" Text="三" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" FontWeight="Light"></TextBlock>
-                                <TextBlock Name="KebiaoWeek4" Text="四" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" FontWeight="Light"></TextBlock>
-                                <TextBlock Name="KebiaoWeek5" Text="五" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="5" FontWeight="Light"></TextBlock>
-                                <TextBlock Name="KebiaoWeek6" Text="六" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="6" FontWeight="Light"></TextBlock>
-                                <TextBlock Name="KebiaoWeek7" Text="日" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" FontWeight="Light"></TextBlock>
+                                <TextBlock  Text="一" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" FontWeight="Light"></TextBlock>
+                                <TextBlock  Text="二" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" FontWeight="Light"></TextBlock>
+                                <TextBlock  Text="三" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" FontWeight="Light"></TextBlock>
+                                <TextBlock  Text="四" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" FontWeight="Light"></TextBlock>
+                                <TextBlock  Text="五" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="5" FontWeight="Light"></TextBlock>
+                                <TextBlock Text="六" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="6" FontWeight="Light"></TextBlock>
+                                <TextBlock  Text="日" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" FontWeight="Light"></TextBlock>
                             </Grid>
                             <ScrollViewer Name="KebiaoScrollViewer" Height="{Binding ActualHeight, Converter={StaticResource KBScrollViewerHeighConverterKey}, ElementName=AppCommandBar, Mode=OneWay}" Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" VerticalAlignment="Stretch">
 
@@ -230,7 +230,7 @@
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>
-                                   
+
                                     <!--列表的加载条-->
                                     <StackPanel Name="JWListProgressStackPanel" VerticalAlignment="Center" Margin="0,20">
                                         <ProgressBar IsIndeterminate="True" />
@@ -248,7 +248,7 @@
                                 </StackPanel>
                             </ScrollViewer>
 
-                           
+
                         </StackPanel>
                     </Grid>
                 </HubSection.Header>

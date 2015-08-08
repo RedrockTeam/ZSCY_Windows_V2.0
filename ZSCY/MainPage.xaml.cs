@@ -13,6 +13,7 @@ using Windows.Phone.UI.Input;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI;
+using Windows.UI.Text;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -50,6 +51,8 @@ namespace ZSCY
         List<ClassList> classList = new List<ClassList>();
         ObservableCollection<JWList> JWList = new ObservableCollection<JWList>();
 
+        Grid backweekgrid = new Grid();
+
         IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
 
         public MainPage()
@@ -69,16 +72,40 @@ namespace ZSCY
 
         private void SetKebiaoGridBorder()
         {
-            for (int i = 0; i < kebiaoGrid.RowDefinitions.Count; i++)
-            {
-                for (int j = 0; j < kebiaoGrid.ColumnDefinitions.Count; j++)
-                {
-                    var border = new Border() { BorderBrush = new SolidColorBrush(Colors.LightGray), BorderThickness = new Thickness(0.5) };
-                    Grid.SetRow(border, i);
-                    Grid.SetColumn(border, j);
-                    kebiaoGrid.Children.Add(border);
-                }
-            }
+            //边框
+            //for (int i = 0; i < kebiaoGrid.RowDefinitions.Count; i++)
+            //{
+            //    for (int j = 0; j < kebiaoGrid.ColumnDefinitions.Count; j++)
+            //    {
+            //        var border = new Border() { BorderBrush = new SolidColorBrush(Colors.LightGray), BorderThickness = new Thickness(0.5) };
+            //        Grid.SetRow(border, i);
+            //        Grid.SetColumn(border, j);
+            //        kebiaoGrid.Children.Add(border);
+            //    }
+            //}
+
+            //星期背景色
+            Grid backgrid = new Grid();
+            backgrid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 251, 235));
+            backgrid.SetValue(Grid.RowProperty, 0);
+            backgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) + 6) % 7);
+            backgrid.SetValue(Grid.RowSpanProperty, 12);
+            kebiaoGrid.Children.Add(backgrid);
+
+            backweekgrid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 251, 235));
+            backweekgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek())));
+            KebiaoWeekGrid.Children.Remove(backweekgrid);
+            KebiaoWeekGrid.Children.Add(backweekgrid);
+
+            TextBlock KebiaoWeek = new TextBlock();
+            KebiaoWeek.Text = Utils.GetWeek(2);
+            KebiaoWeek.FontSize = 20;
+            KebiaoWeek.Foreground = new SolidColorBrush(Colors.Black);
+            KebiaoWeek.FontWeight = FontWeights.Light;
+            KebiaoWeek.VerticalAlignment = VerticalAlignment.Center;
+            KebiaoWeek.HorizontalAlignment = HorizontalAlignment.Center;
+            KebiaoWeek.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek())));
+            KebiaoWeekGrid.Children.Add(KebiaoWeek);
         }
 
         /// <summary>
@@ -149,6 +176,8 @@ namespace ZSCY
             for (int i = 0; i < 7; i++)
                 for (int j = 0; j < 6; j++)
                     classtime[i, j] = null;
+
+
             kebiaoGrid.Children.Clear();
             SetKebiaoGridBorder();
             classList.Clear();
