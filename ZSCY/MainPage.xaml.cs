@@ -142,7 +142,7 @@ namespace ZSCY
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("stuNum", stuNum));
             string kbtemp = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
-            if (kb != "" && kbtemp != "")
+            if ( kbtemp != "")
                 kb = kbtemp;
             Debug.WriteLine("kb->" + kb);
             if (kb != "")

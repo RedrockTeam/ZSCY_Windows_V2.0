@@ -60,8 +60,10 @@ namespace ZSCY.Pages
         }
 
         //离开页面时，取消事件
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            StatusBar statusBar = StatusBar.GetForCurrentView();
+            await statusBar.ProgressIndicator.HideAsync();
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
 
@@ -88,9 +90,43 @@ namespace ZSCY.Pages
                     }
                     ScoreListView.ItemsSource = scoreList;
                 }
+                else if (Int32.Parse(obj["status"].ToString()) == 300)
+                {
+                    ListFailedStackPanelTextBlock.Text = "暂无数据，过几再来看看";
+
+                    ListFailedStackPanel.Visibility = Visibility.Visible;
+                    ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
+                    ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
+
+                    ListFailedStackPanel.Visibility = Visibility.Visible;
+                    ListFailedStackPanelImage.Visibility = Visibility.Visible;
+                    ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                }
             }
+            else
+            {
+                ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
+
+                ListFailedStackPanel.Visibility = Visibility.Visible;
+                ListFailedStackPanelImage.Visibility = Visibility.Visible;
+                ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+            }
+
             StatusBar statusBar = StatusBar.GetForCurrentView();
             await statusBar.ProgressIndicator.HideAsync();
         }
+
+        private void ListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ListFailedStackPanel.Visibility = Visibility.Collapsed;
+            ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
+            ListFailedStackPanelTextBlock.Visibility = Visibility.Collapsed;
+            initScore();
+        }
     }
 }
+

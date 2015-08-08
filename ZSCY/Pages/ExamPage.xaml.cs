@@ -90,28 +90,28 @@ namespace ZSCY.Pages
                 }
                 else if(Int32.Parse(obj["status"].ToString()) == 300)
                 {
-                    ExamListFailedStackPanelTextBlock.Text = "暂无数据，过几再来看看";
+                    ListFailedStackPanelTextBlock.Text = "暂无数据，过几再来看看";
 
-                    ExamListFailedStackPanel.Visibility = Visibility.Visible;
-                    ExamListFailedStackPanelImage.Visibility = Visibility.Collapsed;
-                    ExamListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                    ListFailedStackPanel.Visibility = Visibility.Visible;
+                    ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
+                    ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    ExamListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
+                    ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
 
-                    ExamListFailedStackPanel.Visibility = Visibility.Visible;
-                    ExamListFailedStackPanelImage.Visibility = Visibility.Visible;
-                    ExamListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                    ListFailedStackPanel.Visibility = Visibility.Visible;
+                    ListFailedStackPanelImage.Visibility = Visibility.Visible;
+                    ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
                 }
             }
             else
             {
-                ExamListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
+                ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
 
-                ExamListFailedStackPanel.Visibility = Visibility.Visible;
-                ExamListFailedStackPanelImage.Visibility = Visibility.Visible;
-                ExamListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                ListFailedStackPanel.Visibility = Visibility.Visible;
+               ListFailedStackPanelImage.Visibility = Visibility.Visible;
+                ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
             }
             StatusBar statusBar = StatusBar.GetForCurrentView();
             await statusBar.ProgressIndicator.HideAsync();
@@ -129,16 +129,18 @@ namespace ZSCY.Pages
         }
 
         //离开页面时，取消事件
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            StatusBar statusBar = StatusBar.GetForCurrentView();
+            await statusBar.ProgressIndicator.HideAsync();
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
 
-        private void ExamListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        private void ListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ExamListFailedStackPanel.Visibility = Visibility.Collapsed;
-            ExamListFailedStackPanelImage.Visibility = Visibility.Collapsed;
-            ExamListFailedStackPanelTextBlock.Visibility = Visibility.Collapsed;
+            ListFailedStackPanel.Visibility = Visibility.Collapsed;
+            ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
+            ListFailedStackPanelTextBlock.Visibility = Visibility.Collapsed;
             initExam();
         }
     }
