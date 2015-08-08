@@ -9,6 +9,8 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -65,6 +67,7 @@ namespace ZSCY.Pages
 
         private async void initScore()
         {
+            await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "紧张批改试卷...", isIndeterminate: true);
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("stuNum", appSetting.Values["stuNum"].ToString()));
             paramList.Add(new KeyValuePair<string, string>("idNum", appSetting.Values["idNum"].ToString()));
@@ -86,6 +89,8 @@ namespace ZSCY.Pages
                     ScoreListView.ItemsSource = scoreList;
                 }
             }
+            StatusBar statusBar = StatusBar.GetForCurrentView();
+            await statusBar.ProgressIndicator.HideAsync();
         }
     }
 }

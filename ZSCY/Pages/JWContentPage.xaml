@@ -19,7 +19,6 @@
             <TextBlock Text="教务信息" Foreground="White" VerticalAlignment="Center" Margin="15,0" FontSize="40"></TextBlock>
         </Grid>
         <ScrollViewer Background="White" Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" >
-
             <StackPanel Margin="15">
                 <TextBlock Name="TitleTextBlock" Foreground="Black" FontSize="30" TextWrapping="WrapWholeWords" FontWeight="Bold"></TextBlock>
                 <Grid Margin="0,10,0,0">

@@ -19,17 +19,24 @@
         <Grid Background="#068cfd" Height="70">
             <TextBlock Text="考试成绩" Foreground="White"  VerticalAlignment="Center" Margin="15,0" FontSize="40"></TextBlock>
         </Grid>
-        <ScrollViewer Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" Background="White">
+        <ScrollViewer Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" Background="#eeeeee">
+            <Grid>
+                
             <ListView Name="ScoreListView">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="0,0,0,15" Background="#068cfd">
+                        <Grid Margin="0,0,0,15" Background="White"  Width="{Binding ActualWidth, ElementName=itemPage, Mode=OneWay}">
                             <TextBlock Text="{Binding Course}" FontSize="20" Foreground="Black" Margin="15" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                             <TextBlock Text="{Binding Grade}" HorizontalAlignment="Right" FontSize="20" Foreground="Black" Margin="15" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                         </Grid> 
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+                <StackPanel Name="ExamListFailedStackPanel" Visibility="Visible" VerticalAlignment="Center" Margin="0,20" >
+                    <Image Name="ExamListFailedStackPanelImage" Source="Assets/grzx.png" Height="80" Width="80" HorizontalAlignment="Center" />
+                    <TextBlock Name="ExamListFailedStackPanelTextBlock" Text="加载失败，点击重试" HorizontalAlignment="Center" FontWeight="Light" Foreground="Gray" FontSize="15" FontFamily="Microsoft YaHei UI"  />
+                </StackPanel>
+            </Grid>
         </ScrollViewer>
     </StackPanel>
 </Page>

@@ -580,7 +580,7 @@ namespace ZSCY
 
         private void Exam_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ExamPage));
+            Frame.Navigate(typeof(ExamPage),2);
 
         }
 
@@ -592,7 +592,7 @@ namespace ZSCY
 
         private void ReExam_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ExamPage));
+            Frame.Navigate(typeof(ExamPage),3);
 
         }
 
