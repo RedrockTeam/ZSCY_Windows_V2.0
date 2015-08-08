@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Data\ClassList.cs" />
     <Compile Include="Data\JWList.cs" />
+    <Compile Include="Data\ScoreList.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

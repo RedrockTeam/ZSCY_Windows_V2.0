@@ -13,9 +13,6 @@
         <converter:itemScrollViewerHeighConverter x:Key="itemScrollViewerHeighConverter"/>
     </Page.Resources>
 
-    <!--<Page.Resources>
-        <converter:itemScrollViewerHeighConverter x:Key="itemScrollViewerHeighConverter"/>
-    </Page.Resources>-->
 
     <StackPanel Name="itemStackPanel">
         <Grid Name="TitleGrid" Background="#068cfd" Height="70">
