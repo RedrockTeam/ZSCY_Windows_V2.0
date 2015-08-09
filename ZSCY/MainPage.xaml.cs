@@ -371,18 +371,23 @@ namespace ZSCY
                         List<KeyValuePair<String, String>> contentparamList = new List<KeyValuePair<String, String>>();
                         contentparamList.Add(new KeyValuePair<string, string>("id", JWitem.ID));
                         string jwContent = await NetWork.getHttpWebRequest("api/jwNewsContent", contentparamList);
-                        string JWContentText = jwContent.Replace("(\r?\n(\\s*\r?\n)+)", "\r\n");
-                        while (JWContentText.StartsWith("\r\n "))
-                            JWContentText = JWContentText.Substring(3);
-                        while (JWContentText.StartsWith("\r\n"))
-                            JWContentText = JWContentText.Substring(2);
-                        JObject jwContentobj = JObject.Parse(JWContentText);
-                        if (Int32.Parse(jwContentobj["status"].ToString()) == 200)
-                            JWitem.Content = jwContentobj["data"]["content"].ToString();
-                        else
-                            JWitem.Content = "";
+                        Debug.WriteLine("jwContent->" + jwContent);
+                        if (jwContent != "")
+                        {
+                            string JWContentText = jwContent.Replace("(\r?\n(\\s*\r?\n)+)", "\r\n");
+                            while (JWContentText.StartsWith("\r\n "))
+                                JWContentText = JWContentText.Substring(3);
+                            while (JWContentText.StartsWith("\r\n"))
+                                JWContentText = JWContentText.Substring(2);
+                            JObject jwContentobj = JObject.Parse(JWContentText);
+                            if (Int32.Parse(jwContentobj["status"].ToString()) == 200)
+                                JWitem.Content = jwContentobj["data"]["content"].ToString();
+                            else
+                                JWitem.Content = "";
+                        }
                         JWList.Add(new JWList { Title = JWitem.Title, Date = "时间：" + JWitem.Date, Read = "阅读量：" + JWitem.Read, Content = JWitem.Content, ID = JWitem.ID });
                         JWListView.ItemsSource = JWList;
+                        setOpacity();
                     }
                     continueJWGrid.Visibility = Visibility.Visible;
                 }
@@ -399,6 +404,14 @@ namespace ZSCY
             }
         }
 
+        private async void setOpacity()
+        {
+            opacityGrid.Visibility = Visibility.Visible;
+            OpacityJWGrid.Begin();
+            await Task.Delay(1000);
+            opacityGrid.Visibility = Visibility.Collapsed;
+        }
+
         private void JWListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
             initJW();
@@ -413,9 +426,9 @@ namespace ZSCY
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-           // var group = await DataSource.Get();
+            // var group = await DataSource.Get();
             //this.Morepageclass["Group"] = group;
-            more.Margin=new Thickness(0,0,0, -Utils.getPhoneHeight()+300);
+            more.Margin = new Thickness(0, 0, 0, -Utils.getPhoneHeight() + 300);
             //this.morepageclass = (ObservableCollection<Group>) @group;
             //this.MoreHubSection.DataContext = Morepageclass;
             //IEnumerable<Group> g =group;
