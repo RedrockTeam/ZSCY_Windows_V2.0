@@ -9,6 +9,8 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -58,13 +60,16 @@ namespace ZSCY.Pages
         }
 
         //离开页面时，取消事件
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            StatusBar statusBar = StatusBar.GetForCurrentView();
+            await statusBar.ProgressIndicator.HideAsync();
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
 
         private async void initScore()
         {
+            await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "紧张批改试卷...", isIndeterminate: true);
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("stuNum", appSetting.Values["stuNum"].ToString()));
             paramList.Add(new KeyValuePair<string, string>("idNum", appSetting.Values["idNum"].ToString()));
@@ -85,7 +90,43 @@ namespace ZSCY.Pages
                     }
                     ScoreListView.ItemsSource = scoreList;
                 }
+                else if (Int32.Parse(obj["status"].ToString()) == 300)
+                {
+                    ListFailedStackPanelTextBlock.Text = "暂无数据，过几再来看看";
+
+                    ListFailedStackPanel.Visibility = Visibility.Visible;
+                    ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
+                    ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
+
+                    ListFailedStackPanel.Visibility = Visibility.Visible;
+                    ListFailedStackPanelImage.Visibility = Visibility.Visible;
+                    ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                }
             }
+            else
+            {
+                ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
+
+                ListFailedStackPanel.Visibility = Visibility.Visible;
+                ListFailedStackPanelImage.Visibility = Visibility.Visible;
+                ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+            }
+
+            StatusBar statusBar = StatusBar.GetForCurrentView();
+            await statusBar.ProgressIndicator.HideAsync();
+        }
+
+        private void ListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ListFailedStackPanel.Visibility = Visibility.Collapsed;
+            ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
+            ListFailedStackPanelTextBlock.Visibility = Visibility.Collapsed;
+            initScore();
         }
     }
 }
+

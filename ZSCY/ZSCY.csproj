@@ -87,6 +87,7 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Data\ClassList.cs" />
+    <Compile Include="Data\ExamList.cs" />
     <Compile Include="Data\JWList.cs" />
     <Compile Include="Data\DataSource.cs" />
     <Compile Include="Data\ScoreList.cs" />
@@ -130,7 +131,9 @@
     <Content Include="Assets\dialog_course_teacher.png" />
     <Content Include="Assets\dialog_course_time.png" />
     <Content Include="Assets\grzx.png" />
-    <Content Include="Assets\ic_failed.png" />
+    <Content Include="Assets\ic_failed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\ic_time08.png" />
     <Content Include="Assets\ic_time10.png" />
     <Content Include="Assets\ic_time14.png" />
