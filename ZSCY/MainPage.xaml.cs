@@ -604,61 +604,61 @@ namespace ZSCY
             initJW(page);
         }
 
-        //private void Calendar_OnTapped(object sender, TappedRoutedEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(CalendarPage));
-        //}
-
-        //private void Empty_OnTapped(object sender, TappedRoutedEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(EmptyRoomsPage));
-
-        //}
-
-        //private void Exam_OnTapped(object sender, TappedRoutedEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(ExamPage));
-
-        //}
-
-        //private void Score_OnTapped(object sender, TappedRoutedEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(ScorePage));
-
-        //}
-
-        //private void ReExam_OnTapped(object sender, TappedRoutedEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(ExamPage));
-
-        //}
-
-        //private void Setting_OnTapped(object sender, TappedRoutedEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(SettingPage));
-
-        //}
-
-        private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
+        private void Calendar_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            var item = e.ClickedItem as Morepageclass;
-            Debug.WriteLine(item.UniqueID);
-            switch (item.UniqueID)
-            {
-                case "Setting":
-                    Frame.Navigate(typeof(SettingPage)); break;
-                case "ReExam": Frame.Navigate(typeof(ExamPage), 3); break;
-                case "Exam": Frame.Navigate(typeof(ExamPage), 2); break;
-                case "Socre": Frame.Navigate(typeof(ScorePage)); break;
-                case "ClassRoom":
-                    Frame.Navigate(typeof(EmptyRoomsPage));
-                    break;
-                case "Calendar":
-                    Frame.Navigate(typeof(CalendarPage));
-                    break;
-                default:
-                    break;
-            }
+            Frame.Navigate(typeof(CalendarPage));
         }
+
+        private void Empty_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(EmptyRoomsPage));
+
+        }
+
+        private void Exam_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ExamPage));
+
+        }
+
+        private void Score_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ScorePage));
+
+        }
+
+        private void ReExam_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ExamPage));
+
+        }
+
+        private void Setting_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingPage));
+
+        }
+
+        //private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
+        //{
+        //    var item = e.ClickedItem as Morepageclass;
+        //    Debug.WriteLine(item.UniqueID);
+        //    switch (item.UniqueID)
+        //    {
+        //        case "Setting":
+        //            Frame.Navigate(typeof(SettingPage)); break;
+        //        case "ReExam": Frame.Navigate(typeof(ExamPage), 3); break;
+        //        case "Exam": Frame.Navigate(typeof(ExamPage), 2); break;
+        //        case "Socre": Frame.Navigate(typeof(ScorePage)); break;
+        //        case "ClassRoom":
+        //            Frame.Navigate(typeof(EmptyRoomsPage));
+        //            break;
+        //        case "Calendar":
+        //            Frame.Navigate(typeof(CalendarPage));
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
     }
 }
