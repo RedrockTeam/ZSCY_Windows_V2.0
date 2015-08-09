@@ -75,9 +75,9 @@ namespace ZSCY
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            MoreGRNameTextBlock.Text = appSetting.Values["name"].ToString();
-            MoreGRClassTextBlock.Text = appSetting.Values["classNum"].ToString();
-            MoreGRNumTextBlock.Text = appSetting.Values["stuNum"].ToString();
+            //MoreGRNameTextBlock.Text = appSetting.Values["name"].ToString();
+            //MoreGRClassTextBlock.Text = appSetting.Values["classNum"].ToString();
+            //MoreGRNumTextBlock.Text = appSetting.Values["stuNum"].ToString();
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 
@@ -426,9 +426,9 @@ namespace ZSCY
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            // var group = await DataSource.Get();
-            //this.Morepageclass["Group"] = group;
-            more.Margin = new Thickness(0, 0, 0, -Utils.getPhoneHeight() + 300);
+            var group = await DataSource.Get();
+            this.Morepageclass["Group"] = group;
+            //more.Margin = new Thickness(0, 0, 0, -Utils.getPhoneHeight() + 300);
             //this.morepageclass = (ObservableCollection<Group>) @group;
             //this.MoreHubSection.DataContext = Morepageclass;
             //IEnumerable<Group> g =group;
@@ -581,8 +581,8 @@ namespace ZSCY
         /// <param name="e"></param>
         private void MoreSwitchAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            appSetting.Values.Remove("idNum");
-            Frame.Navigate(typeof(LoginPage));
+           // appSetting.Values.Remove("idNum");
+            Frame.Navigate(typeof(PersonPage));
         }
 
         private void KBSearchButton_Click(object sender, RoutedEventArgs e)
@@ -656,26 +656,26 @@ namespace ZSCY
 
         }
 
-        //private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
-        //{
-        //    var item = e.ClickedItem as Morepageclass;
-        //    Debug.WriteLine(item.UniqueID);
-        //    switch (item.UniqueID)
-        //    {
-        //        case "Setting":
-        //            Frame.Navigate(typeof(SettingPage)); break;
-        //        case "ReExam": Frame.Navigate(typeof(ExamPage), 3); break;
-        //        case "Exam": Frame.Navigate(typeof(ExamPage), 2); break;
-        //        case "Socre": Frame.Navigate(typeof(ScorePage)); break;
-        //        case "ClassRoom":
-        //            Frame.Navigate(typeof(EmptyRoomsPage));
-        //            break;
-        //        case "Calendar":
-        //            Frame.Navigate(typeof(CalendarPage));
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
+        private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var item = e.ClickedItem as Morepageclass;
+            Debug.WriteLine(item.UniqueID);
+            switch (item.UniqueID)
+            {
+                case "Setting":
+                    Frame.Navigate(typeof(SettingPage)); break;
+                case "ReExam": Frame.Navigate(typeof(ExamPage), 3); break;
+                case "Exam": Frame.Navigate(typeof(ExamPage), 2); break;
+                case "Socre": Frame.Navigate(typeof(ScorePage)); break;
+                case "ClassRoom":
+                    Frame.Navigate(typeof(EmptyRoomsPage));
+                    break;
+                case "Calendar":
+                    Frame.Navigate(typeof(CalendarPage));
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

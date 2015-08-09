@@ -24,9 +24,9 @@
             <Setter Property ="Orientation" Value="Vertical"></Setter>
         </Style>
         <DataTemplate x:Key="Standard200X180TileItemTemplate">
-            <Grid Margin="0,0,9.5,9.5" >
-                <Image Source="{Binding Itemimgsrc}" Stretch="UniformToFill"  Height="90" Width="90"/>
-                <TextBlock Text="{Binding Itemname}" VerticalAlignment="Bottom"  Foreground="Black" FontFamily="Microsoft Yahei UI"/>
+            <Grid Margin="0,0,9.5,9.5"  Background="#068cfd" Height="120" Width="120">  
+                <Image Source="{Binding Itemimgsrc}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Height="60" Width="60"/> 
+                <TextBlock Text="{Binding Itemname}" VerticalAlignment="Bottom" FontSize="15" HorizontalAlignment="Left"  Foreground="White" Margin="10,0,0,5" FontFamily="Microsoft Yahei UI"/>
             </Grid>
         </DataTemplate>
 
@@ -285,19 +285,19 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
-                                <RowDefinition Height="Auto"/>
+                                <!--<RowDefinition Height="Auto"/>-->
                             </Grid.RowDefinitions>
                             <Grid VerticalAlignment="Center" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
                                 <TextBlock Name="HubSectionMoreTitle" Text="更多" Foreground="White"  FontSize="35" VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                             </Grid>
 
-                            <Grid Name="MoreGRGrid" Margin="0" Grid.Row="1"  Height="100" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" >
+                            <!--<Grid Name="MoreGRGrid" Margin="0" Grid.Row="1"  Height="100" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" >
                                 <StackPanel>
                                     <TextBlock Name="MoreGRNameTextBlock"  Foreground="Black"  FontSize="35" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                     <TextBlock Name="MoreGRClassTextBlock"  Foreground="Black"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                     <TextBlock Name="MoreGRNumTextBlock"  Foreground="Black"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                 </StackPanel>
-                            </Grid>
+                            </Grid>-->
 
 
                             <!--<Grid Name="MoreBlueGRGrid" HorizontalAlignment="Left" Margin="-20,0,0,0" Background="#068cfd" Grid.Row="1" Width="20" Height="{Binding ElementName=MoreGRGrid,Path=Height}" Opacity="0">
@@ -316,7 +316,7 @@
                                 </Grid.Resources>
                             </Grid>-->
                         </Grid>
-                        <StackPanel  x:Name="more" VerticalAlignment="Bottom">
+                        <!--<StackPanel  x:Name="more" VerticalAlignment="Bottom">
 
                             <Grid Grid.Row="2" VerticalAlignment="Bottom" >
                                 <Grid.RowDefinitions>
@@ -353,13 +353,13 @@
                                     <TextBlock Text="设置" Foreground="Black" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Grid>
-                        </StackPanel>
+                        </StackPanel>-->
 
                     </StackPanel>
 
                 </HubSection.Header>
 
-                <!--<DataTemplate>
+                <DataTemplate>
                     <GridView
                         ItemsSource="{Binding items}"
                         ItemTemplate="{StaticResource Standard200X180TileItemTemplate}"
@@ -370,15 +370,15 @@
                         <GridView.ItemsPanel>
                             <ItemsPanelTemplate>
                                     <ItemsWrapGrid Orientation="Horizontal" FlowDirection="LeftToRight"></ItemsWrapGrid>
-                                -->
-                <!--<VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>-->
+                                
+                <!--<VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
 
-                <!--<ItemsWrapGrid />-->
-                <!--
+                <ItemsWrapGrid />-->
+                
                             </ItemsPanelTemplate>
                         </GridView.ItemsPanel>
                     </GridView>
-                </DataTemplate>-->
+                </DataTemplate>
                 <!--<ListView x:Name="hahaha" ItemsSource="morepageclass">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -418,7 +418,11 @@
             </AppBarButton>
             <AppBarButton Name="KBCalendarAppBarButton" Icon="Calendar" Label="学期/本周" Click="KBCalendarAppBarButton_Click"/>
             <AppBarButton Name="JWRefreshAppBarButton" Icon="Refresh" Label="刷新" Click="JWRefreshAppBarButton_Click" Visibility="Collapsed"/>
-            <AppBarButton Name="MoreSwitchAppBarButton" Icon="Switch" Label="切换账号" Click="MoreSwitchAppBarButton_Click" Visibility="Collapsed"/>
+            <AppBarButton Name="MoreSwitchAppBarButton" Label="切换账号" Click="MoreSwitchAppBarButton_Click" Visibility="Collapsed">
+                <AppBarButton.Icon>
+                    <BitmapIcon UriSource="Assets/Contacts-100.png"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

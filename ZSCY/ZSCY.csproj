@@ -110,6 +110,9 @@
     <Compile Include="Pages\JWContentPage.xaml.cs">
       <DependentUpon>JWContentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PersonPage.xaml.cs">
+      <DependentUpon>PersonPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ScorePage.xaml.cs">
       <DependentUpon>ScorePage.xaml</DependentUpon>
     </Compile>
@@ -128,9 +131,12 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Boy-100.png" />
+    <Content Include="Assets\Contacts-100.png" />
     <Content Include="Assets\dialog_course_classroom.png" />
     <Content Include="Assets\dialog_course_teacher.png" />
     <Content Include="Assets\dialog_course_time.png" />
+    <Content Include="Assets\Girl-100.png" />
     <Content Include="Assets\grzx.png" />
     <Content Include="Assets\ic_failed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -142,6 +148,7 @@
     <Content Include="Assets\ic_time19.png" />
     <Content Include="Assets\ic_time21.png" />
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\Logout-100.png" />
     <Content Include="Assets\more_calendar.png" />
     <Content Include="Assets\more_empty.png" />
     <Content Include="Assets\more_exam.png" />
@@ -183,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\JWContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PersonPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

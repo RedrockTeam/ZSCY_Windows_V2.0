@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="ZSCY.Pages.PersonPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZSCY.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="Microsoft YaHei UI"
+    FontWeight="Light"
+    Background="#068cfd">
+    <Page.Resources>
+        <Style x:Key="TxtBlockstyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Microsoft Yahei UI"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="0,10,0,0"></Setter>
+        </Style>
+    </Page.Resources>
+    <Grid   Background="#f8f8f8">
+        <StackPanel VerticalAlignment="Top" Background="#068cfd" Height="50">
+            <TextBlock Text="个人信息" FontSize="35"  Margin="15,0,0,0"></TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="../Assets/Girl-100.png" Stretch="Uniform" Height="100" Width="100"></Image>
+            <TextBlock x:Name="StudentName" Text="女神" Style="{StaticResource TxtBlockstyle}"/>
+            <TextBlock x:Name="StudentClass" Text="0401501" Style="{StaticResource TxtBlockstyle}"/>
+            <TextBlock x:Name="StudentNumber" Text="2015211001" Style="{StaticResource TxtBlockstyle}"/>
+            <TextBlock x:Name="Academy" Text="爱在传媒，一路有你"  Style="{StaticResource TxtBlockstyle}" />
+        </StackPanel> 
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Like" Label="好评我"/>
+            <AppBarButton Label="注销" Icon="Switch" Click="AppBarButton_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+</Page>
