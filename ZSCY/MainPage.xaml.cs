@@ -443,8 +443,10 @@ namespace ZSCY
 
         }
         //离开页面时，取消事件
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            StatusBar statusBar = StatusBar.GetForCurrentView();
+            await statusBar.ProgressIndicator.HideAsync();
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
             this.navigationHelper.OnNavigatedFrom(e);
 
@@ -631,7 +633,7 @@ namespace ZSCY
 
         private void Exam_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ExamPage));
+            Frame.Navigate(typeof(ExamPage),2);
 
         }
 
@@ -643,7 +645,7 @@ namespace ZSCY
 
         private void ReExam_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ExamPage));
+            Frame.Navigate(typeof(ExamPage),3);
 
         }
 
