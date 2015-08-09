@@ -270,9 +270,9 @@
 
             </HubSection>
             <!--更多hubsection-->
-            <HubSection Name="MoreHubSection"  DataContext="{Binding Group[0]}">
+            <HubSection Name="MoreHubSection"  DataContext="{Binding Group[0]}" >
                 <HubSection.Header>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
@@ -300,7 +300,7 @@
                             </Grid>
 
                         </Grid>
-                        <StackPanel VerticalAlignment="Bottom">
+                        <StackPanel  x:Name="more" VerticalAlignment="Bottom">
 
                             <Grid Grid.Row="2" VerticalAlignment="Bottom" >
                                 <Grid.RowDefinitions>
@@ -333,7 +333,7 @@
                                     <TextBlock Text="补考查询" Foreground="Black" HorizontalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel  Grid.Row="1" Grid.Column="2"  Style="{StaticResource StackStyle }" Tapped="Setting_OnTapped">
-                                    <Image Source="Assets/more_reexam.png" Stretch="Fill"  Width="64" Height="64"/>
+                                    <Image Source="Assets/Settings-100.png" Stretch="Fill"  Width="64" Height="64"/>
                                     <TextBlock Text="设置" Foreground="Black" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Grid>

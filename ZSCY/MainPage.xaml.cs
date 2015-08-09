@@ -413,8 +413,9 @@ namespace ZSCY
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            var group = await DataSource.Get();
-            this.Morepageclass["Group"] = group;
+           // var group = await DataSource.Get();
+            //this.Morepageclass["Group"] = group;
+            more.Margin=new Thickness(0,0,0, -Utils.getPhoneHeight()+300);
             //this.morepageclass = (ObservableCollection<Group>) @group;
             //this.MoreHubSection.DataContext = Morepageclass;
             //IEnumerable<Group> g =group;
