@@ -29,7 +29,7 @@
                 <TextBlock Text="{Binding Itemname}" VerticalAlignment="Bottom"  Foreground="Black" FontFamily="Microsoft Yahei UI"/>
             </Grid>
         </DataTemplate>
-        
+
     </Page.Resources>
 
     <Grid Background="#f8f8f8">
@@ -291,16 +291,16 @@
                                 <TextBlock Name="HubSectionMoreTitle" Text="更多" Foreground="White"  FontSize="35" VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                             </Grid>
 
-                            <Grid Name="MoreGRGrid" Margin="0" Grid.Row="1"  Height="100" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Background="#068cfd">
+                            <Grid Name="MoreGRGrid" Margin="0" Grid.Row="1"  Height="100" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" >
                                 <StackPanel>
-                                    <TextBlock Name="MoreGRNameTextBlock"  Foreground="White"  FontSize="35" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
-                                    <TextBlock Name="MoreGRClassTextBlock"  Foreground="White"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
-                                    <TextBlock Name="MoreGRNumTextBlock"  Foreground="White"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                                    <TextBlock Name="MoreGRNameTextBlock"  Foreground="Black"  FontSize="35" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                                    <TextBlock Name="MoreGRClassTextBlock"  Foreground="Black"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                                    <TextBlock Name="MoreGRNumTextBlock"  Foreground="Black"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                 </StackPanel>
                             </Grid>
 
 
-                            <Grid Name="MoreBlueGRGrid" HorizontalAlignment="Left" Margin="-20,0,0,0" Background="#068cfd" Grid.Row="1" Width="20" Height="{Binding ElementName=MoreGRGrid,Path=Height}" Opacity="0">
+                            <!--<Grid Name="MoreBlueGRGrid" HorizontalAlignment="Left" Margin="-20,0,0,0" Background="#068cfd" Grid.Row="1" Width="20" Height="{Binding ElementName=MoreGRGrid,Path=Height}" Opacity="0">
                                 <Grid.Resources>
                                     <Storyboard x:Name="MoveMoreBlueGRGrid">
                                         <DoubleAnimation Storyboard.TargetName="MoreBlueGRGrid" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.5" />
@@ -308,6 +308,13 @@
                                 </Grid.Resources>
                             </Grid>
 
+                            <Grid Name="MoreBlueGRGrid2" HorizontalAlignment="Right" Margin="0,0,-40,0" Background="#f68cfd" Grid.Row="1"  Width="40" Height="{Binding ElementName=MoreGRGrid,Path=Height}" Opacity="0">
+                                <Grid.Resources>
+                                    <Storyboard x:Name="MoveMoreBlueGRGrid2">
+                                        <DoubleAnimation Storyboard.TargetName="MoreBlueGRGrid2" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.5" />
+                                    </Storyboard>
+                                </Grid.Resources>
+                            </Grid>-->
                         </Grid>
                         <StackPanel  x:Name="more" VerticalAlignment="Bottom">
 
@@ -415,3 +422,4 @@
         </CommandBar>
     </Page.BottomAppBar>
 </Page>
+

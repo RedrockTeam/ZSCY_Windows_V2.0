@@ -486,7 +486,7 @@ namespace ZSCY
                 switch (hubSection.Name)
                 {
                     case "KBHubSection":
-                        MoreBlueGRGrid.Opacity = 0;
+                        //MoreBlueGRGrid.Opacity = 0;
 
                         KBRefreshAppBarButton.Visibility = Visibility.Visible;
                         KBZoomAppBarButton.Visibility = Visibility.Visible;
@@ -495,7 +495,7 @@ namespace ZSCY
                         MoreSwitchAppBarButton.Visibility = Visibility.Collapsed;
                         break;
                     case "JWHubSection":
-                        MoreBlueGRGrid.Opacity = 0;
+                       // MoreBlueGRGrid.Opacity = 0;
 
                         KBRefreshAppBarButton.Visibility = Visibility.Collapsed;
                         KBZoomAppBarButton.Visibility = Visibility.Collapsed;
@@ -505,7 +505,8 @@ namespace ZSCY
                         break;
                     case "MoreHubSection":
                         //MoreGRGrid.Margin = new Thickness(-20,0,0,0);
-                        MoveMoreBlueGRGrid.Begin();
+                        //MoveMoreBlueGRGrid.Begin();
+                        //MoveMoreBlueGRGrid2.Begin();
 
                         KBRefreshAppBarButton.Visibility = Visibility.Collapsed;
                         KBZoomAppBarButton.Visibility = Visibility.Collapsed;
