@@ -40,7 +40,7 @@
                 <HubSection.Header >
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
+                            <RowDefinition />
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
@@ -219,7 +219,7 @@
                 <HubSection.Header>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
+                            <RowDefinition />
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid VerticalAlignment="Center" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
@@ -284,7 +284,7 @@
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
+                                <RowDefinition />
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid VerticalAlignment="Center" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
