@@ -248,7 +248,7 @@ namespace ZSCY.Pages
             }
             for (int i = 0; i < 6; i++)
             {
-                for (int j = 0; j < 100; j++)
+                for (int j = 0; j < emptyRoomReslut[i].Length; j++)
                     emptyRoomReslut[i][j] = "";
             }
         }
