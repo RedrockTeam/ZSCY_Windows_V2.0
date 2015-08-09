@@ -366,6 +366,7 @@ namespace ZSCY
                     JArray JWListArray = Utils.ReadJso(jw);
                     for (int i = 0; i < JWListArray.Count; i++)
                     {
+                        int failednum = 0;
                         JWList JWitem = new JWList();
                         JWitem.GetListAttribute((JObject)JWListArray[i]);
                         List<KeyValuePair<String, String>> contentparamList = new List<KeyValuePair<String, String>>();
@@ -383,7 +384,35 @@ namespace ZSCY
                             if (Int32.Parse(jwContentobj["status"].ToString()) == 200)
                                 JWitem.Content = jwContentobj["data"]["content"].ToString();
                             else
+                            {
                                 JWitem.Content = "";
+                                failednum++;
+                            }
+                        }
+                        else
+                        {
+                            failednum++;
+                            if (failednum < 2)
+                            {
+                                jwContent = await NetWork.getHttpWebRequest("api/jwNewsContent", contentparamList);
+                                Debug.WriteLine("jwContent->" + jwContent);
+                                if (jwContent != "")
+                                {
+                                    string JWContentText = jwContent.Replace("(\r?\n(\\s*\r?\n)+)", "\r\n");
+                                    while (JWContentText.StartsWith("\r\n "))
+                                        JWContentText = JWContentText.Substring(3);
+                                    while (JWContentText.StartsWith("\r\n"))
+                                        JWContentText = JWContentText.Substring(2);
+                                    JObject jwContentobj = JObject.Parse(JWContentText);
+                                    if (Int32.Parse(jwContentobj["status"].ToString()) == 200)
+                                        JWitem.Content = jwContentobj["data"]["content"].ToString();
+                                    else
+                                    {
+                                        JWitem.Content = "";
+                                        failednum++;
+                                    }
+                                }
+                            }
                         }
                         JWList.Add(new JWList { Title = JWitem.Title, Date = "时间：" + JWitem.Date, Read = "阅读量：" + JWitem.Read, Content = JWitem.Content, ID = JWitem.ID });
                         JWListView.ItemsSource = JWList;
@@ -471,7 +500,7 @@ namespace ZSCY
 
         private void JiaowuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            JWList JWItem = new JWList(((JWList)e.ClickedItem).Title, ((JWList)e.ClickedItem).Date, ((JWList)e.ClickedItem).Read, ((JWList)e.ClickedItem).Content);
+            JWList JWItem = new JWList(((JWList)e.ClickedItem).ID, ((JWList)e.ClickedItem).Title, ((JWList)e.ClickedItem).Date, ((JWList)e.ClickedItem).Read, ((JWList)e.ClickedItem).Content == null ? "加载中..." : ((JWList)e.ClickedItem).Content);
 
             this.Frame.Navigate(typeof(JWContentPage), JWItem);
         }
@@ -495,7 +524,7 @@ namespace ZSCY
                         MoreSwitchAppBarButton.Visibility = Visibility.Collapsed;
                         break;
                     case "JWHubSection":
-                       // MoreBlueGRGrid.Opacity = 0;
+                        // MoreBlueGRGrid.Opacity = 0;
 
                         KBRefreshAppBarButton.Visibility = Visibility.Collapsed;
                         KBZoomAppBarButton.Visibility = Visibility.Collapsed;
@@ -634,7 +663,7 @@ namespace ZSCY
 
         private void Exam_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ExamPage),2);
+            Frame.Navigate(typeof(ExamPage), 2);
 
         }
 
@@ -646,7 +675,7 @@ namespace ZSCY
 
         private void ReExam_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ExamPage),3);
+            Frame.Navigate(typeof(ExamPage), 3);
 
         }
 

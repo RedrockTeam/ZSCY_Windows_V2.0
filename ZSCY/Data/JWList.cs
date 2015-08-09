@@ -9,16 +9,18 @@ namespace ZSCY.Data
 {
     class JWList
     {
-        public JWList(string title, string date, string read, string content)
-        {
-            Title = title;
-            Date = date;
-            Read = read;
-            Content = content;
-        }
 
         public JWList()
         {
+        }
+
+        public JWList(string iD, string title, string date, string read, string Content)
+        {
+            ID = iD;
+            Title = title;
+            Date = date;
+            Read = read;
+            this.Content = Content;
         }
 
         public string ID { get; set; }

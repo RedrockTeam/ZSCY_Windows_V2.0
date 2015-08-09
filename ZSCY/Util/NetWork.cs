@@ -28,7 +28,9 @@ namespace ZSCY.Util
                        httpClient.DefaultRequestHeaders.Add("API_APP", "winphone");
                        httpClient.DefaultRequestHeaders.Add("API_TOKEN", "0zLUZA0j+OL77OsjXC0ulOz50KaI6yANZtkOk2vQIDg=");
                        HttpResponseMessage response = httpClient.PostAsync(new Uri(uri), new FormUrlEncodedContent(paramList)).Result;
-                       content = response.Content.ReadAsStringAsync().Result;
+                       if (response.StatusCode == HttpStatusCode.OK)
+                           content = response.Content.ReadAsStringAsync().Result;
+
                    }
                    catch (Exception e)
                    {

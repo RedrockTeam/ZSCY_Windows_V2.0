@@ -63,7 +63,7 @@
                             </FlyoutBase.AttachedFlyout>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Margin="-7,0,0,0">
-                            <Grid Name="KebiaoWeekGrid" Margin="0,5,0,0" Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Height="25">
+                            <Grid Name="KebiaoWeekGrid" Margin="0,7,0,0" Width="{Binding ElementName=KBHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" Height="25">
                                 <Grid.ColumnDefinitions>
                                     <!--列-->
                                     <ColumnDefinition Width="2 *"/>
