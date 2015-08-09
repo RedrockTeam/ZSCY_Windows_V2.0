@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using ZSCY.Common;
 using ZSCY.Data;
 using ZSCY.Pages;
 using ZSCY.Util;
@@ -45,6 +46,11 @@ namespace ZSCY
         private string hubSectionChange = "KBHubSection";
         private string kb = "";
         private string stuNum = "";
+        //private  ObservableCollection<Group>  morepageclass=new ObservableCollection<Group>();
+        private ObservableDictionary morepageclass = new ObservableDictionary();
+        //private  ObservableCollection<Morepageclass> morepageclass= new ObservableCollection<Morepageclass>();
+        private readonly NavigationHelper navigationHelper;
+
         //private string[,,] classtime = new string[7, 6,*];
         string[,][] classtime = new string[7, 6][];
 
@@ -55,6 +61,14 @@ namespace ZSCY
 
         IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
 
+        public ObservableDictionary Morepageclass
+        {
+            get
+            {
+                return morepageclass;
+            }
+        }
+
         public MainPage()
         {
             appSetting = ApplicationData.Current.LocalSettings; //本地存储
@@ -64,6 +78,8 @@ namespace ZSCY
             MoreGRNameTextBlock.Text = appSetting.Values["name"].ToString();
             MoreGRClassTextBlock.Text = appSetting.Values["classNum"].ToString();
             MoreGRNumTextBlock.Text = appSetting.Values["stuNum"].ToString();
+            this.navigationHelper = new NavigationHelper(this);
+            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 
             stuNum = appSetting.Values["stuNum"].ToString();
             initKB();
@@ -141,7 +157,9 @@ namespace ZSCY
 
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("stuNum", stuNum));
-            kb = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
+            string kbtemp = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
+            if (kb != "" && kbtemp != "")
+                kb = kbtemp;
             Debug.WriteLine("kb->" + kb);
             if (kb != "")
             {
@@ -386,15 +404,36 @@ namespace ZSCY
             initJW();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
+            this.navigationHelper.OnNavigatedTo(e);
+
         }
 
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            var group = await DataSource.Get();
+            this.Morepageclass["Group"] = group;
+            //this.morepageclass = (ObservableCollection<Group>) @group;
+            //this.MoreHubSection.DataContext = Morepageclass;
+            //IEnumerable<Group> g =group;
+            //var a=g.ToArray();
+            //for (int i = 0; i < a[0].items.Count; i++)
+            //{
+            //    morepageclass.Add(a[0].items[i]);
+            //}
+            //this.MoreHubSection.DataContext = morepageclass;
+            //this.fuck.ItemsSource = morepageclass;
+
+
+        }
         //离开页面时，取消事件
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
+            this.navigationHelper.OnNavigatedFrom(e);
+
         }
 
         private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)//重写后退按钮，如果要对所有页面使用，可以放在App.Xaml.cs的APP初始化函数中重写。
@@ -565,39 +604,61 @@ namespace ZSCY
             initJW(page);
         }
 
-        private void Calendar_OnTapped(object sender, TappedRoutedEventArgs e)
+        //private void Calendar_OnTapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    Frame.Navigate(typeof(CalendarPage));
+        //}
+
+        //private void Empty_OnTapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    Frame.Navigate(typeof(EmptyRoomsPage));
+
+        //}
+
+        //private void Exam_OnTapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    Frame.Navigate(typeof(ExamPage));
+
+        //}
+
+        //private void Score_OnTapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    Frame.Navigate(typeof(ScorePage));
+
+        //}
+
+        //private void ReExam_OnTapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    Frame.Navigate(typeof(ExamPage));
+
+        //}
+
+        //private void Setting_OnTapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    Frame.Navigate(typeof(SettingPage));
+
+        //}
+
+        private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Frame.Navigate(typeof (CalendarPage));
-        }
-
-        private void Empty_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(EmptyRoomsPage));
-
-        }
-
-        private void Exam_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(ExamPage));
-
-        }
-
-        private void Score_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(ScorePage));
-
-        }
-
-        private void ReExam_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(ExamPage));
-
-        }
-
-        private void Setting_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(SettingPage));
-
+            var item = e.ClickedItem as Morepageclass;
+            Debug.WriteLine(item.UniqueID);
+            switch (item.UniqueID)
+            {
+                case "Setting":
+                    Frame.Navigate(typeof(SettingPage)); break;
+                case "ReExam": Frame.Navigate(typeof(ExamPage), 3); break;
+                case "Exam": Frame.Navigate(typeof(ExamPage), 2); break;
+                case "Socre": Frame.Navigate(typeof(ScorePage)); break;
+                case "ClassRoom":
+                    Frame.Navigate(typeof(EmptyRoomsPage));
+                    break;
+                case "Calendar":
+                    Frame.Navigate(typeof(CalendarPage));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

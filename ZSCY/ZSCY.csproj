@@ -82,8 +82,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Common\ObservableDictionary.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Data\ClassList.cs" />
     <Compile Include="Data\JWList.cs" />
+    <Compile Include="Data\DataSource.cs" />
     <Compile Include="Data\ScoreList.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -140,6 +145,7 @@
     <Content Include="Assets\more_score.png" />
     <Content Include="Assets\school_calendar0.jpg" />
     <Content Include="Assets\school_calendar1.jpg" />
+    <Content Include="Assets\Settings-100.png" />
     <Content Include="Assets\shape.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
@@ -192,6 +198,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\moreitems.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
