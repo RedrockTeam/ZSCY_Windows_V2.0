@@ -284,7 +284,7 @@
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="{Binding ElementName=BlueBackGrid,Path=Height}"/>
+                                <RowDefinition />
                                 <!--<RowDefinition Height="Auto"/>-->
                             </Grid.RowDefinitions>
                             <Grid VerticalAlignment="Center" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
