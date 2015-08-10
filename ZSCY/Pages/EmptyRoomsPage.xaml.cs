@@ -114,7 +114,7 @@ namespace ZSCY.Pages
             {
                 Time08Grid.Background = new SolidColorBrush(gridColorGray);
                 gridColor[0] = false;
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < emptyRoomReslut[0].Length; i++)
                     emptyRoomReslut[0][i] = "";
                 ShowEmpty();
             }
@@ -134,7 +134,7 @@ namespace ZSCY.Pages
             {
                 Time10Grid.Background = new SolidColorBrush(gridColorGray);
                 gridColor[1] = false;
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < emptyRoomReslut[1].Length; i++)
                     emptyRoomReslut[1][i] = "";
                 ShowEmpty();
             }
@@ -152,7 +152,7 @@ namespace ZSCY.Pages
             {
                 Time14Grid.Background = new SolidColorBrush(gridColorGray);
                 gridColor[2] = false;
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < emptyRoomReslut[2].Length; i++)
                     emptyRoomReslut[2][i] = "";
                 ShowEmpty();
             }
@@ -170,7 +170,7 @@ namespace ZSCY.Pages
             {
                 Time16Grid.Background = new SolidColorBrush(gridColorGray);
                 gridColor[3] = false;
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < emptyRoomReslut[3].Length; i++)
                     emptyRoomReslut[3][i] = "";
                 ShowEmpty();
             }
@@ -188,7 +188,7 @@ namespace ZSCY.Pages
             {
                 Time19Grid.Background = new SolidColorBrush(gridColorGray);
                 gridColor[4] = false;
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < emptyRoomReslut[4].Length; i++)
                     emptyRoomReslut[4][i] = "";
                 ShowEmpty();
             }
@@ -206,7 +206,7 @@ namespace ZSCY.Pages
             {
                 Time21Grid.Background = new SolidColorBrush(gridColorGray);
                 gridColor[5] = false;
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < emptyRoomReslut[5].Length; i++)
                     emptyRoomReslut[5][i] = "";
                 ShowEmpty();
             }
@@ -347,6 +347,7 @@ namespace ZSCY.Pages
             }
             else
             {
+                emptyRoomList.Clear();
                 for (int i = 0; i < emptyRoomReslut[item[0]].Length; i++)
                     emptyClassUnrepeat[i] = emptyRoomReslut[item[0]][i];
                 for (int i = 0; item[i + 1] != -1; i++)
