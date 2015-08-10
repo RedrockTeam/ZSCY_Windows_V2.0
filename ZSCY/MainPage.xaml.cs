@@ -102,13 +102,13 @@ namespace ZSCY
 
             //星期背景色
             Grid backgrid = new Grid();
-            backgrid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 251, 235));
+            backgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
             backgrid.SetValue(Grid.RowProperty, 0);
             backgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) + 6) % 7);
             backgrid.SetValue(Grid.RowSpanProperty, 12);
             kebiaoGrid.Children.Add(backgrid);
 
-            backweekgrid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 251, 235));
+            backweekgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
             backweekgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek())));
             KebiaoWeekGrid.Children.Remove(backweekgrid);
             KebiaoWeekGrid.Children.Add(backweekgrid);
