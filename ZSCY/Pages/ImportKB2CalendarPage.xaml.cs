@@ -57,8 +57,6 @@ namespace ZSCY.Pages
                 rootFrame.GoBack();
                 e.Handled = true;
             }
-
-
         }
 
 
@@ -71,6 +69,11 @@ namespace ZSCY.Pages
         {
             bool success = await Launcher.LaunchUriAsync(new Uri("ms-settings-emailandaccounts:"));
 
+        }
+
+        private void URLTextBlock_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            URLTextBlock.Text = "http://hongyan.cqupt.edu.cn/api/kebiao_ics?xh=" + appSetting.Values["stuNum"].ToString();
         }
     }
 }
