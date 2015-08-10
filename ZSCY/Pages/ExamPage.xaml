@@ -17,7 +17,7 @@
     </Page.Resources>
     <StackPanel Name="itemStackPanel">
         <Grid Background="#068cfd" Height="70">
-            <TextBlock Name="ExamTextBlock" Foreground="White"  VerticalAlignment="Center" Margin="15,0" FontSize="40"></TextBlock>
+            <TextBlock Name="ExamTextBlock" Foreground="White" FontWeight="Light" FontFamily="Microsoft YaHei UI" VerticalAlignment="Center" Margin="15,0" FontSize="40"></TextBlock>
         </Grid>
         <ScrollViewer Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" Background="#f8f8f8">
             <Grid>

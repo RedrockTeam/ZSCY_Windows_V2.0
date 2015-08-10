@@ -19,9 +19,9 @@
         </Style>
     </Page.Resources>
     <Grid   Background="#f8f8f8">
-        <StackPanel VerticalAlignment="Top" Background="#068cfd" Height="50">
-            <TextBlock Text="个人信息" FontSize="35"  Margin="15,0,0,0"></TextBlock>
-        </StackPanel>
+        <Grid VerticalAlignment="Top" Background="#068cfd" Height="80">
+            <TextBlock Text="个人信息" FontSize="50" VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI" Margin="15,0,0,0"></TextBlock>
+        </Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="../Assets/Girl-100.png" Stretch="Uniform" Height="100" Width="100"></Image>
             <TextBlock x:Name="StudentName" Text="女神" Style="{StaticResource TxtBlockstyle}"/>

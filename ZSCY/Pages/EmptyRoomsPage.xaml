@@ -19,7 +19,7 @@
 
     <StackPanel Name="itemStackPanel">
         <Grid Background="#068cfd" Height="70">
-            <TextBlock Text="空教室查询" Foreground="White"  VerticalAlignment="Center" Margin="15,0" FontSize="40"></TextBlock>
+            <TextBlock Text="空教室查询" Foreground="White" FontWeight="Light" FontFamily="Microsoft YaHei UI" VerticalAlignment="Center" Margin="15,0" FontSize="40"></TextBlock>
             <Button Name="JXLButton" Content="二教" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0">
                 <Button.Flyout>
                     <MenuFlyout >

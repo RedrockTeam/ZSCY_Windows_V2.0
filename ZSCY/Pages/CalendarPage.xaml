@@ -13,8 +13,8 @@
     <Grid Background="#f8f8f8">
         <StackPanel>
 
-            <Grid Name="BlueBackGrid" Background="#068cfd" VerticalAlignment="Top" Height="50">
-                <TextBlock Text="校历" Foreground="White"  FontSize="35" FontWeight="Light"  FontFamily="Microsoft Yahei UI" Margin="20,0,0,0"></TextBlock>
+            <Grid Name="BlueBackGrid" Background="#068cfd" VerticalAlignment="Top" Height="80">
+                <TextBlock Text="校历" Foreground="White" VerticalAlignment="Center" FontSize="40" FontWeight="Light"  FontFamily="Microsoft Yahei UI" Margin="15,0,0,0"></TextBlock>
             </Grid>
             <Grid>
 
