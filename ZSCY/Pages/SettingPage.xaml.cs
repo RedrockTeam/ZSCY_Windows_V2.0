@@ -7,6 +7,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -55,9 +56,21 @@ namespace ZSCY.Pages
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
 
-        private void importKB2calendarButton_Click(object sender, RoutedEventArgs e)
+        private async void importKB2calendarButton_Click(object sender, RoutedEventArgs e)
         {
+            var dig = new MessageDialog("订阅课表为实验室功能，我们无法保证此功能100%可用与数据100%正确性，我们期待您的反馈。\n\n是否继续尝试？", "警告");
+            var btnOk = new UICommand("是");
+            dig.Commands.Add(btnOk);
+            var btnCancel = new UICommand("否");
+            dig.Commands.Add(btnCancel);
+            var result = await dig.ShowAsync();
+            if (null != result && result.Label == "是")
+            {
             Frame.Navigate(typeof(ImportKB2CalendarPage));
+            }
+            else if (null != result && result.Label == "否")
+            {
+            }
         }
     }
 }
