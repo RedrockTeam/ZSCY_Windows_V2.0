@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
+using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,11 +23,13 @@ namespace ZSCY.Pages
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class SettingPage : Page
+    public sealed partial class ImportKB2CalendarPage : Page
     {
-        public SettingPage()
+        private ApplicationDataContainer appSetting;
+        public ImportKB2CalendarPage()
         {
             this.InitializeComponent();
+            appSetting = ApplicationData.Current.LocalSettings; //本地存储
         }
 
         /// <summary>
@@ -36,7 +39,14 @@ namespace ZSCY.Pages
         /// 此参数通常用于配置页。</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            URLTextBlock.Text = "http://hongyan.cqupt.edu.cn/api/kebiao_ics?xh=" + appSetting.Values["stuNum"].ToString();
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
+        }
+
+        //离开页面时，取消事件
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)//重写后退按钮，如果要对所有页面使用，可以放在App.Xaml.cs的APP初始化函数中重写。
@@ -47,17 +57,20 @@ namespace ZSCY.Pages
                 rootFrame.GoBack();
                 e.Handled = true;
             }
+
+
         }
 
-        //离开页面时，取消事件
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+
+        private async void ToCalendar_Click(object sender, RoutedEventArgs e)
         {
-            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
+            bool success = await Launcher.LaunchUriAsync(new Uri("https://bay04.calendar.live.com/calendar/import.aspx?mkt=zh-CN#"));
         }
 
-        private void importKB2calendarButton_Click(object sender, RoutedEventArgs e)
+        private async void ToAccount_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ImportKB2CalendarPage));
+            bool success = await Launcher.LaunchUriAsync(new Uri("ms-settings-emailandaccounts:"));
+
         }
     }
 }

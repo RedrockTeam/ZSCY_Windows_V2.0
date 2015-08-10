@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-     xmlns:converter="using:ZSCY.Util.Converter"
+    xmlns:converter="using:ZSCY.Util.Converter"
     FontFamily="Microsoft YaHei UI"
     FontWeight="Light"
     x:Name="itemPage"
@@ -22,6 +22,7 @@
         <ScrollViewer Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" Background="#f8f8f8">
             <StackPanel Margin="10">
                 <TextBlock Text="实验室功能" FontSize="20" Foreground="Gray"/>
+                <Button Name="importKB2calendarButton" HorizontalAlignment="Stretch" Content="订阅当前账号课表到日历" RequestedTheme="Light" FontWeight="Light" FontFamily="Microsoft YaHei UI" Click="importKB2calendarButton_Click"/>
             </StackPanel>
         </ScrollViewer>
     </StackPanel>

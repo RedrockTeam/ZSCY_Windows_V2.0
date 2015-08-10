@@ -397,7 +397,7 @@
     </Grid>
 
     <Page.BottomAppBar >
-        <CommandBar Name="AppCommandBar">
+        <CommandBar Name="AppCommandBar" >
             <AppBarButton Name="KBRefreshAppBarButton" Icon="Refresh" Label="刷新" Click="KBRefreshAppBarButton_Click"/>
             <AppBarButton Name="KBZoomAppBarButton" Icon="Zoom" Label="查看他人" Click="KBZoomAppBarButton_Click">
                 <FlyoutBase.AttachedFlyout>

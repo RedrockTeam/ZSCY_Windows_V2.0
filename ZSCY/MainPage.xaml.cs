@@ -567,6 +567,7 @@ namespace ZSCY
         private void KBZoomAppBarButton_Click(object sender, RoutedEventArgs e)
         {
             KBZoomFlyout.ShowAt(MainHub);
+            KBZoomFlyoutTextBox.SelectAll();
         }
 
         /// <summary>
@@ -610,7 +611,7 @@ namespace ZSCY
         /// <param name="e"></param>
         private void MoreSwitchAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-           // appSetting.Values.Remove("idNum");
+            // appSetting.Values.Remove("idNum");
             Frame.Navigate(typeof(PersonPage));
         }
 
@@ -630,6 +631,7 @@ namespace ZSCY
         private void HubSectionKBNum_Tapped(object sender, TappedRoutedEventArgs e)
         {
             KBNumFlyout.ShowAt(MainHub);
+            HubSectionKBNum.SelectAll();
         }
         private void KBNumSearchButton_Click(object sender, RoutedEventArgs e)
         {
