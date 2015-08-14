@@ -44,6 +44,7 @@ namespace ZSCY.Pages
         /// 此参数通常用于配置页。</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            UmengSDK.UmengAnalytics.TrackPageStart("ScorePage");
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
             initScore();
         }
@@ -63,6 +64,7 @@ namespace ZSCY.Pages
         protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
             StatusBar statusBar = StatusBar.GetForCurrentView();
+            UmengSDK.UmengAnalytics.TrackPageEnd("ScorePage");
             await statusBar.ProgressIndicator.HideAsync();
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }

@@ -48,7 +48,7 @@ namespace ZSCY.Pages
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
             IsExamOrRe = System.Int32.Parse(e.Parameter.ToString());
             initExam();
-
+            UmengSDK.UmengAnalytics.TrackPageStart("ExamPage");
         }
 
         private async void initExam()
@@ -134,6 +134,7 @@ namespace ZSCY.Pages
             StatusBar statusBar = StatusBar.GetForCurrentView();
             await statusBar.ProgressIndicator.HideAsync();
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
+            UmengSDK.UmengAnalytics.TrackPageEnd("ExamPage");
         }
 
         private void ListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)

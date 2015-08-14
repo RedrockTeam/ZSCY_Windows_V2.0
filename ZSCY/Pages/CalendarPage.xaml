@@ -6,29 +6,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-      FontFamily="Microsoft YaHei UI"
+    x:Name="itemPage"
+    FontFamily="Microsoft YaHei UI"
+    xmlns:converter="using:ZSCY.Util.Converter"
     FontWeight="Light"
     Background="#068cfd">
-
+    <Page.Resources>
+        <converter:itemScrollViewerHeighConverter x:Key="itemScrollViewerHeighConverter"/>
+    </Page.Resources>
     <Grid Background="#f8f8f8">
         <StackPanel>
 
             <Grid Name="BlueBackGrid" Background="#068cfd" VerticalAlignment="Top" Height="80">
                 <TextBlock Text="校历" Foreground="White" VerticalAlignment="Center" FontSize="40" FontWeight="Light"  FontFamily="Microsoft Yahei UI" Margin="15,0,0,0"></TextBlock>
             </Grid>
-            <Grid>
-
-                <ScrollViewer Height="900" ZoomMode="Enabled" MinZoomFactor="1" MaxZoomFactor="2.5" >
-                    <ScrollViewer.Content>
-
-                        <StackPanel Orientation="Vertical">
-                            <Image Source="../Assets/school_calendar0.jpg" Stretch="UniformToFill"   ></Image>
-                            <!--<Image Source="../Assets/school_calendar1.jpg" Stretch="UniformToFill"></Image>-->
-                        </StackPanel>
-                    </ScrollViewer.Content>
-
-                </ScrollViewer>
-            </Grid>
+            <ScrollViewer ZoomMode="Enabled" Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}"  MinZoomFactor="0.8" MaxZoomFactor="2.5" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" >
+                <ScrollViewer.Content>
+                    <Image Source="http://www.cqupt.edu.cn/cqupt/img/public/xl.png" Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" Stretch="UniformToFill" ></Image>
+                </ScrollViewer.Content>
+            </ScrollViewer>
         </StackPanel>
     </Grid>
 </Page>

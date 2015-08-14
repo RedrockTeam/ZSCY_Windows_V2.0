@@ -46,12 +46,14 @@ namespace ZSCY
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            UmengSDK.UmengAnalytics.TrackPageStart("LoginPage");
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
 
         //离开页面时，取消事件
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            UmengSDK.UmengAnalytics.TrackPageEnd("LoginPage");
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
 

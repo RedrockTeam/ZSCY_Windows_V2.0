@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UmengSDK;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -37,8 +38,15 @@ namespace ZSCY
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+            this.Resuming += this.OnResuming;
             appSetting = ApplicationData.Current.LocalSettings;
         }
+
+        private async void OnResuming(object sender, object e)
+        {
+            await UmengAnalytics.StartTrackAsync("55cd8c8be0f55a20ba00440d", "Marketplace");
+        }
+
 
         /// <summary>
         /// 在应用程序由最终用户正常启动时进行调用。
@@ -46,7 +54,7 @@ namespace ZSCY
         /// 搜索结果等
         /// </summary>
         /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -116,6 +124,7 @@ namespace ZSCY
 
             // 确保当前窗口处于活动状态
             Window.Current.Activate();
+            await UmengAnalytics.StartTrackAsync("55cd8c8be0f55a20ba00440d", "Marketplace");
         }
 
         /// <summary>
@@ -137,10 +146,10 @@ namespace ZSCY
         /// </summary>
         /// <param name="sender">挂起的请求的源。</param>
         /// <param name="e">有关挂起请求的详细信息。</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-
+            await UmengAnalytics.EndTrackAsync();
             // TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
         }

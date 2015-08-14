@@ -42,7 +42,7 @@ namespace ZSCY.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
-
+            UmengSDK.UmengAnalytics.TrackPageStart("PersonPage");
             this.StudentName.Text = appSetting.Values["name"].ToString();
             this.StudentClass.Text = appSetting.Values["classNum"].ToString();
             this.StudentNumber.Text = appSetting.Values["stuNum"].ToString();
@@ -60,8 +60,9 @@ namespace ZSCY.Pages
         }
 
         //离开页面时，取消事件
-        protected  override void OnNavigatedFrom(NavigationEventArgs e)
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            UmengSDK.UmengAnalytics.TrackPageEnd("PersonPage");
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

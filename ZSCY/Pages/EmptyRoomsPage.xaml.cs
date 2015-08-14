@@ -80,6 +80,7 @@ namespace ZSCY.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
+            UmengSDK.UmengAnalytics.TrackPageStart("EmptyRoomsPage");
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)//重写后退按钮，如果要对所有页面使用，可以放在App.Xaml.cs的APP初始化函数中重写。
@@ -99,7 +100,7 @@ namespace ZSCY.Pages
             StatusBar statusBar = StatusBar.GetForCurrentView();
             await statusBar.ProgressIndicator.HideAsync();
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
-
+            UmengSDK.UmengAnalytics.TrackPageEnd("EmptyRoomsPage");
         }
 
         private async void Time08Grid_Tapped(object sender, TappedRoutedEventArgs e)
