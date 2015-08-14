@@ -16,14 +16,14 @@
       "Itemimgsrc": "Assets/more_exam.png"
     },
     {
-      "UniqueId": "Socre",
-      "Itemname": "成绩查询",
-      "Itemimgsrc": "Assets/more_score.png"
-    },
-    {
       "UniqueId": "ReExam",
       "Itemname": "补考查询",
       "Itemimgsrc": "Assets/more_reexam.png"
+    },
+    {
+      "UniqueId": "Socre",
+      "Itemname": "成绩查询",
+      "Itemimgsrc": "Assets/more_score.png"
     },
     {
       "UniqueId": "Setting",
