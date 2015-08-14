@@ -26,7 +26,7 @@
                     <TextBox Name="URLTextBlock" TextWrapping="Wrap" FontSize="18" FontWeight="Light" FontFamily="Microsoft YaHei UI" TextChanged="URLTextBlock_TextChanged"/>
                 </StackPanel>
                 <StackPanel >
-                    <TextBlock  Text="2）使用与当前手机中同样的账号登陆登陆日历,依次点击-导入-订阅，粘贴刚才复制的URL，输入名称&quot;课表&quot;，点击保存" TextWrapping="Wrap" Foreground="Black" VerticalAlignment="Center" FontSize="18" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                    <TextBlock  Text="2）使用与当前手机中同样的账号登陆登陆日历,依次点击-导入-订阅，粘贴刚才复制的URL，输入名称&quot;课表&quot;，点击保存&#x000D;(如果网页无法正常显示，请更改浏览器为计算机版本)" TextWrapping="Wrap" Foreground="Black" VerticalAlignment="Center" FontSize="18" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                     <Button Name="ToCalendar" Content="点击跳转" RequestedTheme="Light" FontWeight="Light" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Stretch" Click="ToCalendar_Click"/>
                 </StackPanel>
                 <StackPanel >
