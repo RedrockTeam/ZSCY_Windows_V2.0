@@ -23,11 +23,11 @@
             <TextBlock Text="个人信息" FontSize="50" VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI" Margin="15,0,0,0"></TextBlock>
         </Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="../Assets/Girl-100.png" Stretch="Uniform" Height="100" Width="100"></Image>
+            <!--<Image Source="../Assets/Girl-100.png" Stretch="Uniform" Height="100" Width="100"></Image>-->
             <TextBlock x:Name="StudentName" Text="女神" Style="{StaticResource TxtBlockstyle}"/>
             <TextBlock x:Name="StudentClass" Text="0401501" Style="{StaticResource TxtBlockstyle}"/>
             <TextBlock x:Name="StudentNumber" Text="2015211001" Style="{StaticResource TxtBlockstyle}"/>
-            <TextBlock x:Name="Academy" Text="爱在传媒，一路有你"  Style="{StaticResource TxtBlockstyle}" />
+            <!--<TextBlock x:Name="Academy" Text="爱在传媒，一路有你"  Style="{StaticResource TxtBlockstyle}" />-->
         </StackPanel> 
     </Grid>
     <Page.BottomAppBar>
