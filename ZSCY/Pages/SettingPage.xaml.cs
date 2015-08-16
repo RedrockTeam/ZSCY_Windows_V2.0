@@ -74,5 +74,10 @@ namespace ZSCY.Pages
             {
             }
         }
+
+        private void AboutAppBarToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AboutPage));
+        }
     }
 }

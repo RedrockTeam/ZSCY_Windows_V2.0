@@ -167,8 +167,13 @@ namespace ZSCY
                 if (Int32.Parse(obj["status"].ToString()) == 200)
                 {
                     IStorageFile storageFileWR = await applicationFolder.CreateFileAsync("kb", CreationCollisionOption.OpenIfExists);
-                    await FileIO.WriteTextAsync(storageFileWR, kb);
-
+                    try {
+                        await FileIO.WriteTextAsync(storageFileWR, kb);
+                    }
+                    catch(Exception)
+                    {
+                        Debug.WriteLine("主页 -> 课表缓存，读取异常");
+                    }
                     //保存当前星期
                     appSetting.Values["nowWeek"] = obj["nowWeek"].ToString();
                     HubSectionKBNum.Text = "第" + obj["nowWeek"].ToString() + "周";

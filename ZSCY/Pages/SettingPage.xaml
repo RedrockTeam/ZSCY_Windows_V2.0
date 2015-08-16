@@ -26,4 +26,10 @@
             </StackPanel>
         </ScrollViewer>
     </StackPanel>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarToggleButton Name="AboutAppBarToggleButton" Icon="Help" Label="关于" Click="AboutAppBarToggleButton_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

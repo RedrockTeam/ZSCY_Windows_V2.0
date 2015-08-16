@@ -22,7 +22,10 @@
             </Grid>
             <ScrollViewer ZoomMode="Enabled" Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}"  MinZoomFactor="0.8" MaxZoomFactor="2.5" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" >
                 <ScrollViewer.Content>
-                    <Image Source="http://www.cqupt.edu.cn/cqupt/img/public/xl.png" Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" Stretch="UniformToFill" ></Image>
+                    <Grid>
+                        <ProgressBar IsIndeterminate="True"/>
+                        <Image Name="CalendarImage" Source="http://www.cqupt.edu.cn/cqupt/img/public/xl.png" Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" Stretch="UniformToFill" ></Image>
+                    </Grid>
                 </ScrollViewer.Content>
             </ScrollViewer>
         </StackPanel>
