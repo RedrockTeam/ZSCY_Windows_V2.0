@@ -418,7 +418,7 @@
             </AppBarButton>
             <AppBarButton Name="KBCalendarAppBarButton" Icon="Calendar" Label="学期/本周" Click="KBCalendarAppBarButton_Click"/>
             <AppBarButton Name="JWRefreshAppBarButton" Icon="Refresh" Label="刷新" Click="JWRefreshAppBarButton_Click" Visibility="Collapsed"/>
-            <AppBarButton Name="MoreSwitchAppBarButton" Label="切换账号" Click="MoreSwitchAppBarButton_Click" Visibility="Collapsed">
+            <AppBarButton Name="MoreSwitchAppBarButton" Label="个人信息" Click="MoreSwitchAppBarButton_Click" Visibility="Collapsed">
                 <AppBarButton.Icon>
                     <BitmapIcon UriSource="Assets/Contacts-100.png"/>
                 </AppBarButton.Icon>
