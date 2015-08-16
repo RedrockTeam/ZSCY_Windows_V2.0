@@ -28,7 +28,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarToggleButton Name="LikeAppBarToggleButton" Icon="Like" Label="关评价于" Click="LikeAppBarToggleButton_Click"/>
+            <AppBarToggleButton Name="LikeAppBarToggleButton" Icon="Like" Label="好评我" Click="LikeAppBarToggleButton_Click"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

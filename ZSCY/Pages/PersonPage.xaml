@@ -32,7 +32,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Like" Label="好评我"/>
+            <AppBarToggleButton Name="LikeAppBarToggleButton" Icon="Like" Label="好评我" Click="LikeAppBarToggleButton_Click"/>
             <AppBarButton Label="注销" Icon="Switch" Click="AppBarButton_Click"/>
         </CommandBar>
     </Page.BottomAppBar>
