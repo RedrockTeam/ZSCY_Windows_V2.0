@@ -3,7 +3,7 @@
   <Identity Name="26092662B8482.24247F5326900" Publisher="CN=3CE58E64-6EFC-43AC-A445-9CBA89BCEA42" Version="2.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="07e673ab-bd02-41d4-8260-5db5d2affb29" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>掌上重邮</DisplayName>
+    <DisplayName>掌上重邮—重邮小帮手</DisplayName>
     <PublisherDisplayName>重庆邮电大学红岩网校工作站</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
