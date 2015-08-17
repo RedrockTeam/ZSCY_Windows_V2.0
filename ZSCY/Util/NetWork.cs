@@ -40,7 +40,7 @@ namespace ZSCY.Util
                else
                {
                }
-               if (content.IndexOf("<!DOCTYPE") == 1)
+               if (content.IndexOf("{") != 0)
                    return "";
                else
                    return content;
