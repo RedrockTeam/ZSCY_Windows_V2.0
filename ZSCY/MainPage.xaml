@@ -173,7 +173,7 @@
                                         </Grid.RowDefinitions>
                                         <FlyoutBase.AttachedFlyout>
                                             <Flyout x:Name="KBCLassFlyout"  >
-                                                <Pivot Name="KBCLassFlyoutPivot">
+                                                <Pivot Name="KBCLassFlyoutPivot" Margin="0,10,0,0">
                                                     <PivotItem Name="KBCLassFlyoutPivotItem" >
                                                         <ListView Name="KBCLassFlyoutListView" >
                                                             <ListView.ItemTemplate>
