@@ -167,10 +167,11 @@ namespace ZSCY
                 if (Int32.Parse(obj["status"].ToString()) == 200)
                 {
                     IStorageFile storageFileWR = await applicationFolder.CreateFileAsync("kb", CreationCollisionOption.OpenIfExists);
-                    try {
+                    try
+                    {
                         await FileIO.WriteTextAsync(storageFileWR, kb);
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         Debug.WriteLine("主页 -> 课表缓存，读取异常");
                     }
@@ -440,10 +441,17 @@ namespace ZSCY
 
         private async void setOpacity()
         {
-            opacityGrid.Visibility = Visibility.Visible;
-            OpacityJWGrid.Begin();
-            await Task.Delay(1000);
-            opacityGrid.Visibility = Visibility.Collapsed;
+            try
+            {
+                opacityGrid.Visibility = Visibility.Visible;
+                OpacityJWGrid.Begin();
+                await Task.Delay(1000);
+                opacityGrid.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception)
+            {
+                opacityGrid.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void JWListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
