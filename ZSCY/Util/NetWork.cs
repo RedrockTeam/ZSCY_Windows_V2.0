@@ -30,6 +30,8 @@ namespace ZSCY.Util
                        HttpResponseMessage response = httpClient.PostAsync(new Uri(uri), new FormUrlEncodedContent(paramList)).Result;
                        if (response.StatusCode == HttpStatusCode.OK)
                            content = response.Content.ReadAsStringAsync().Result;
+                       else if (response.StatusCode == HttpStatusCode.NotFound)
+                           Utils.Message("Oh...服务器又跪了，给我们点时间修好它");
 
                    }
                    catch (Exception e)

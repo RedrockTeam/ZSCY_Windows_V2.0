@@ -180,7 +180,7 @@ namespace ZSCY
                     HubSectionKBNum.Text = "第" + obj["nowWeek"].ToString() + "周";
                     //showKB(2, Int32.Parse(appSetting.Values["nowWeek"].ToString()));
 #if DEBUG
-                    showKB(2, 5);
+                    showKB(2);
 #else
                     showKB(2);
 #endif
@@ -226,14 +226,19 @@ namespace ZSCY
                     ClassColor = System.Int32.Parse(appSetting.Values[classitem.Course].ToString());
                 }
                 if (weekOrAll == 1)
+                {
                     SetClass(classitem, ClassColor);
+                    HubSectionKBNum.Visibility = Visibility.Collapsed;
+                }
                 else
                 {
+                    HubSectionKBNum.Visibility = Visibility.Visible;
                     if (week == 0)
                     {
                         if (Array.IndexOf(classitem.Week, Int32.Parse(appSetting.Values["nowWeek"].ToString())) != -1)
                         {
                             SetClass(classitem, ClassColor);
+                            HubSectionKBNum.Text = "第" + appSetting.Values["nowWeek"].ToString() + "周";
                         }
                     }
                     else
@@ -241,6 +246,7 @@ namespace ZSCY
                         if (Array.IndexOf(classitem.Week, week) != -1)
                         {
                             SetClass(classitem, ClassColor);
+                            HubSectionKBNum.Text = "第" + week.ToString() + "周";
                         }
                     }
                 }
@@ -571,6 +577,7 @@ namespace ZSCY
         private void KBRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
             stuNum = appSetting.Values["stuNum"].ToString();
+            wOa = 1;
             initKB(true);
         }
 
@@ -638,6 +645,7 @@ namespace ZSCY
                 HubSectionKBTitle.Text = stuNum + "的课表";
                 HubSectionKBTitle.FontSize = 30;
                 initKB();
+                wOa = 1;
                 KBZoomFlyout.Hide();
             }
             else
