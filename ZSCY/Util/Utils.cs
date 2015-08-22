@@ -161,9 +161,15 @@ namespace ZSCY.Util
                 if (Int32.Parse(obj["status"].ToString()) == 200)
                 {
                     JObject jObject = (JObject)JsonConvert.DeserializeObject(jsonstring);
-                    string json = jObject["data"].ToString();
-                    JArray jArray = (JArray)JsonConvert.DeserializeObject(json);
-                    return jArray;
+                    try
+                    {
+                        string json = jObject["data"].ToString();
+                        JArray jArray = (JArray)JsonConvert.DeserializeObject(json);
+                        return jArray;
+                    }
+                    catch(Exception) {
+                    }
+                    return null;
                 }
                 else
                 {
