@@ -55,49 +55,67 @@ namespace ZSCY.Pages
         {
             string exam = "";
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
-            paramList.Add(new KeyValuePair<string, string>("stuNum", appSetting.Values["stuNum"].ToString()));
-            paramList.Add(new KeyValuePair<string, string>("idNum", appSetting.Values["idNum"].ToString()));
+
             await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在紧张安排考试...", isIndeterminate: true);
             if (IsExamOrRe == 2)
             {
                 ExamTextBlock.Text = "考试安排";
+                paramList.Add(new KeyValuePair<string, string>("stuNum", appSetting.Values["stuNum"].ToString()));
+                paramList.Add(new KeyValuePair<string, string>("idNum", appSetting.Values["idNum"].ToString()));
                 exam = await NetWork.getHttpWebRequest("api/examSchedule", paramList);
             }
             else if (IsExamOrRe == 3)
             {
                 ExamTextBlock.Text = "补考安排";
-                exam = await NetWork.getHttpWebRequest("api/examReexam", paramList);
+#if DEBUG
+                paramList.Add(new KeyValuePair<string, string>("stu", "2013211854"));
+#else   
+                paramList.Add(new KeyValuePair<string, string>("stu", appSetting.Values["stuNum"].ToString()));
+#endif
+                exam = await NetWork.getHttpWebRequest("examapi/index.php", paramList);
             }
             Debug.WriteLine("exam->" + exam);
             if (exam != "")
             {
-                JObject obj = JObject.Parse(exam);
-                if (Int32.Parse(obj["status"].ToString()) == 200)
+                try
                 {
-                    List<ExamList> examList = new List<ExamList>();
-                    JArray ExamListArray = Utils.ReadJso(exam);
-                    for (int i = 0; i < ExamListArray.Count; i++)
+                    JObject obj = JObject.Parse(exam);
+                    if (Int32.Parse(obj["status"].ToString()) == 200)
                     {
-                        ExamList examitem = new ExamList();
-                        examitem.GetAttribute((JObject)ExamListArray[i]);
-                        if (IsExamOrRe == 2)
-                            examitem.DateTime = "第" + examitem.Week + "周周" + examitem.Weekday + "\r\n" + examitem.Begin_time + "-" + examitem.End_time;
-                        else if (IsExamOrRe == 3)
-                            examitem.DateTime = "日期:" + examitem.Date + "\r\n" + "时间:" + examitem.Time;
-                        examList.Add(examitem);
+                        List<ExamList> examList = new List<ExamList>();
+                        JArray ExamListArray = Utils.ReadJso(exam);
+                        for (int i = 0; i < ExamListArray.Count; i++)
+                        {
+                            ExamList examitem = new ExamList();
+                            examitem.GetAttribute((JObject)ExamListArray[i]);
+                            if (IsExamOrRe == 2)
+                                examitem.DateTime = "第" + examitem.Week + "周周" + examitem.Weekday + "\r\n" + examitem.Begin_time + "-" + examitem.End_time;
+                            else if (IsExamOrRe == 3)
+                                examitem.DateTime = "日期:" + examitem.Date + "\r\n" + "时间:" + examitem.Time;
+                            examList.Add(examitem);
+                        }
+                        ExamListView.ItemsSource = examList;
                     }
-                    ExamListView.ItemsSource = examList;
-                }
-                else if(Int32.Parse(obj["status"].ToString()) == 300)
-                {
-                    ListFailedStackPanelTextBlock.Text = "暂无数据，过几天再来看看";
+                    else if (Int32.Parse(obj["status"].ToString()) == 300)
+                    {
+                        ListFailedStackPanelTextBlock.Text = "暂无数据，过几天再来看看";
 
-                    ListFailedStackPanel.Visibility = Visibility.Visible;
-                    ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
-                    ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                        ListFailedStackPanel.Visibility = Visibility.Visible;
+                        ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
+                        ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
+
+                        ListFailedStackPanel.Visibility = Visibility.Visible;
+                        ListFailedStackPanelImage.Visibility = Visibility.Visible;
+                        ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                    }
                 }
-                else
+                catch(Exception)
                 {
+                    Debug.WriteLine("考试信息->解析异常");
                     ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
 
                     ListFailedStackPanel.Visibility = Visibility.Visible;
@@ -110,7 +128,7 @@ namespace ZSCY.Pages
                 ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
 
                 ListFailedStackPanel.Visibility = Visibility.Visible;
-               ListFailedStackPanelImage.Visibility = Visibility.Visible;
+                ListFailedStackPanelImage.Visibility = Visibility.Visible;
                 ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
             }
             StatusBar statusBar = StatusBar.GetForCurrentView();
