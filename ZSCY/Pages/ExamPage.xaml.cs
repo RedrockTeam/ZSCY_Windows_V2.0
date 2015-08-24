@@ -67,11 +67,11 @@ namespace ZSCY.Pages
             else if (IsExamOrRe == 3)
             {
                 ExamTextBlock.Text = "补考安排";
-#if DEBUG
-                paramList.Add(new KeyValuePair<string, string>("stu", "2013211854"));
-#else   
+//#if DEBUG
+//                paramList.Add(new KeyValuePair<string, string>("stu", "2013211854"));
+//#else   
                 paramList.Add(new KeyValuePair<string, string>("stu", appSetting.Values["stuNum"].ToString()));
-#endif
+//#endif
                 exam = await NetWork.getHttpWebRequest("examapi/index.php", paramList);
             }
             Debug.WriteLine("exam->" + exam);
@@ -104,6 +104,14 @@ namespace ZSCY.Pages
                         ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
                         ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
                     }
+                    else if (Int32.Parse(obj["status"].ToString()) == 0)
+                    {
+                        ListFailedStackPanelTextBlock.Text = "没补考的孩子别瞎点";
+
+                        ListFailedStackPanel.Visibility = Visibility.Visible;
+                        ListFailedStackPanelImage.Visibility = Visibility.Collapsed;
+                        ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
+                    }
                     else
                     {
                         ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
@@ -113,7 +121,7 @@ namespace ZSCY.Pages
                         ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     Debug.WriteLine("考试信息->解析异常");
                     ListFailedStackPanelTextBlock.Text = "加载失败，点击重试";
