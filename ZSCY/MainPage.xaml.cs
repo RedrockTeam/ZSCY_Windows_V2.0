@@ -39,7 +39,7 @@ namespace ZSCY
     public sealed partial class MainPage : Page
     {
         private ApplicationDataContainer appSetting;
-
+        private ApplicationDataContainer appSettingclass;
         private bool isExit = false;
         private int page = 1;
         private int wOa = 1;
@@ -72,6 +72,7 @@ namespace ZSCY
         public MainPage()
         {
             appSetting = ApplicationData.Current.LocalSettings; //本地存储
+            appSettingclass = ApplicationData.Current.RoamingSettings; 
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
@@ -157,7 +158,10 @@ namespace ZSCY
 
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("stuNum", stuNum));
-            string kbtemp = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList);
+
+            string kbtemp = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList); //新
+            //string kbtemp = await NetWork.getHttpWebRequest("api/kebiao", paramList); //旧
+
             if (kbtemp != "")
                 kb = kbtemp;
             Debug.WriteLine("kb->" + kb);
@@ -213,17 +217,17 @@ namespace ZSCY
                 classitem.GetAttribute((JObject)ClassListArray[i]);
                 classList.Add(classitem);
                 int ClassColor = 0;
-                if (!appSetting.Values.ContainsKey(classitem.Course))
+                if (!appSettingclass.Values.ContainsKey(classitem.Course))
                 {
-                    appSetting.Values[classitem.Course] = ColorI;
+                    appSettingclass.Values[classitem.Course] = ColorI;
                     ClassColor = ColorI;
                     ColorI++;
-                    if (ColorI > 10)
+                    if (ColorI > 2)
                         ColorI = 0;
                 }
                 else
                 {
-                    ClassColor = System.Int32.Parse(appSetting.Values[classitem.Course].ToString());
+                    ClassColor = System.Int32.Parse(appSettingclass.Values[classitem.Course].ToString());
                 }
                 if (weekOrAll == 1)
                 {
@@ -251,6 +255,8 @@ namespace ZSCY
                     }
                 }
             }
+            appSettingclass.Values.Clear();
+            
         }
 
 
@@ -263,17 +269,20 @@ namespace ZSCY
         {
 
             Color[] colors = new Color[]{
-                   Color.FromArgb(255,132, 191, 19),
-                   Color.FromArgb(255,67, 182, 229),
-                   Color.FromArgb(255,253, 137, 1),
-                   Color.FromArgb(255,128, 79, 242),
-                   Color.FromArgb(255,240, 68, 189),
-                   Color.FromArgb(255,229, 28, 35),
-                   Color.FromArgb(255,156, 39, 176),
-                   Color.FromArgb(255,3, 169, 244),
-                   Color.FromArgb(255,255, 193, 7),
-                   Color.FromArgb(255,255, 152, 0),
-                   Color.FromArgb(255,96, 125, 139),
+                   //Color.FromArgb(255,132, 191, 19),
+                   //Color.FromArgb(255,67, 182, 229),
+                   //Color.FromArgb(255,253, 137, 1),
+                   //Color.FromArgb(255,128, 79, 242),
+                   //Color.FromArgb(255,240, 68, 189),
+                   //Color.FromArgb(255,229, 28, 35),
+                   //Color.FromArgb(255,156, 39, 176),
+                   //Color.FromArgb(255,3, 169, 244),
+                   //Color.FromArgb(255,255, 193, 7),
+                   //Color.FromArgb(255,255, 152, 0),
+                   //Color.FromArgb(255,96, 125, 139),
+                   Color.FromArgb(255,255, 161, 16),
+                   Color.FromArgb(255,56, 188, 242),
+                   Color.FromArgb(255,159, 213, 27),
                 };
 
             TextBlock ClassTextBlock = new TextBlock();

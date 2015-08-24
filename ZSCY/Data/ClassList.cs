@@ -44,7 +44,7 @@ namespace ZSCY.Data
             WeekModel = classDetailJObject["weekModel"].ToString();
             WeekBegin = (int)classDetailJObject["weekBegin"];
             WeekEnd = (int)classDetailJObject["weekEnd"];
-            Type = classDetailJObject["type"].ToString();
+            Type = classDetailJObject["type"] != null ? classDetailJObject["type"].ToString() : "";
             Status = classDetailJObject["status"].ToString();
             Period = (int)classDetailJObject["period"];
             _Id = classDetailJObject["_id"] != null ? classDetailJObject["_id"].ToString() : "";

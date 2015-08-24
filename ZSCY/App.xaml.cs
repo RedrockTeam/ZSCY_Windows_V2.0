@@ -40,6 +40,33 @@ namespace ZSCY
             this.Suspending += this.OnSuspending;
             this.Resuming += this.OnResuming;
             appSetting = ApplicationData.Current.LocalSettings;
+
+            if (appSetting.Values.ContainsKey("donewVersion"))
+            {
+                if (Int32.Parse(appSetting.Values["donewVersion"].ToString()) == 1)
+                {
+                    newVersion();
+                    appSetting.Values["donewVersion"] = 2;
+                }
+            }
+            else
+            {
+                appSetting.Values["donewVersion"] = 2;
+                newVersion();
+            }
+        }
+
+        private void newVersion()
+        {
+            if (Int32.Parse(appSetting.Values["donewVersion"].ToString()) == 1)
+            {
+                var a = appSetting.Values.ToArray();
+                for (int i = 0; i < a.Length; i++)
+                {
+                    if (a[i].Key != "idNum" && a[i].Key != "stuNum" && a[i].Key != "name" && a[i].Key != "classNum" && a[i].Key != "nowWeek" && a[i].Key != "donewVersion")
+                        appSetting.Values.Remove(a[i].Key);
+                }
+            }
         }
 
         private async void OnResuming(object sender, object e)
