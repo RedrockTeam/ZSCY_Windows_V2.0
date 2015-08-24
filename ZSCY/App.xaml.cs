@@ -58,6 +58,7 @@ namespace ZSCY
 
         private void newVersion()
         {
+
             if (Int32.Parse(appSetting.Values["donewVersion"].ToString()) == 1)
             {
                 var a = appSetting.Values.ToArray();
