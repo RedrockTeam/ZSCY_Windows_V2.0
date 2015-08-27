@@ -33,11 +33,11 @@
                                         <TextBlock Text="{Binding DateTime}" Foreground="Black" FontSize="12" VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <Image Source="../Assets/dialog_course_teacher.png" Margin="0,0,5,0" Height="20"/>
+                                        <Image Source="../Assets/dialog_course_add.png" Margin="0,0,5,0" Height="20"/>
                                         <TextBlock Text="{Binding Classroom}" Foreground="Black" FontSize="14" VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                        <Image Source="../Assets/dialog_course_classroom.png" Margin="0,0,5,0" Height="20"/>
+                                        <Image Source="../Assets/dialog_course_type.png" Margin="0,0,5,0" Height="20"/>
                                         <TextBlock Text="{Binding Seat}" Foreground="Black" FontSize="14" VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                                     </StackPanel>
                                 </Grid>
