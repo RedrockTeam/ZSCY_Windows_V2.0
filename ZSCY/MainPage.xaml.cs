@@ -479,7 +479,6 @@ namespace ZSCY
             UmengSDK.UmengAnalytics.TrackPageStart("MainPage");
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
             this.navigationHelper.OnNavigatedTo(e);
-
         }
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -508,7 +507,7 @@ namespace ZSCY
             await statusBar.ProgressIndicator.HideAsync();
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
             this.navigationHelper.OnNavigatedFrom(e);
-
+            
         }
 
         private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)//重写后退按钮，如果要对所有页面使用，可以放在App.Xaml.cs的APP初始化函数中重写。

@@ -141,9 +141,9 @@
   <ItemGroup>
     <Content Include="Assets\Boy-100.png" />
     <Content Include="Assets\Contacts-100.png" />
-    <Content Include="Assets\dialog_course_classroom.png" />
-    <Content Include="Assets\dialog_course_teacher.png" />
+    <Content Include="Assets\dialog_course_add.png" />
     <Content Include="Assets\dialog_course_time.png" />
+    <Content Include="Assets\dialog_course_type.png" />
     <Content Include="Assets\Girl-100.png" />
     <Content Include="Assets\grzx.png" />
     <Content Include="Assets\ic_failed.png">
