@@ -72,15 +72,15 @@ namespace ZSCY
         public MainPage()
         {
             appSetting = ApplicationData.Current.LocalSettings; //本地存储
-            appSettingclass = ApplicationData.Current.RoamingSettings; 
+            appSettingclass = ApplicationData.Current.RoamingSettings;
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
             //MoreGRNameTextBlock.Text = appSetting.Values["name"].ToString();
             //MoreGRClassTextBlock.Text = appSetting.Values["classNum"].ToString();
             //MoreGRNumTextBlock.Text = appSetting.Values["stuNum"].ToString();
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
+            //this.navigationHelper = new NavigationHelper(this);
+            //this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 
             stuNum = appSetting.Values["stuNum"].ToString();
             initKB();
@@ -256,7 +256,7 @@ namespace ZSCY
                 }
             }
             appSettingclass.Values.Clear();
-            
+
         }
 
 
@@ -474,11 +474,13 @@ namespace ZSCY
             initJW();
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             UmengSDK.UmengAnalytics.TrackPageStart("MainPage");
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
-            this.navigationHelper.OnNavigatedTo(e);
+                                                                       //this.navigationHelper.OnNavigatedTo(e);
+            var group = await DataSource.Get();
+            this.Morepageclass["Group"] = group;
 
         }
 
@@ -507,7 +509,7 @@ namespace ZSCY
             UmengSDK.UmengAnalytics.TrackPageEnd("MainPage");
             await statusBar.ProgressIndicator.HideAsync();
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
-            this.navigationHelper.OnNavigatedFrom(e);
+            //this.navigationHelper.OnNavigatedFrom(e);
 
         }
 
@@ -525,7 +527,9 @@ namespace ZSCY
                 await statusBar.ProgressIndicator.HideAsync();
             }
             else
+            {
                 Application.Current.Exit();
+            }
         }
 
         private void JiaowuListView_ItemClick(object sender, ItemClickEventArgs e)
