@@ -35,25 +35,25 @@ namespace ZSCY_Win10
                 {
                     Image = "ms-appx:///Assets/iconfont-table.png",
                     Label = "我的课表",
-                    DestPage = typeof(KBPage),
+                    DestPage = typeof(KBPage)
                 },
                 new NavMenuItem()
                 {
                     Image = "ms-appx:///Assets/iconfont-news.png",
                     Label = "教务信息",
-                    //DestPage = typeof(testpage)
+                    DestPage = typeof(JWPage)
                 },
                           new NavMenuItem()
                 {
                     Image = "ms-appx:///Assets/iconfont-more.png",
                     Label = "更多",
-                    //DestPage = typeof(testpage)
+                    DestPage = typeof(MorePage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Setting,
                     Label = "设置",
-                    //DestPage = typeof(TextCodePage)
+                    DestPage = typeof(SettingPage)
                 },
             }
             );
