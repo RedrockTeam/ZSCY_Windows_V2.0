@@ -8,34 +8,26 @@
     mc:Ignorable="d"
     >
 
-    <Grid x:Name="grid" Background="#068cfd">
+    <Grid x:Name="grid" Background="#068cfd" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <VisualStateManager.VisualStateGroups>
-
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="VisualState000">
                     <VisualState.Setters>
-                        <Setter Target="MainStackPanel.(FrameworkElement.HorizontalAlignment)" Value="Center"/>
-                        <Setter Target="grid.(FrameworkElement.HorizontalAlignment)" Value="Stretch"/>
-                        <Setter Target="grid.(FrameworkElement.VerticalAlignment)" Value="Stretch"/>
-                        <Setter Target="MainStackPanel.(FrameworkElement.VerticalAlignment)" Value="Center"/>
+                        <Setter Target="MainStackPanel.(StackPanel.Orientation)" Value="Vertical"/>
                     </VisualState.Setters>
                 </VisualState>
 
                 <VisualState x:Name="VisualState500">
                     <VisualState.Setters>
                         <Setter Target="MainStackPanel.(StackPanel.Orientation)" Value="Horizontal"/>
-                        <Setter Target="MainStackPanel.(FrameworkElement.VerticalAlignment)" Value="Center"/>
-                        <Setter Target="MainStackPanel.(FrameworkElement.HorizontalAlignment)" Value="Center"/>
-                        <Setter Target="stackPanel.(FrameworkElement.HorizontalAlignment)" Value="Center"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-
         </VisualStateManager.VisualStateGroups>
 
-        <StackPanel Name="MainStackPanel" Orientation="Vertical">
+        <StackPanel Name="MainStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image x:Name="image" Source="Assets/Logo.scale-240.png" VerticalAlignment="Top" Margin="15" Height="150" Width="150" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"></Image>
-            <StackPanel x:Name="stackPanel" VerticalAlignment="Center" Margin="30,-85,30,0">
+            <StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Grid Background="White" Width="250">
                     <TextBox Background="White" Width="250" Name="StuNumTextBox" InputScope="Number" PlaceholderText="学号" Foreground="Black" TextChanged="StuNumTextBox_TextChanged" BorderBrush="#FF7A7A7A"/>
                 </Grid>
