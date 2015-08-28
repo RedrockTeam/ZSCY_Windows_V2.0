@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -61,11 +62,18 @@ namespace ZSCY
 
             if (Int32.Parse(appSetting.Values["donewVersion"].ToString()) == 1)
             {
-                var a = appSetting.Values.ToArray();
-                for (int i = 0; i < a.Length; i++)
+                try
                 {
-                    if (a[i].Key != "idNum" && a[i].Key != "stuNum" && a[i].Key != "name" && a[i].Key != "classNum" && a[i].Key != "nowWeek" && a[i].Key != "donewVersion")
-                        appSetting.Values.Remove(a[i].Key);
+                    var a = appSetting.Values.ToArray();
+                    for (int i = 0; i < a.Length; i++)
+                    {
+                        if (a[i].Key != "idNum" && a[i].Key != "stuNum" && a[i].Key != "name" && a[i].Key != "classNum" && a[i].Key != "nowWeek" && a[i].Key != "donewVersion")
+                            appSetting.Values.Remove(a[i].Key);
+                    }
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("清除旧版本数据异常");
                 }
             }
         }

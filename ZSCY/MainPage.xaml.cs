@@ -83,7 +83,7 @@ namespace ZSCY
             //this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 
             stuNum = appSetting.Values["stuNum"].ToString();
-            initKB();
+            //initKB();
             initJW();
         }
 
@@ -481,7 +481,8 @@ namespace ZSCY
                                                                        //this.navigationHelper.OnNavigatedTo(e);
             var group = await DataSource.Get();
             this.Morepageclass["Group"] = group;
-
+            if (e.NavigationMode == NavigationMode.Forward || e.NavigationMode == NavigationMode.New)
+                initKB();
         }
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)

@@ -67,11 +67,11 @@ namespace ZSCY.Pages
             else if (IsExamOrRe == 3)
             {
                 ExamTextBlock.Text = "补考安排";
-//#if DEBUG
-//                paramList.Add(new KeyValuePair<string, string>("stu", "2013211854"));
-//#else   
+#if DEBUG
+                paramList.Add(new KeyValuePair<string, string>("stu", "2014214136"));
+#else   
                 paramList.Add(new KeyValuePair<string, string>("stu", appSetting.Values["stuNum"].ToString()));
-//#endif
+#endif
                 exam = await NetWork.getHttpWebRequest("examapi/index.php", paramList);
             }
             Debug.WriteLine("exam->" + exam);

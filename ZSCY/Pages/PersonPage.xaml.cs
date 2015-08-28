@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -67,9 +68,19 @@ namespace ZSCY.Pages
             UmengSDK.UmengAnalytics.TrackPageEnd("PersonPage");
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
             appSetting.Values.Remove("idNum");
+            IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
+            IStorageFile storageFileWR = await applicationFolder.CreateFileAsync("kb", CreationCollisionOption.OpenIfExists);
+            try
+            {
+                storageFileWR.DeleteAsync();
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("个人 -> 切换账号删除课表数据异常");
+            }
             Frame.Navigate(typeof(LoginPage));
         }
         private async void LikeAppBarToggleButton_Click(object sender, RoutedEventArgs e)

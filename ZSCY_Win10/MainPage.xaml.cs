@@ -27,27 +27,32 @@ namespace ZSCY_Win10
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        //readonly string[] algorithmNames = { "MD5", "SHA1", "SHA256", "SHA384", "SHA512" };
-        ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+        ApplicationDataContainer appSetting = Windows.Storage.ApplicationData.Current.LocalSettings;
         private List<NavMenuItem> navlist = new List<NavMenuItem>(
             new[]
             {
                  new NavMenuItem()
                 {
-                    Symbol = Symbol.Accept,
-                    Label = "第一页",
-                    //DestPage = typeof(testpage2)
+                    Image = "ms-appx:///Assets/iconfont-table.png",
+                    Label = "我的课表",
+                    DestPage = typeof(KBPage),
                 },
-                     new NavMenuItem()
+                new NavMenuItem()
                 {
-                    Symbol = Symbol.Edit,
-                    Label = "第二页",
+                    Image = "ms-appx:///Assets/iconfont-news.png",
+                    Label = "教务信息",
+                    //DestPage = typeof(testpage)
+                },
+                          new NavMenuItem()
+                {
+                    Image = "ms-appx:///Assets/iconfont-more.png",
+                    Label = "更多",
                     //DestPage = typeof(testpage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Favorite,
-                    Label = "第三页",
+                    Symbol = Symbol.Setting,
+                    Label = "设置",
                     //DestPage = typeof(TextCodePage)
                 },
             }
@@ -60,15 +65,15 @@ namespace ZSCY_Win10
             this.Loaded += (sender, args) =>
             {
                 Current = this;
-                    //然并卵
-                    this.TogglePaneButton.Focus(FocusState.Programmatic);
+                //然并卵
+                this.TogglePaneButton.Focus(FocusState.Programmatic);
 
             };
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequseted;
             //如果是在手机上，有实体键，隐藏返回键。
             if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
             {
-                this.BackButton.Visibility = Visibility.Collapsed;
+                //this.BackButton.Visibility = Visibility.Collapsed;
             }
             NavMenuList.ItemsSource = navlist;
         }
@@ -120,35 +125,24 @@ namespace ZSCY_Win10
 
         //}
 
-        //private void Button_Click(object sender, RoutedEventArgs e)
+        //private string ConvertToUpper(string txt)
         //{
-        //    Md5Box.Text = ConvertToUpper(ComputeValue.ComputeHash(InpuTextBox.Text, "MD5"));
-        //    Sha1Box.Text =
-        //        ConvertToUpper(ComputeValue.ComputeHash(InpuTextBox.Text, "SHA1"));
-        //    Sha256Box.Text =
-        //        ConvertToUpper(ComputeValue.ComputeHash(InpuTextBox.Text, "SHA256"));
-        //    Sha384Box.Text =
-        //        ConvertToUpper(ComputeValue.ComputeHash(InpuTextBox.Text, "SHA384"));
-        //    Sha512Box.Text = ConvertToUpper(ComputeValue.ComputeHash(InpuTextBox.Text, "SHA512"));
-        //}
-        private string ConvertToUpper(string txt)
-        {
-            bool isKeyExist = localSettings.Values.ContainsKey("ResultUpper");
-            if (!isKeyExist) return txt;
-            else
-            {
-                bool isUpper = Convert.ToBoolean(localSettings.Values["ResultUpper"]);
-                if (isUpper)
-                {
-                    return txt.ToUpper();
-                }
-                else
-                {
-                    return txt;
-                }
+        //    bool isKeyExist = appSetting.Values.ContainsKey("ResultUpper");
+        //    if (!isKeyExist) return txt;
+        //    else
+        //    {
+        //        bool isUpper = Convert.ToBoolean(appSetting.Values["ResultUpper"]);
+        //        if (isUpper)
+        //        {
+        //            return txt.ToUpper();
+        //        }
+        //        else
+        //        {
+        //            return txt;
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {

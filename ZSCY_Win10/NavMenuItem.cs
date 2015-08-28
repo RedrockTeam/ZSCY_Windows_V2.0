@@ -11,6 +11,7 @@ namespace ZSCY_Win10
     {
         public string Label { get; set; }
         public Symbol Symbol { get; set; }
+        public string Image { get; set; }
         public char SymbolAsChar
         {
             get
