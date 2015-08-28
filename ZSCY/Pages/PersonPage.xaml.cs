@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Store;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
 using Windows.System;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using UmengSDK;
+using ZSCY.Data;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkID=390556 上有介绍
 
@@ -30,11 +21,12 @@ namespace ZSCY.Pages
     {
 
         private ApplicationDataContainer appSetting;
+        public PersonalIno personinfo=new PersonalIno();
         public PersonPage()
         {
             appSetting = ApplicationData.Current.LocalSettings; //本地存储
             this.InitializeComponent();
-
+            info.DataContext = personinfo;
         }
 
         /// <summary>
@@ -45,10 +37,8 @@ namespace ZSCY.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
-            UmengSDK.UmengAnalytics.TrackPageStart("PersonPage");
-            this.StudentName.Text = appSetting.Values["name"].ToString();
-            this.StudentClass.Text = appSetting.Values["classNum"].ToString();
-            this.StudentNumber.Text = appSetting.Values["stuNum"].ToString();
+            UmengAnalytics.TrackPageStart("PersonPage");
+
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)//重写后退按钮，如果要对所有页面使用，可以放在App.Xaml.cs的APP初始化函数中重写。
@@ -65,7 +55,7 @@ namespace ZSCY.Pages
         //离开页面时，取消事件
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            UmengSDK.UmengAnalytics.TrackPageEnd("PersonPage");
+            UmengAnalytics.TrackPageEnd("PersonPage");
             HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
         }
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)

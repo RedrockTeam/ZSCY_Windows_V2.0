@@ -83,7 +83,9 @@ namespace ZSCY
                         JObject dataobj = JObject.Parse(obj["data"].ToString());
                         appSetting.Values["name"] = dataobj["name"].ToString();
                         appSetting.Values["classNum"] = dataobj["classNum"].ToString();
-
+                        appSetting.Values["gender"] = dataobj["gender"].ToString();
+                        appSetting.Values["major"] = dataobj["major"].ToString();
+                        appSetting.Values["college"] = dataobj["college"].ToString();
                         Frame.Navigate(typeof(MainPage));
                     }
                     else if (Int32.Parse(obj["status"].ToString()) == -100)

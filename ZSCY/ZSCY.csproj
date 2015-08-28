@@ -14,7 +14,7 @@
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Never</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -93,6 +93,7 @@
     <Compile Include="Data\ExamList.cs" />
     <Compile Include="Data\JWList.cs" />
     <Compile Include="Data\DataSource.cs" />
+    <Compile Include="Data\PersonalIno.cs" />
     <Compile Include="Data\ScoreList.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -128,6 +129,7 @@
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Converter\GenderConverter.cs" />
     <Compile Include="Util\Converter\itemPageConverter.cs" />
     <Compile Include="Util\Converter\KBGridConverter.cs" />
     <Compile Include="Util\NetWork.cs" />
