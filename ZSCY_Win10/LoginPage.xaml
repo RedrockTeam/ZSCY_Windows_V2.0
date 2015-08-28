@@ -1,0 +1,54 @@
+﻿<Page
+    x:Class="ZSCY_Win10.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZSCY_Win10"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+
+    <Grid x:Name="grid" Background="#068cfd">
+        <VisualStateManager.VisualStateGroups>
+
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualState000">
+                    <VisualState.Setters>
+                        <Setter Target="MainStackPanel.(FrameworkElement.HorizontalAlignment)" Value="Center"/>
+                        <Setter Target="grid.(FrameworkElement.HorizontalAlignment)" Value="Stretch"/>
+                        <Setter Target="grid.(FrameworkElement.VerticalAlignment)" Value="Stretch"/>
+                        <Setter Target="MainStackPanel.(FrameworkElement.VerticalAlignment)" Value="Center"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="VisualState500">
+                    <VisualState.Setters>
+                        <Setter Target="MainStackPanel.(StackPanel.Orientation)" Value="Horizontal"/>
+                        <Setter Target="MainStackPanel.(FrameworkElement.VerticalAlignment)" Value="Center"/>
+                        <Setter Target="MainStackPanel.(FrameworkElement.HorizontalAlignment)" Value="Center"/>
+                        <Setter Target="stackPanel.(FrameworkElement.HorizontalAlignment)" Value="Center"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+        </VisualStateManager.VisualStateGroups>
+
+        <StackPanel Name="MainStackPanel" Orientation="Vertical">
+            <Image x:Name="image" Source="Assets/Logo.scale-240.png" VerticalAlignment="Top" Margin="15" Height="150" Width="150" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"></Image>
+            <StackPanel x:Name="stackPanel" VerticalAlignment="Center" Margin="30,-85,30,0">
+                <Grid Background="White" Width="250">
+                    <TextBox Background="White" Width="250" Name="StuNumTextBox" InputScope="Number" PlaceholderText="学号" Foreground="Black" TextChanged="StuNumTextBox_TextChanged" BorderBrush="#FF7A7A7A"/>
+                </Grid>
+                <Grid Background="White" Margin="0,10,0,0" Width="250">
+                    <PasswordBox Background="White" Width="250"  Name="IdNumPasswordBox" PlaceholderText="身份证后六位" Foreground="Black" PasswordChanged="IdNumPasswordBox_PasswordChanged"></PasswordBox>
+                </Grid>
+                <Grid Margin="0,20,0,0" Background="White" Width="250">
+                    <Grid  Width="250">
+                        <Button Name="LoginButton" Content="登 录" IsEnabled="True" HorizontalAlignment="Stretch" Click="LoginButton_Click"></Button>
+                        <ProgressBar VerticalAlignment="Center" Name="LoginProgressBar" Visibility="Collapsed" IsIndeterminate="True" Margin="0,5,0,0" />
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

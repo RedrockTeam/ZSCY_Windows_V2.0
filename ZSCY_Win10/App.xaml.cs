@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,6 +23,7 @@ namespace ZSCY_Win10
     /// </summary>
     sealed partial class App : Application
     {
+        ApplicationDataContainer appSetting = Windows.Storage.ApplicationData.Current.LocalSettings;
         /// <summary>
         /// 初始化单一实例应用程序对象。这是执行的创作代码的第一行，
         /// 已执行，逻辑上等同于 main() 或 WinMain()。
@@ -75,7 +77,20 @@ namespace ZSCY_Win10
                 // 当导航堆栈尚未还原时，导航到第一页，
                 // 并通过将所需信息作为导航参数传入来配置
                 // 参数
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                if (!appSetting.Values.ContainsKey("idNum"))
+                {
+                    if (!rootFrame.Navigate(typeof(LoginPage), e.Arguments))
+                    {
+                        throw new Exception("Failed to create initial page");
+                    }
+                }
+                else
+                {
+                    if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                    {
+                        throw new Exception("Failed to create initial page");
+                    }
+                }
             }
             // 确保当前窗口处于活动状态
             Window.Current.Activate();
