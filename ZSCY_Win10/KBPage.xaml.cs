@@ -46,11 +46,11 @@ namespace ZSCY_Win10
             this.InitializeComponent();
             this.SizeChanged += (s, e) =>
             {
-                //var state = "VisualState000";
-                //if (e.NewSize.Width > 600)
-                //    state = "VisualState600";
-                //VisualStateManager.GoToState(this, state, true);
-
+                var state = "VisualState000";
+                if (e.NewSize.Width > 500)
+                    state = "VisualState500";
+                VisualStateManager.GoToState(this, state, true);
+                Debug.WriteLine(e.NewSize.Width);
                 KebiaoAllScrollViewer.Height = e.NewSize.Height - 48 - 25;
                 cutoffLine.Y2 = e.NewSize.Height - 48;
             };
