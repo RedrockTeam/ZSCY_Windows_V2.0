@@ -67,8 +67,10 @@ namespace ZSCY_Win10
                 Current = this;
                 //然并卵
                 this.TogglePaneButton.Focus(FocusState.Programmatic);
-
             };
+            this.AppFrame.Navigate(navlist[0].DestPage, navlist[0].Arguments);
+
+
             SystemNavigationManager.GetForCurrentView().BackRequested += SystemNavigationManager_BackRequseted;
             //如果是在手机上，有实体键，隐藏返回键。
             if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
@@ -76,6 +78,7 @@ namespace ZSCY_Win10
                 //this.BackButton.Visibility = Visibility.Collapsed;
             }
             NavMenuList.ItemsSource = navlist;
+            NavMenuList.SelectedIndex = 0;
         }
         public Frame AppFrame { get { return this.frame; } }
 

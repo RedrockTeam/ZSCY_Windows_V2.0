@@ -17,7 +17,7 @@
                     </VisualState.Setters>
                 </VisualState>
 
-                <VisualState x:Name="VisualState500">
+                <VisualState x:Name="VisualState600">
                     <VisualState.Setters>
                         <Setter Target="MainStackPanel.(StackPanel.Orientation)" Value="Horizontal"/>
                     </VisualState.Setters>
@@ -26,8 +26,8 @@
         </VisualStateManager.VisualStateGroups>
 
         <StackPanel Name="MainStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image x:Name="image" Source="Assets/Logo.scale-240.png" VerticalAlignment="Top" Margin="15" Height="150" Width="150" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"></Image>
-            <StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image  Source="Assets/Logo.scale-240.png" VerticalAlignment="Top" Margin="15" Height="150" Width="150" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"></Image>
+            <StackPanel Margin="60,0" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Grid Background="White" Width="250">
                     <TextBox Background="White" Width="250" Name="StuNumTextBox" InputScope="Number" PlaceholderText="学号" Foreground="Black" TextChanged="StuNumTextBox_TextChanged" BorderBrush="#FF7A7A7A"/>
                 </Grid>
@@ -36,7 +36,7 @@
                 </Grid>
                 <Grid Margin="0,20,0,0" Background="White" Width="250">
                     <Grid  Width="250">
-                        <Button Name="LoginButton" Content="登 录" IsEnabled="True" HorizontalAlignment="Stretch" Click="LoginButton_Click"></Button>
+                        <Button Name="LoginButton" Content="登 录" IsEnabled="False" HorizontalAlignment="Stretch" Click="LoginButton_Click" Background="#55068CFD"></Button>
                         <ProgressBar VerticalAlignment="Center" Name="LoginProgressBar" Visibility="Collapsed" IsIndeterminate="True" Margin="0,5,0,0" />
                     </Grid>
                 </Grid>

@@ -37,7 +37,7 @@
                                           ItemTemplate="{StaticResource NavMenuItemTemplate}"
                                           ItemInvoked="NavMenuList_ItemInvoked">
                 </controls:NavMenuListView>
-                
+
             </SplitView.Pane>
             <!--Frame里面放导航到的Page-->
             <Frame x:Name="frame"

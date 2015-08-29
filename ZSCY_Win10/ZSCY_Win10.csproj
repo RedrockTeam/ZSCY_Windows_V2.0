@@ -93,6 +93,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\moreitems.json" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +101,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\NavMenuListView.cs" />
+    <Compile Include="Data\ClassList.cs" />
+    <Compile Include="Data\DataSource.cs" />
+    <Compile Include="Data\EmptyRoomList.cs" />
+    <Compile Include="Data\ExamList.cs" />
+    <Compile Include="Data\JWList.cs" />
+    <Compile Include="Data\PersonalIno.cs" />
+    <Compile Include="Data\ScoreList.cs" />
     <Compile Include="JWPage.xaml.cs">
       <DependentUpon>JWPage.xaml</DependentUpon>
     </Compile>
@@ -120,6 +128,7 @@
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\Converter\KBPageConverter.cs" />
     <Compile Include="Util\NetWork.cs" />
     <Compile Include="Util\Utils.cs" />
   </ItemGroup>

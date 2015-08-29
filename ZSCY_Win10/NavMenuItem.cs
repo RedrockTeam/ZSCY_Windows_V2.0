@@ -21,5 +21,6 @@ namespace ZSCY_Win10
         }
         public Type DestPage { get; set; }
         public object Arguments { get; set; }
+
     }
 }
