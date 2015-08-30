@@ -26,7 +26,7 @@
         </VisualStateManager.VisualStateGroups>
 
         <StackPanel Name="MainStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image  Source="Assets/Logo.scale-240.png" VerticalAlignment="Top" Margin="15" Height="150" Width="150" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"></Image>
+            <Image  Source="Assets\Logo.png" VerticalAlignment="Top" Margin="15" Height="150" Width="150" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"></Image>
             <StackPanel Margin="60,0" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Grid Background="White" Width="250">
                     <TextBox Background="White" Width="250" Name="StuNumTextBox" InputScope="Number" PlaceholderText="学号" Foreground="Black" TextChanged="StuNumTextBox_TextChanged" BorderBrush="#FF7A7A7A"/>

@@ -109,6 +109,7 @@
     </Content>
     <Content Include="Data\moreitems.json" />
     <None Include="project.json" />
+    <None Include="ZSCY_Win10_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
