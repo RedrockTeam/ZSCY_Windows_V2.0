@@ -205,7 +205,7 @@
     <Content Include="Assets\ic_time21.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Logo.scale-240.png">
+    <Content Include="Assets\Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Logout-100.png">
