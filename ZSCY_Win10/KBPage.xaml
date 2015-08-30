@@ -21,9 +21,33 @@
                         <Setter Target="KBDayGrid.(UIElement.Visibility)" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="VisualState500">
+                <VisualState x:Name="VisualState550">
                     <VisualState.Setters>
-                        <Setter Target="KBAllGrid.(FrameworkElement.Width)" Value="500"/>
+                        <Setter Target="KBAllGrid.(FrameworkElement.Width)" Value="360"/>
+                        <Setter Target="KBTitleGrid.(FrameworkElement.Width)" Value="360"/>
+                        <Setter Target="mKBDayGrid.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="KBtoDayGrid.(Grid.Column)" Value="1"/>
+                        <Setter Target="KBtoDayGrid.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="KBTitleGrid.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualState750">
+                    <VisualState.Setters>
+                        <Setter Target="KBAllGrid.(FrameworkElement.Width)" Value="400"/>
+                        <Setter Target="KBTitleGrid.(FrameworkElement.Width)" Value="400"/>
+                        <Setter Target="KBtoDayGrid.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="KBTitleGrid.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualState1000">
+                    <VisualState.Setters>
+                        <Setter Target="KBtoDayGrid.(Grid.Column)" Value="2"/>
+                        <Setter Target="KBtoDayGrid.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="KBtoDayGrid.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="KBtoDayGrid.(FrameworkElement.Width)" Value="250"/>
+                        <Setter Target="KBTitleGrid.(FrameworkElement.Width)" Value="400"/>
+                        <Setter Target="KBAllGrid.(FrameworkElement.Width)" Value="400"/>
+                        <Setter Target="KBTitleGrid.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -33,47 +57,55 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid Background="#068cfd" Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Name="HubSectionKBTitle" Text="我的课表" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
-                <TextBlock Name="HubSectionKBNum" Text=" | 第  周"  Foreground="White"  FontSize="20"  VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI" Tapped="HubSectionKBNum_Tapped"/>
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout x:Name="KBNumFlyout" >
-                        <StackPanel Margin="10" Width="300">
-                            <TextBlock Text="输入要查询的周次" FontSize="15"/>
-                            <Grid >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBox VerticalAlignment="Center" Grid.Column="0" Name="KBNumFlyoutTextBox" PlaceholderText="输入要查询的周次" InputScope="Number"/>
-                                <AppBarButton Grid.Column="1"  Name="KBNumSearchButton" Icon="Zoom" Click="KBNumSearchButton_Click"/>
-                            </Grid>
-                        </StackPanel>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <AppBarButton Name="KBRefreshAppBarButton" Icon="Refresh" Foreground="White" Click="KBRefreshAppBarButton_Click"/>
-                <AppBarButton Name="KBZoomAppBarButton" Icon="Zoom" Foreground="White" Click="KBZoomAppBarButton_Click">
-                    <FlyoutBase.AttachedFlyout >
-                        <Flyout x:Name="KBZoomFlyout" >
+        <Grid  Background="#068cfd" Grid.Row="0">
+            <Grid Name="KBTitleGrid"  HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Name="HubSectionKBTitle" Text="我的课表" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
+                    <TextBlock Name="HubSectionKBNum" Text=" | 第  周"  Foreground="White"  FontSize="20"  VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI" Tapped="HubSectionKBNum_Tapped"/>
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout x:Name="KBNumFlyout" >
                             <StackPanel Margin="10" Width="300">
-                                <TextBlock Text="输入学号以查询" FontSize="15"/>
+                                <TextBlock Text="输入要查询的周次" FontSize="15"/>
                                 <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox VerticalAlignment="Center" Grid.Column="0" Name="KBZoomFlyoutTextBox" PlaceholderText="输入学号以查询" InputScope="Number"/>
-                                    <AppBarToggleButton Grid.Column="1"  Name="KBSearchButton" Icon="Zoom" Click="KBSearchButton_Click" />
+                                    <TextBox VerticalAlignment="Center" Grid.Column="0" Name="KBNumFlyoutTextBox" PlaceholderText="输入要查询的周次" InputScope="Number"/>
+                                    <AppBarButton Grid.Column="1"  Name="KBNumSearchButton" Icon="Zoom" Click="KBNumSearchButton_Click"/>
                                 </Grid>
                             </StackPanel>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
-                </AppBarButton>
-                <AppBarButton Name="KBCalendarAppBarButton" Icon="Calendar" Foreground="White" Click="KBCalendarAppBarButton_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <AppBarButton Name="KBRefreshAppBarButton" Icon="Refresh" Foreground="White" Click="KBRefreshAppBarButton_Click"/>
+                    <AppBarButton Name="KBZoomAppBarButton" Icon="Zoom" Foreground="White" Click="KBZoomAppBarButton_Click">
+                        <FlyoutBase.AttachedFlyout >
+                            <Flyout x:Name="KBZoomFlyout" >
+                                <StackPanel Margin="10" Width="300">
+                                    <TextBlock Text="输入学号以查询" FontSize="15"/>
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox VerticalAlignment="Center" Grid.Column="0" Name="KBZoomFlyoutTextBox" PlaceholderText="输入学号以查询" InputScope="Number"/>
+                                        <AppBarToggleButton Grid.Column="1"  Name="KBSearchButton" Icon="Zoom" Click="KBSearchButton_Click" />
+                                    </Grid>
+                                </StackPanel>
+                            </Flyout>
+                        </FlyoutBase.AttachedFlyout>
+                    </AppBarButton>
+                    <AppBarButton Name="KBCalendarAppBarButton" Icon="Calendar" Foreground="White" Click="KBCalendarAppBarButton_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Name="TodayTitleStackPanel" Orientation="Horizontal" Margin="360,0,0,0" Visibility="Collapsed">
+                <Line  Y1="0" Y2="48" Stroke="Gray" StrokeThickness="1"/>
+                <TextBlock Text="今日" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
             </StackPanel>
+
         </Grid>
 
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Grid.Row="1">
@@ -97,13 +129,13 @@
                             <ColumnDefinition Width="3 *"/>
                             <ColumnDefinition Width="3 *"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="一" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" FontWeight="Light"/>
-                        <TextBlock Text="二" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" FontWeight="Light"/>
-                        <TextBlock Text="三" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" FontWeight="Light"/>
-                        <TextBlock Text="四" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" FontWeight="Light"/>
-                        <TextBlock Text="五" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="5" FontWeight="Light"/>
-                        <TextBlock Text="六" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="6" FontWeight="Light"/>
-                        <TextBlock Text="日" FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" FontWeight="Light"/>
+                        <TextBlock Text="一" FontSize="20" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" FontWeight="Light"/>
+                        <TextBlock Text="二" FontSize="20" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" FontWeight="Light"/>
+                        <TextBlock Text="三" FontSize="20" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" FontWeight="Light"/>
+                        <TextBlock Text="四" FontSize="20" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" FontWeight="Light"/>
+                        <TextBlock Text="五" FontSize="20" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="5" FontWeight="Light"/>
+                        <TextBlock Text="六" FontSize="20" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="6" FontWeight="Light"/>
+                        <TextBlock Text="日" FontSize="20" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="7" FontWeight="Light"/>
                     </Grid>
                     <ScrollViewer x:Name="KebiaoAllScrollViewer" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Hidden" Height="{Binding ActualHeight, Converter={StaticResource KBAllScrollViewerHeightConverter}, ElementName=page, Mode=OneWay}">
 
@@ -129,63 +161,63 @@
                                     <RowDefinition Height="1 *"/>
                                     <RowDefinition Height="1 *"/>
                                 </Grid.RowDefinitions>
-                                <Grid Grid.Row="0" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid Name="KBAllnum1Grid" Grid.Row="0" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="1"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="1" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="2"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="2" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="3"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="3" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="4"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="4" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="5"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="5" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="6"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="6" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="7"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="7" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="8"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="8" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="9"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="9" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="10"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="10" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="11"/>
                                     </TextBlock>
                                 </Grid>
                                 <Grid Grid.Row="11" Grid.Column="0" Height="70" >
-                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="#333" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     	<Run Text="12"/>
                                     </TextBlock>
                                 </Grid>
@@ -261,10 +293,134 @@
             <!--当日课表-->
             <Grid x:Name="KBDayGrid" Grid.Column="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Line x:Name="cutoffLine" Y1="0" Y2="0" Stroke="Gray" StrokeThickness="1"/>
+                <!--当日课表-->
+                <Grid  x:Name="mKBDayGrid" Grid.Column="1" >
+                    <ScrollViewer Name="KBDayScrollViewer" VerticalScrollBarVisibility="Hidden" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Grid.ColumnSpan="2" >
+                                <Line Name="KBDayFLine" X1="0" Stroke="White" StrokeThickness="1" VerticalAlignment="Bottom"/>
+                            </Grid>
+                            <Grid Grid.Column="0" Grid.Row="1" Width="38">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="1"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="2"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="2" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="3"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="3" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="4"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="4" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="5"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="5" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="6"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="6" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="7"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="7" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="8"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="8" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="9"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="9" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="10"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="10" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="11"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="11" Grid.Column="0" Height="70" >
+                                    <TextBlock FontSize="20" FontWeight="Light" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    	<Run Text="12"/>
+                                    </TextBlock>
+                                </Grid>
+
+                            </Grid>
+                            <Grid Name="KebiaoDayGrid"  Grid.Column="1" Grid.Row="1" Margin="0,0,15,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                </Grid.RowDefinitions>
+                            </Grid>
+                        </Grid>
+                    </ScrollViewer >
+                </Grid>
+                <!--今日信息-->
+                <Grid Name="KBtoDayGrid" Grid.Column="2">
+                    <Line x:Name="cutoffLine2" Y1="0" Y2="0" Stroke="Gray" StrokeThickness="1"/>
+                    <StackPanel  Margin="15,25,15,0">
+                        <Grid Background="#58b3ff" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                            <TextBlock Name="todaydateTextBlock" Foreground="White" Margin="10"/>
+                        </Grid>
+                        <Grid Background="#58b3ff" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,15,0,0">
+                            <TextBlock Name="todayNumofstuTextBlock" Foreground="White" Margin="10"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
 

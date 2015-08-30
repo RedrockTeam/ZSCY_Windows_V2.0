@@ -47,20 +47,49 @@ namespace ZSCY_Win10
             this.SizeChanged += (s, e) =>
             {
                 var state = "VisualState000";
-                if (e.NewSize.Width > 500)
-                    state = "VisualState500";
+                if (e.NewSize.Width > 000)
+                {
+                    TodayTitleStackPanel.Visibility = Visibility.Collapsed;
+                }
+                if (e.NewSize.Width > 550)
+                {
+                    TodayTitleStackPanel.Margin = new Thickness(360, 0, 0, 0);
+                    TodayTitleStackPanel.Visibility = Visibility.Visible;
+                    state = "VisualState550";
+
+                }
+                if (e.NewSize.Width > 750)
+                {
+                    state = "VisualState750";
+                    TodayTitleStackPanel.Margin = new Thickness(400, 0, 0, 0);
+                    TodayTitleStackPanel.Visibility = Visibility.Visible;
+                    KBDayFLine.X2 = e.NewSize.Width - 400;
+                }
+                if (e.NewSize.Width > 1000)
+                {
+                    state = "VisualState1000";
+                    TodayTitleStackPanel.Margin = new Thickness(400, 0, 0, 0);
+                    TodayTitleStackPanel.Visibility = Visibility.Visible;
+                    KBDayFLine.X2 = e.NewSize.Width - 400 - 250;
+                }
                 VisualStateManager.GoToState(this, state, true);
+                Debug.WriteLine("KBAllGrid" + KBAllGrid.Width);
                 Debug.WriteLine(e.NewSize.Width);
                 KebiaoAllScrollViewer.Height = e.NewSize.Height - 48 - 25;
                 cutoffLine.Y2 = e.NewSize.Height - 48;
+                cutoffLine2.Y2 = e.NewSize.Height - 48;
             };
         }
+
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Debug.WriteLine("OnNavigatedTo");
             stuNum = appSetting.Values["stuNum"].ToString();
             initKB();
+            initToday();
         }
+
 
         //离开页面时，取消事件
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -137,7 +166,7 @@ namespace ZSCY_Win10
             paramList.Add(new KeyValuePair<string, string>("stuNum", stuNum));
 
             string kbtemp = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList); //新
-            //string kbtemp = await NetWork.getHttpWebRequest("api/kebiao", paramList); //旧
+                                                                                              //string kbtemp = await NetWork.getHttpWebRequest("api/kebiao", paramList); //旧
 
             if (kbtemp != "")
                 kb = kbtemp;
@@ -201,7 +230,7 @@ namespace ZSCY_Win10
                 }
                 if (weekOrAll == 1)
                 {
-                    SetClass(classitem, ClassColor);
+                    SetClassAll(classitem, ClassColor);
                     HubSectionKBNum.Visibility = Visibility.Collapsed;
                 }
                 else
@@ -211,7 +240,7 @@ namespace ZSCY_Win10
                     {
                         if (Array.IndexOf(classitem.Week, Int32.Parse(appSetting.Values["nowWeek"].ToString())) != -1)
                         {
-                            SetClass(classitem, ClassColor);
+                            SetClassAll(classitem, ClassColor);
                             HubSectionKBNum.Text = " | 第" + appSetting.Values["nowWeek"].ToString() + "周";
                         }
                     }
@@ -219,7 +248,7 @@ namespace ZSCY_Win10
                     {
                         if (Array.IndexOf(classitem.Week, week) != -1)
                         {
-                            SetClass(classitem, ClassColor);
+                            SetClassAll(classitem, ClassColor);
                             HubSectionKBNum.Text = " | 第" + week.ToString() + "周";
                         }
                     }
@@ -227,15 +256,115 @@ namespace ZSCY_Win10
             }
             appSettingclass.Values.Clear();
 
+            //当日课表显示
+            KebiaoDayGrid.Children.Clear();
+            for (int i = 0; i < ClassListArray.Count; i++)
+            {
+                ClassList classitem = new ClassList();
+                classitem.GetAttribute((JObject)ClassListArray[i]);
+#if DEBUG
+                if (Array.IndexOf(classitem.Week, 5) != -1 && classitem.Hash_day == 2)
+                {
+                    SetClassDay(classitem);
+                }
+#else
+                 if (Array.IndexOf(classitem.Week, Int32.Parse(appSetting.Values["nowWeek"].ToString())) != -1 && classitem.Hash_day == (Int16.Parse(Utils.GetWeek()) + 6) % 7)
+                {
+                    SetClassDay(classitem);
+                }
+#endif
+            }
+
+
+        }
+
+        /// <summary>
+        /// 日视图课程格子的填充
+        /// </summary>
+        /// <param name="classitem"></param>
+        private void SetClassDay(ClassList classitem)
+        {
+            Grid BackGrid = new Grid();
+            BackGrid.Background = new SolidColorBrush(Color.FromArgb(255, 88, 179, 255));
+            //BackGrid.Background = new SolidColorBrush(Colors.Wheat);
+            BackGrid.SetValue(Grid.RowProperty, System.Int32.Parse(classitem.Hash_lesson * 2 + ""));
+            BackGrid.SetValue(Grid.ColumnProperty, System.Int32.Parse(classitem.Hash_day + ""));
+            BackGrid.SetValue(Grid.RowSpanProperty, System.Int32.Parse(classitem.Period + ""));
+
+            StackPanel BackStackPanel = new StackPanel();
+            BackStackPanel.Margin = new Thickness(15);
+            BackStackPanel.VerticalAlignment = VerticalAlignment.Center;
+
+            TextBlock classNameTextBlock = new TextBlock();
+            classNameTextBlock.Text = classitem.Course;
+            classNameTextBlock.FontSize = 20;
+            classNameTextBlock.Margin = new Thickness(0, 3, 0, 3);
+            classNameTextBlock.Foreground = new SolidColorBrush(Colors.White);
+
+
+            StackPanel classTeaStackPanel = new StackPanel();
+            Image classTeaImage = new Image();
+            TextBlock classTeaTextBlock = new TextBlock();
+            classTeaImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/dialog_course_peo_white.png", UriKind.Absolute));
+            classTeaImage.Width = 15;
+            classTeaImage.Height = 15;
+            classTeaTextBlock.Text = classitem.Teacher;
+            classTeaTextBlock.FontSize = 15;
+            classTeaTextBlock.Margin = new Thickness(10, 0, 0, 0);
+            classTeaTextBlock.Foreground = new SolidColorBrush(Colors.White);
+            classTeaStackPanel.Orientation = Orientation.Horizontal;
+            classTeaStackPanel.Children.Add(classTeaImage);
+            classTeaStackPanel.Children.Add(classTeaTextBlock);
+            classTeaStackPanel.Margin = new Thickness(0, 3, 0, 3);
+
+
+            StackPanel classAddStackPanel = new StackPanel();
+            Image classAddImage = new Image();
+            TextBlock classAddTextBlock = new TextBlock();
+            classAddImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/dialog_course_add_white.png", UriKind.Absolute));
+            classAddImage.Width = 15;
+            classAddImage.Height = 15;
+            classAddTextBlock.Text = classitem.Classroom;
+            classAddTextBlock.FontSize = 15;
+            classAddTextBlock.Margin = new Thickness(10, 0, 0, 0);
+            classAddTextBlock.Foreground = new SolidColorBrush(Colors.White);
+            classAddStackPanel.Orientation = Orientation.Horizontal;
+            classAddStackPanel.Children.Add(classAddImage);
+            classAddStackPanel.Children.Add(classAddTextBlock);
+            classAddStackPanel.Margin = new Thickness(0, 3, 0, 3);
+
+            StackPanel classTypeStackPanel = new StackPanel();
+            Image classTypeImage = new Image();
+            TextBlock classTypeTextBlock = new TextBlock();
+            classTypeImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/dialog_course_type_white.png", UriKind.Absolute));
+            classTypeImage.Width = 15;
+            classTypeImage.Height = 15;
+            classTypeTextBlock.Text = classitem.Type;
+            classTypeTextBlock.FontSize = 15;
+            classTypeTextBlock.Margin = new Thickness(10, 0, 0, 0);
+            classTypeTextBlock.Foreground = new SolidColorBrush(Colors.White);
+            classTypeStackPanel.Orientation = Orientation.Horizontal;
+            classTypeStackPanel.Children.Add(classTypeImage);
+            classTypeStackPanel.Children.Add(classTypeTextBlock);
+            classTypeStackPanel.Margin = new Thickness(0, 3, 0, 3);
+
+            BackStackPanel.Children.Add(classNameTextBlock);
+            BackStackPanel.Children.Add(classTeaStackPanel);
+            BackStackPanel.Children.Add(classAddStackPanel);
+            BackStackPanel.Children.Add(classTypeStackPanel);
+
+            BackGrid.Children.Add(BackStackPanel);
+
+            KebiaoDayGrid.Children.Add(BackGrid);
         }
 
 
         /// <summary>
-        /// 课程格子的填充
+        /// 周视图课程格子的填充
         /// </summary>
         /// <param name="item">ClassList类型的item</param>
         /// <param name="ClassColor">颜色数组，0~9</param>
-        private void SetClass(ClassList item, int ClassColor)
+        private void SetClassAll(ClassList item, int ClassColor)
         {
 
             Color[] colors = new Color[]{
@@ -258,7 +387,7 @@ namespace ZSCY_Win10
             TextBlock ClassTextBlock = new TextBlock();
 
             ClassTextBlock.Text = item.Course + "\n" + item.Classroom + "\n" + item.Teacher;
-            ClassTextBlock.Foreground = this.Foreground;
+            ClassTextBlock.Foreground = new SolidColorBrush(Colors.White);
             ClassTextBlock.FontSize = 12;
             ClassTextBlock.TextWrapping = TextWrapping.WrapWholeWords;
             ClassTextBlock.VerticalAlignment = VerticalAlignment.Center;
@@ -379,7 +508,7 @@ namespace ZSCY_Win10
             }
         }
 
-        
+
 
         private void KBSearchButton_Click(object sender, RoutedEventArgs e)
         {
@@ -412,6 +541,12 @@ namespace ZSCY_Win10
             else
                 Utils.Message("请输入正确的周次");
         }
+        private void initToday()
+        {
+            todaydateTextBlock.Text = DateTime.Now.Year + "年" + DateTime.Now.Month + "月" + DateTime.Now.Day + "日";
+            todayNumofstuTextBlock.Text ="开学第"+ ((Int16.Parse(appSetting.Values["nowWeek"].ToString()) - 1) * 7 + (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek()))).ToString() + "天";
+        }
+
 
     }
 }
