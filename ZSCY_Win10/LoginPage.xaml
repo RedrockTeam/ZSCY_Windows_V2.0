@@ -31,6 +31,7 @@
                 <Grid Background="White" Width="250">
                     <TextBox Background="White" Width="250" Name="StuNumTextBox" InputScope="Number" PlaceholderText="学号" Foreground="Black" TextChanged="StuNumTextBox_TextChanged" BorderBrush="#FF7A7A7A"/>
                 </Grid>
+                
                 <Grid Background="White" Margin="0,10,0,0" Width="250">
                     <PasswordBox Background="White" Width="250"  Name="IdNumPasswordBox" PlaceholderText="身份证后六位" Foreground="Black" PasswordChanged="IdNumPasswordBox_PasswordChanged"></PasswordBox>
                 </Grid>
