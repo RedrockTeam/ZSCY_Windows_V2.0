@@ -188,6 +188,7 @@ namespace ZSCY_Win10
                     //保存当前星期
                     appSetting.Values["nowWeek"] = obj["nowWeek"].ToString();
                     HubSectionKBNum.Text = " | 第" + obj["nowWeek"].ToString() + "周";
+                    initToday();
                     //showKB(2, Int32.Parse(appSetting.Values["nowWeek"].ToString()));
 #if DEBUG
                     showKB(2, 5);
@@ -544,9 +545,16 @@ namespace ZSCY_Win10
         private void initToday()
         {
             todaydateTextBlock.Text = DateTime.Now.Year + "年" + DateTime.Now.Month + "月" + DateTime.Now.Day + "日";
-            todayNumofstuTextBlock.Text ="开学第"+ ((Int16.Parse(appSetting.Values["nowWeek"].ToString()) - 1) * 7 + (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek()))).ToString() + "天";
-        }
+            try
+            {
+                todayNumofstuTextBlock.Text = "开学第" + ((Int16.Parse(appSetting.Values["nowWeek"].ToString()) - 1) * 7 + (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek()))).ToString() + "天";
+            }
+            catch (Exception)
+            {
+                todayNumofstuTextBlock.Text = "开学第 天";
 
+            }
+        }
 
     }
 }
