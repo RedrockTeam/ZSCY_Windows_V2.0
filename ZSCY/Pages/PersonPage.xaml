@@ -30,14 +30,14 @@
                     <Image Source="{Binding Gender,Converter={StaticResource GenderConvert}}" Height="100" Width="100"  />
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock x:Name="StudentName" Text="{Binding Name}" Style="{StaticResource TxtBlockstyle}"/>
-                    <TextBlock x:Name="StudentClass" Text="{Binding Classnum}" Style="{StaticResource TxtBlockstyle}"/>
-                    <TextBlock x:Name="StudentNumber" Text="{Binding Stunum}" Style="{StaticResource TxtBlockstyle}"/>
+                    <TextBlock x:Name="StudentName" Text="{Binding Name,Mode=OneWay}" Style="{StaticResource TxtBlockstyle}"/>
+                    <TextBlock x:Name="StudentClass" Text="{Binding Classnum,Mode=OneWay}" Style="{StaticResource TxtBlockstyle}"/>
+                    <TextBlock x:Name="StudentNumber" Text="{Binding Stunum,Mode=OneWay}" Style="{StaticResource TxtBlockstyle}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <TextBlock x:Name="Academy" Text="{Binding College}"  Style="{StaticResource TxtBlockstyle}" FontSize="20"  />
-                <TextBlock x:Name="Major" Text="{Binding Major}"  Style="{StaticResource TxtBlockstyle}" FontSize="20"   />
+                <TextBlock x:Name="Academy" Text="{Binding College,Mode=OneWay}"  Style="{StaticResource TxtBlockstyle}" FontSize="20"  />
+                <TextBlock x:Name="Major" Text="{Binding Major,Mode=OneWay}"  Style="{StaticResource TxtBlockstyle}" FontSize="20"   />
             </StackPanel>
         </StackPanel>
     </Grid>
