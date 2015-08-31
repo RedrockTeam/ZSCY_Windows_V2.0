@@ -7,7 +7,95 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid >
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualState000">
+                    <VisualState.Setters>
+                        <Setter Target="JWListgrid.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="frame.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="JWTitleGrid.(FrameworkElement.HorizontalAlignment)" Value="Stretch"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualState750">
+                    <VisualState.Setters>
+                        <Setter Target="JWTitleGrid.(FrameworkElement.Width)" Value="400"/>
+                        <Setter Target="JWListgrid.(FrameworkElement.Width)" Value="400"/>
+                        <Setter Target="JWTitleGrid.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!--header-->
+        <Grid Background="#068cfd" Grid.Row="0">
+            <Grid Name="JWTitleGrid"  HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Name="HubSectionKBTitle" Text="教务信息" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <AppBarButton Name="JWRefreshAppBarButton" Icon="Refresh" Foreground="White" Click="JWRefreshAppBarButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
 
+        <!--实体-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <!--列表-->
+            <Grid x:Name="JWListgrid" Grid.Column="0" Background="Beige">
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <ListView Name="JWListView" IsItemClickEnabled="True" ItemClick="JWListView_ItemClick" HorizontalAlignment="Stretch" >
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:Name="JWListViewItemGrid">
+                                    <Grid Height="150" Background="White" HorizontalAlignment="Stretch" Margin="0,2,0,2">
+                                        <Grid Margin="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Title}" Grid.Row="0" TextTrimming="WordEllipsis" FontWeight="Bold" HorizontalAlignment="Stretch" FontSize="20" Foreground="Black" FontFamily="Microsoft YaHei UI" ></TextBlock>
+                                            <Grid Margin="0,10,0,0" Grid.Row="1">
+                                                <TextBlock Text="{Binding Date}" FontWeight="Light" Foreground="Black" FontSize="16" FontFamily="Microsoft YaHei UI" ></TextBlock>
+                                                <TextBlock Text="{Binding Read}" FontWeight="Light" Foreground="Black" FontSize="16" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI" ></TextBlock>
+                                            </Grid>
+                                            <Line Grid.Row="2" Margin="0,0,0,10" HorizontalAlignment="Stretch" Stroke="Black" StrokeThickness="1"></Line>
+                                            <TextBlock Text="{Binding Content}" Grid.Row="3" FontWeight="Light" MaxLines="3" TextTrimming="WordEllipsis" FontSize="16" FontFamily="Microsoft YaHei UI"  Foreground="Black"></TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+
+            <!--正文-->
+            <Frame x:Name="frame" Grid.Column="1" >
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition>
+                            <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                <EntranceNavigationTransitionInfo/>
+                            </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                        </NavigationThemeTransition>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+        </Grid>
     </Grid>
 </Page>

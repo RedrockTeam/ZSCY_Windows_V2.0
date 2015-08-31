@@ -124,6 +124,9 @@
     <Compile Include="Data\JWList.cs" />
     <Compile Include="Data\PersonalIno.cs" />
     <Compile Include="Data\ScoreList.cs" />
+    <Compile Include="JWContentPage.xaml.cs">
+      <DependentUpon>JWContentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="JWPage.xaml.cs">
       <DependentUpon>JWPage.xaml</DependentUpon>
     </Compile>
@@ -287,6 +290,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="JWContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="JWPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
