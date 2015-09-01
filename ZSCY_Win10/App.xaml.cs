@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -15,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ZSCY.Data;
 
 namespace ZSCY_Win10
 {
@@ -24,6 +26,8 @@ namespace ZSCY_Win10
     sealed partial class App : Application
     {
         ApplicationDataContainer appSetting = Windows.Storage.ApplicationData.Current.LocalSettings;
+        //public static JWList[] jwlistCache;
+        public static ObservableCollection<JWList> JWListCache = new ObservableCollection<JWList>();
         /// <summary>
         /// 初始化单一实例应用程序对象。这是执行的创作代码的第一行，
         /// 已执行，逻辑上等同于 main() 或 WinMain()。

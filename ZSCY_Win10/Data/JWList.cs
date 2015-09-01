@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZSCY.Data
 {
-    class JWList
+    public class JWList
     {
 
         public JWList()
@@ -29,7 +29,7 @@ namespace ZSCY.Data
         public string Read { get; set; }
         public string Content { get; set; }
 
-        
+
         public void GetListAttribute(JObject JWListJObject)
         {
             ID = JWListJObject["id"].ToString();

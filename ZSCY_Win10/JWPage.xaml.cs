@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -36,39 +37,77 @@ namespace ZSCY_Win10
             this.SizeChanged += (s, e) =>
             {
                 var state = "VisualState000";
-                if (e.NewSize.Width > 000)
+                if (e.NewSize.Width > 000 && e.NewSize.Width < 750)
                 {
                     if (JWListView.SelectedIndex != -1)
                     {
                         JWBackAppBarButton.Visibility = Visibility.Visible;
                         JWRefreshAppBarButton.Visibility = Visibility.Collapsed;
                     }
+                    JWListView.Width = e.NewSize.Width;
                 }
                 if (e.NewSize.Width > 750)
                 {
                     JWBackAppBarButton.Visibility = Visibility.Collapsed;
                     JWRefreshAppBarButton.Visibility = Visibility.Visible;
                     state = "VisualState750";
+                    JWListView.Width = 400;
                 }
                 VisualStateManager.GoToState(this, state, true);
                 cutoffLine.Y2 = e.NewSize.Height;
             };
+            Debug.WriteLine("Init");
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            JWListView.ItemsSource = JWList;
+            //if (App.JWListCache.Count == 0)
             initJWList();
+            //else
+            //{
+            //    getJWCache();
+            //}
         }
+
+        private async void getJWCache()
+        {
+            JWList = await getCache();
+            JWListProgressStackPanel.Visibility = Visibility.Collapsed;
+            continueJWGrid.Visibility = Visibility.Visible;
+            JWListView.ItemsSource = JWList;
+            if (Utils.getPhoneWidth() > 750)
+                JWListView.Width = 400;
+            //foreach (var JWListitem in App.JWListCache)
+            //{
+            //    JWList.Add(JWListitem);
+            //}
+
+        }
+
+        public static async Task<ObservableCollection<JWList>> getCache()
+        {
+            return await Task.Run(() =>
+            {
+                ObservableCollection<JWList> jw = App.JWListCache;
+                return jw;
+            });
+        }
+
+
+
+
+
 
         //离开页面时，取消事件
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            App.JWListCache = JWList;
         }
         private async void initJWList(int page = 1)
         {
             JWListFailedStackPanel.Visibility = Visibility.Collapsed;
             JWListProgressStackPanel.Visibility = Visibility.Visible;
-
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("page", page.ToString()));
             string jw = await NetWork.getHttpWebRequest("api/jwNewsList", paramList);
@@ -80,6 +119,8 @@ namespace ZSCY_Win10
                 if (Int32.Parse(obj["status"].ToString()) == 200)
                 {
                     JArray JWListArray = Utils.ReadJso(jw);
+                    JWListView.ItemsSource = JWList;
+
                     for (int i = 0; i < JWListArray.Count; i++)
                     {
                         int failednum = 0;
@@ -131,9 +172,9 @@ namespace ZSCY_Win10
                             }
                         }
                         JWList.Add(new JWList { Title = JWitem.Title, Date = JWitem.Date, Read = JWitem.Read, Content = JWitem.Content, ID = JWitem.ID });
-                        JWListView.ItemsSource = JWList;
                         //setOpacity();
                     }
+                    JWListView.ItemsSource = JWList;
                     continueJWGrid.Visibility = Visibility.Visible;
                 }
                 else
