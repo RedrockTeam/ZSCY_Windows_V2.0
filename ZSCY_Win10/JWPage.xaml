@@ -81,7 +81,7 @@
                                             <!--正文-->
                                             <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Content}" VerticalAlignment="Top" MaxLines="2" TextTrimming="WordEllipsis" TextWrapping="WrapWholeWords" FontSize="12" FontFamily="Microsoft YaHei UI"  Foreground="#737373"></TextBlock>
                                             <!--阅读、时间-->
-                                            <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,0">
+                                            <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,0,0,0">
                                                 <TextBlock Text="{Binding Read}" FontSize="12" HorizontalAlignment="Right" FontFamily="Microsoft YaHei UI"  Foreground="#737373"></TextBlock>
                                                 <TextBlock Text="{Binding Date}" FontSize="12" FontFamily="Microsoft YaHei UI"  Foreground="#737373"></TextBlock>
                                             </StackPanel>
