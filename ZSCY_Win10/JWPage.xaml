@@ -113,7 +113,7 @@
             </Grid>
 
             <!--正文-->
-            <Grid Name="JWJWContentGrid" Grid.Column="1" >
+            <Grid Name="JWJWContentGrid" Grid.Column="1">
                 <Line Name="cutoffLine" Stroke="Gray" StrokeThickness="1"/>
                 <Frame x:Name="frame" Margin="1,0,0,0">
                     <Frame.ContentTransitions>
