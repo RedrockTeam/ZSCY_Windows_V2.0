@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,6 +14,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ZSCY.Data;
+using ZSCY_Win10.Util;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -25,6 +29,43 @@ namespace ZSCY_Win10
         public JWContentPage()
         {
             this.InitializeComponent();
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var JWItem = (JWList)e.Parameter;
+
+            if (JWItem.Content == "加载中...")
+                getContent(JWItem.ID);
+
+            TitleTextBlock.Text = JWItem.Title;
+            ContentTextBlock.Text = JWItem.Content;
+            DateReadTextBlock.Text = "发布时间:" + JWItem.Date + "阅读人数:" + JWItem.Read;
+        }
+
+
+        private async void getContent(string ID)
+        {
+            List<KeyValuePair<String, String>> contentparamList = new List<KeyValuePair<String, String>>();
+            contentparamList.Add(new KeyValuePair<string, string>("id", ID));
+            string jwContent = await NetWork.getHttpWebRequest("api/jwNewsContent", contentparamList);
+            Debug.WriteLine("jwContent->" + jwContent);
+            if (jwContent != "")
+            {
+                string JWContentText = jwContent.Replace("(\r?\n(\\s*\r?\n)+)", "\r\n");
+                while (JWContentText.StartsWith("\r\n "))
+                    JWContentText = JWContentText.Substring(3);
+                while (JWContentText.StartsWith("\r\n"))
+                    JWContentText = JWContentText.Substring(2);
+                JObject jwContentobj = JObject.Parse(JWContentText);
+                if (Int32.Parse(jwContentobj["status"].ToString()) == 200)
+                    ContentTextBlock.Text = jwContentobj["data"]["content"].ToString();
+                else
+                    ContentTextBlock.Text = "加载失败";
+            }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
         }
     }
 }

@@ -44,6 +44,7 @@ namespace ZSCY_Win10
 
                 }
                 VisualStateManager.GoToState(this, state, true);
+                cutoffLine.Y2 = e.NewSize.Height;
             };
         }
 
@@ -58,14 +59,14 @@ namespace ZSCY_Win10
         }
         private async void initJWList(int page = 1)
         {
-            //JWListFailedStackPanel.Visibility = Visibility.Collapsed;
-            //JWListProgressStackPanel.Visibility = Visibility.Visible;
+            JWListFailedStackPanel.Visibility = Visibility.Collapsed;
+            JWListProgressStackPanel.Visibility = Visibility.Visible;
 
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("page", page.ToString()));
             string jw = await NetWork.getHttpWebRequest("api/jwNewsList", paramList);
             Debug.WriteLine("jw->" + jw);
-            //JWListProgressStackPanel.Visibility = Visibility.Collapsed;
+            JWListProgressStackPanel.Visibility = Visibility.Collapsed;
             if (jw != "")
             {
                 JObject obj = JObject.Parse(jw);
@@ -122,22 +123,22 @@ namespace ZSCY_Win10
                                 }
                             }
                         }
-                        JWList.Add(new JWList { Title = JWitem.Title, Date = "时间：" + JWitem.Date, Read = "阅读量：" + JWitem.Read, Content = JWitem.Content, ID = JWitem.ID });
+                        JWList.Add(new JWList { Title = JWitem.Title, Date = JWitem.Date, Read = JWitem.Read, Content = JWitem.Content, ID = JWitem.ID });
                         JWListView.ItemsSource = JWList;
                         //setOpacity();
                     }
-                    //continueJWGrid.Visibility = Visibility.Visible;
+                    continueJWGrid.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    //JWListFailedStackPanel.Visibility = Visibility.Visible;
-                    //continueJWGrid.Visibility = Visibility.Collapsed;
+                    JWListFailedStackPanel.Visibility = Visibility.Visible;
+                    continueJWGrid.Visibility = Visibility.Collapsed;
                 }
             }
             else
             {
-                //JWListFailedStackPanel.Visibility = Visibility.Visible;
-                //continueJWGrid.Visibility = Visibility.Collapsed;
+                JWListFailedStackPanel.Visibility = Visibility.Visible;
+                continueJWGrid.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -159,6 +160,17 @@ namespace ZSCY_Win10
             ((Page)sender).Loaded -= Page_Loaded;
         }
 
+        private void continueJWGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            page++;
+            initJWList(page);
+        }
+
+        private void JWListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            initJWList();
+        }
+
         private void JWRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -166,7 +178,8 @@ namespace ZSCY_Win10
 
         private void JWListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            JWList JWItem = new JWList(((JWList)e.ClickedItem).ID, ((JWList)e.ClickedItem).Title, ((JWList)e.ClickedItem).Date, ((JWList)e.ClickedItem).Read, ((JWList)e.ClickedItem).Content == null ? "加载中..." : ((JWList)e.ClickedItem).Content);
+            this.AppFrame.Navigate(typeof(JWContentPage), JWItem);
         }
     }
 }
