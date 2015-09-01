@@ -56,21 +56,20 @@ namespace ZSCY_Win10
                     TodayTitleStackPanel.Margin = new Thickness(360, 0, 0, 0);
                     TodayTitleStackPanel.Visibility = Visibility.Visible;
                     state = "VisualState550";
-
                 }
                 if (e.NewSize.Width > 750)
                 {
-                    state = "VisualState750";
                     TodayTitleStackPanel.Margin = new Thickness(400, 0, 0, 0);
                     TodayTitleStackPanel.Visibility = Visibility.Visible;
                     KBDayFLine.X2 = e.NewSize.Width - 400;
+                    state = "VisualState750";
                 }
                 if (e.NewSize.Width > 1000)
                 {
-                    state = "VisualState1000";
                     TodayTitleStackPanel.Margin = new Thickness(400, 0, 0, 0);
                     TodayTitleStackPanel.Visibility = Visibility.Visible;
                     KBDayFLine.X2 = e.NewSize.Width - 400 - 250;
+                    state = "VisualState1000";
                 }
                 VisualStateManager.GoToState(this, state, true);
                 Debug.WriteLine("KBAllGrid" + KBAllGrid.Width);

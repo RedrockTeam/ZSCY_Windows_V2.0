@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -37,11 +38,17 @@ namespace ZSCY_Win10
                 var state = "VisualState000";
                 if (e.NewSize.Width > 000)
                 {
+                    if (JWListView.SelectedIndex != -1)
+                    {
+                        JWBackAppBarButton.Visibility = Visibility.Visible;
+                        JWRefreshAppBarButton.Visibility = Visibility.Collapsed;
+                    }
                 }
                 if (e.NewSize.Width > 750)
                 {
+                    JWBackAppBarButton.Visibility = Visibility.Collapsed;
+                    JWRefreshAppBarButton.Visibility = Visibility.Visible;
                     state = "VisualState750";
-
                 }
                 VisualStateManager.GoToState(this, state, true);
                 cutoffLine.Y2 = e.NewSize.Height;
@@ -142,7 +149,7 @@ namespace ZSCY_Win10
             }
         }
 
-        public Frame AppFrame { get { return this.frame; } }
+        public Frame JWFrame { get { return this.frame; } }
 
         private void OnNavigatedToPage(object sender, NavigationEventArgs e)
         {
@@ -164,6 +171,7 @@ namespace ZSCY_Win10
         {
             page++;
             initJWList(page);
+            continueJWGrid.Visibility = Visibility.Collapsed;
         }
 
         private void JWListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
@@ -173,13 +181,42 @@ namespace ZSCY_Win10
 
         private void JWRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
-
+            JWList.Clear();
+            continueJWGrid.Visibility = Visibility.Collapsed;
+            initJWList();
         }
 
         private void JWListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             JWList JWItem = new JWList(((JWList)e.ClickedItem).ID, ((JWList)e.ClickedItem).Title, ((JWList)e.ClickedItem).Date, ((JWList)e.ClickedItem).Read, ((JWList)e.ClickedItem).Content == null ? "加载中..." : ((JWList)e.ClickedItem).Content);
-            this.AppFrame.Navigate(typeof(JWContentPage), JWItem);
+
+            Debug.WriteLine("JWListgrid.Width" + JWListgrid.Width);
+            if (JWListgrid.Width != null && JWListgrid.Width == 400)
+            {
+                JWBackAppBarButton.Visibility = Visibility.Collapsed;
+                JWRefreshAppBarButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                JWBackAppBarButton.Visibility = Visibility.Visible;
+                JWRefreshAppBarButton.Visibility = Visibility.Collapsed;
+            }
+            JWFrame.Visibility = Visibility.Visible;
+            this.JWFrame.Navigate(typeof(JWContentPage), JWItem);
+        }
+
+        private void JWBackAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            //if (JWFrame == null)
+            //    return;
+            //if (JWFrame.CanGoBack)
+            //{
+            //    JWFrame.GoBack();
+            //}
+            JWBackAppBarButton.Visibility = Visibility.Collapsed;
+            JWFrame.Visibility = Visibility.Collapsed;
+            JWRefreshAppBarButton.Visibility = Visibility.Visible;
+            JWListView.SelectedIndex = -1;
         }
     }
 }
