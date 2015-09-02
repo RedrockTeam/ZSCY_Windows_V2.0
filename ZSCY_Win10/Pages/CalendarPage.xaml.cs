@@ -27,7 +27,13 @@ namespace ZSCY.Pages
         public CalendarPage()
         {
             this.InitializeComponent();
+            this.SizeChanged += (s, e) =>
+            {
+                CalendarImage.Width = e.NewSize.Width;
+                CalendarImage.Height = e.NewSize.Height;
+            };
         }
+
 
         /// <summary>
         /// 在此页将要在 Frame 中显示时进行调用。
