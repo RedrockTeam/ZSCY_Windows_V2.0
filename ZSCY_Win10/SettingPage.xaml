@@ -8,6 +8,34 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualState750">
+                    <VisualState.Setters>
+                        <Setter Target="importKB2calendarButton.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
+                        <Setter Target="importKB2calendarButton.(FrameworkElement.Width)" Value="200"/>
+                        <Setter Target="importKB2calendarButton.(FrameworkElement.MaxWidth)" Value="200"/>
+                        <Setter Target="importKB2calendarButton.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>20,0,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="ClearButton.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>20,0,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="ClearButton.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
+                        <Setter Target="ClearButton.(FrameworkElement.Width)" Value="200"/>
+                        <Setter Target="ClearButton.(FrameworkElement.MaxWidth)" Value="200"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="750"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition />
@@ -22,12 +50,23 @@
                 <Line Y1="0" Y2="48" Stroke="Gray" StrokeThickness="1"/>
             </Grid>
         </Grid>
-        <StackPanel Margin="10" Grid.Row="1">
-            <TextBlock Text="实验室功能" FontSize="20" Foreground="Gray"/>
-            <Button Name="importKB2calendarButton" HorizontalAlignment="Stretch" Content="订阅当前账号课表到日历" RequestedTheme="Light" FontWeight="Light" FontFamily="Microsoft YaHei UI" Click="importKB2calendarButton_Click"/>
-            <TextBlock Text="重置本应用" FontSize="20" Foreground="Gray" Margin="0,10"/>
-            <Button Name="ClearButton" HorizontalAlignment="Stretch" Content="删除所有缓存" RequestedTheme="Light" FontWeight="Light" FontFamily="Microsoft YaHei UI" Click="ClearButton_Click"/>
-        </StackPanel>
+        <Grid Margin="10" Grid.Row="1">
+            <Pivot>
+                <PivotItem Header="功能">
+                    <StackPanel Margin="0,10">
+                        <TextBlock Text="实验室功能" Margin="0,0,0,10" Style="{StaticResource TitleTextBlockStyle}"/>
+                        <Button Name="importKB2calendarButton"  HorizontalAlignment="Stretch"    Content="订阅当前账号课表到日历"  Click="importKB2calendarButton_Click"/>
+
+                    </StackPanel>
+                </PivotItem>
+                <PivotItem Header="重置"  >
+                    <StackPanel Margin="0,10">
+                        <TextBlock Text="删除缓存" Margin="0,0,0,10" Style="{StaticResource TitleTextBlockStyle}"/>
+                        <Button Name="ClearButton" HorizontalAlignment="Stretch"   Content="删除所有缓存"    Click="ClearButton_Click"/>
+                    </StackPanel>
+                </PivotItem>
+            </Pivot>
+        </Grid>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
