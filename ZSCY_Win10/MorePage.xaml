@@ -10,7 +10,7 @@
     d:DataContext="{Binding Source={d:DesignData Source=Data/moreitems.json, Type=data:DataSource}}"
     mc:Ignorable="d">
 
-    <Grid x:Name="grid" MinHeight="600" >
+    <Grid x:Name="grid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="VisualState000">

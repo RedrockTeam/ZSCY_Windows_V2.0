@@ -11,7 +11,7 @@
     x:Name="itemPage">
 
     <Grid  Background="White">
-        <ScrollViewer Background="White">
+        <ScrollViewer Name="ExamListScrollViewer" Background="White">
             <Grid>
                 <ListView Name="ExamListView" HorizontalAlignment="Stretch">
                     <ListView.ItemTemplate>
@@ -19,7 +19,7 @@
                             <Grid Margin="-12,0">
                                 <Grid Margin="10,20">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Text="{Binding Course}" Foreground="#068cfd" FontSize="25" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
