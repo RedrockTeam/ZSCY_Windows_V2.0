@@ -124,9 +124,6 @@
     <Compile Include="Data\JWList.cs" />
     <Compile Include="Data\PersonalIno.cs" />
     <Compile Include="Data\ScoreList.cs" />
-    <Compile Include="JWContentPage.xaml.cs">
-      <DependentUpon>JWContentPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="JWPage.xaml.cs">
       <DependentUpon>JWPage.xaml</DependentUpon>
     </Compile>
@@ -143,6 +140,9 @@
       <DependentUpon>MorePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="NavMenuItem.cs" />
+    <Compile Include="Pages\JWContentPage.xaml.cs">
+      <DependentUpon>JWContentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
@@ -290,10 +290,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="JWContentPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="JWPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -313,6 +309,10 @@
     <Page Include="MorePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\JWContentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SettingPage.xaml">
       <SubType>Designer</SubType>
