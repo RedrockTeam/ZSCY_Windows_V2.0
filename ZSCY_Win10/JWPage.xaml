@@ -16,6 +16,11 @@
                         <Setter Target="JWContentGrid.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="JWTitleGrid.(FrameworkElement.HorizontalAlignment)" Value="Stretch"/>
                         <Setter Target="cutoffLine.(FrameworkElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="JWContentGrid.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>-1,0,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="VisualState750">
