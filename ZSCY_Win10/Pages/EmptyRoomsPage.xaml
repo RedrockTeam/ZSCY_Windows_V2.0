@@ -6,16 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:converter="using:ZSCY.Util.Converter"
     FontFamily="Microsoft YaHei UI"
     FontWeight="Light"
     x:Name="itemPage"
     Background="#068cfd">
 
-    <Page.Resources>
-        <converter:EmptyitemScrollViewerHeighConverter x:Key="EmptyitemScrollViewerHeighConverter"/>
-        <converter:EmptyitemWidthScrollViewerHeighConverter x:Key="EmptyitemWidthScrollViewerHeighConverter"/>
-    </Page.Resources>
 
     <StackPanel Name="itemStackPanel">
         <Grid Background="#068cfd" Height="70">
@@ -77,12 +72,12 @@
                 <TextBlock Text="11~12" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="20"></TextBlock>
             </StackPanel>
         </Grid>
-        <ScrollViewer Height="{Binding ActualHeight, Converter={StaticResource EmptyitemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" Background="#f8f8f8">
-            <Grid Height="{Binding ActualHeight, Converter={StaticResource EmptyitemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}">
+        <ScrollViewer Background="#f8f8f8">
+            <Grid >
                 <GridView Name="EmptyGridView">
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Width="{Binding ActualWidth, Converter={StaticResource EmptyitemWidthScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}">
+                            <Grid >
                                 <TextBlock  Text="{Binding Room}" HorizontalAlignment="Center"   FontSize="20" Foreground="Black"></TextBlock>
                             </Grid>
                         </DataTemplate>

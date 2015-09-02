@@ -128,12 +128,6 @@
     <Compile Include="Data\JWList.cs" />
     <Compile Include="Data\PersonalIno.cs" />
     <Compile Include="Data\ScoreList.cs" />
-    <Compile Include="ImportKB2CalendarPage.xaml.cs">
-      <DependentUpon>ImportKB2CalendarPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="JWContentPage.xaml.cs">
-      <DependentUpon>JWContentPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="JWPage.xaml.cs">
       <DependentUpon>JWPage.xaml</DependentUpon>
     </Compile>
@@ -150,6 +144,24 @@
       <DependentUpon>MorePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="NavMenuItem.cs" />
+    <Compile Include="Pages\CalendarPage.xaml.cs">
+      <DependentUpon>CalendarPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EmptyRoomsPage.xaml.cs">
+      <DependentUpon>EmptyRoomsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExamPage.xaml.cs">
+      <DependentUpon>ExamPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ImportKB2CalendarPage.xaml.cs">
+      <DependentUpon>ImportKB2CalendarPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\JWContentPage.xaml.cs">
+      <DependentUpon>JWContentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ScorePage.xaml.cs">
+      <DependentUpon>ScorePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
@@ -301,14 +313,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ImportKB2CalendarPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="JWContentPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="JWPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -328,6 +332,30 @@
     <Page Include="MorePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CalendarPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\EmptyRoomsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ExamPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ImportKB2CalendarPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\JWContentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ScorePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SettingPage.xaml">
       <SubType>Designer</SubType>

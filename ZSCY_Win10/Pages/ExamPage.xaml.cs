@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ZSCY.Data;
-using ZSCY.Util;
+using ZSCY_Win10.Util;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkID=390556 上有介绍
 
@@ -45,10 +45,9 @@ namespace ZSCY.Pages
         /// 此参数通常用于配置页。</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
             IsExamOrRe = System.Int32.Parse(e.Parameter.ToString());
             initExam();
-            UmengSDK.UmengAnalytics.TrackPageStart("ExamPage");
+            //UmengSDK.UmengAnalytics.TrackPageStart("ExamPage");
         }
 
         private async void initExam()
@@ -59,14 +58,12 @@ namespace ZSCY.Pages
             await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在紧张安排考试...", isIndeterminate: true);
             if (IsExamOrRe == 2)
             {
-                ExamTextBlock.Text = "考试安排";
                 paramList.Add(new KeyValuePair<string, string>("stuNum", appSetting.Values["stuNum"].ToString()));
                 paramList.Add(new KeyValuePair<string, string>("idNum", appSetting.Values["idNum"].ToString()));
                 exam = await NetWork.getHttpWebRequest("api/examSchedule", paramList);
             }
             else if (IsExamOrRe == 3)
             {
-                ExamTextBlock.Text = "补考安排";
 #if DEBUG
                 paramList.Add(new KeyValuePair<string, string>("stu", "2014214136"));
 #else   
@@ -143,24 +140,13 @@ namespace ZSCY.Pages
             await statusBar.ProgressIndicator.HideAsync();
         }
 
-        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)//重写后退按钮，如果要对所有页面使用，可以放在App.Xaml.cs的APP初始化函数中重写。
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-            if (rootFrame != null && rootFrame.CanGoBack)
-            {
-                rootFrame.GoBack();
-                e.Handled = true;
-            }
-
-        }
 
         //离开页面时，取消事件
         protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
             StatusBar statusBar = StatusBar.GetForCurrentView();
             await statusBar.ProgressIndicator.HideAsync();
-            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
-            UmengSDK.UmengAnalytics.TrackPageEnd("ExamPage");
+            //UmengSDK.UmengAnalytics.TrackPageEnd("ExamPage");
         }
 
         private void ListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
