@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -28,6 +29,16 @@ namespace ZSCY_Win10
         public AboutPage()
         {
             this.InitializeComponent();
+            this.SizeChanged += (s, e) =>
+            {
+                Debug.WriteLine(e.NewSize.Height);
+                var state = "VisualState_W0H0";
+                if (e.NewSize.Height > 380)
+                    state = "VisualState_W0H1";
+                if (e.NewSize.Height > 500)
+                    state = "VisualState_W0H2";
+                VisualStateManager.GoToState(this, state, true);
+            };
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -54,6 +65,18 @@ namespace ZSCY_Win10
         private async void LikeAppBarToggleButton_Click(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri("zune:reviewapp?appid=" + CurrentApp.AppId)); //用于商店app，自动获取ID
+        }
+
+        private void BackAppBarToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+                return;
+            if (rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
+            }
+            Frame.Navigate(typeof(SettingPage));
         }
     }
 }

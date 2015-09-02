@@ -14,7 +14,7 @@
         <ScrollViewer.Content>
             <Grid>
                 <ProgressBar IsIndeterminate="True"/>
-                <Image Name="CalendarImage"  Source="http://www.cqupt.edu.cn/cqupt/img/public/xl.png" Stretch="UniformToFill" ></Image>
+                <Image Name="CalendarImage" Source="http://www.cqupt.edu.cn/cqupt/img/public/xl.png" Stretch="UniformToFill" ></Image>
             </Grid>
         </ScrollViewer.Content>
     </ScrollViewer>

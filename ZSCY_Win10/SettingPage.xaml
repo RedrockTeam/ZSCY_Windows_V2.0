@@ -15,7 +15,7 @@
                         <Setter Target="importKB2calendarButton.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
                         <Setter Target="importKB2calendarButton.(FrameworkElement.Width)" Value="200"/>
                         <Setter Target="importKB2calendarButton.(FrameworkElement.MaxWidth)" Value="200"/>
-                        <Setter Target="importKB2calendarButton.(FrameworkElement.Margin)">
+                        <!--<Setter Target="importKB2calendarButton.(FrameworkElement.Margin)">
                             <Setter.Value>
                                 <Thickness>20,0,0,0</Thickness>
                             </Setter.Value>
@@ -24,7 +24,7 @@
                             <Setter.Value>
                                 <Thickness>20,0,0,0</Thickness>
                             </Setter.Value>
-                        </Setter>
+                        </Setter>-->
                         <Setter Target="ClearButton.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
                         <Setter Target="ClearButton.(FrameworkElement.Width)" Value="200"/>
                         <Setter Target="ClearButton.(FrameworkElement.MaxWidth)" Value="200"/>
@@ -54,15 +54,15 @@
             <Pivot>
                 <PivotItem Header="功能">
                     <StackPanel Margin="0,10">
-                        <TextBlock Text="实验室功能" Margin="0,0,0,10" Style="{StaticResource TitleTextBlockStyle}"/>
-                        <Button Name="importKB2calendarButton"  HorizontalAlignment="Stretch"    Content="订阅当前账号课表到日历"  Click="importKB2calendarButton_Click"/>
+                        <TextBlock Text="实验室功能" Margin="0,0,0,10" Foreground="#333" Style="{StaticResource TitleTextBlockStyle}"/>
+                        <Button Name="importKB2calendarButton" Foreground="#333" HorizontalAlignment="Stretch"    Content="订阅当前账号课表到日历"  Click="importKB2calendarButton_Click"/>
 
                     </StackPanel>
                 </PivotItem>
                 <PivotItem Header="重置"  >
                     <StackPanel Margin="0,10">
-                        <TextBlock Text="删除缓存" Margin="0,0,0,10" Style="{StaticResource TitleTextBlockStyle}"/>
-                        <Button Name="ClearButton" HorizontalAlignment="Stretch"   Content="删除所有缓存"    Click="ClearButton_Click"/>
+                        <TextBlock Text="删除缓存" Margin="0,0,0,10" Foreground="#333" Style="{StaticResource TitleTextBlockStyle}"/>
+                        <Button Name="ClearButton" HorizontalAlignment="Stretch"  Foreground="#333" Content="删除所有缓存"    Click="ClearButton_Click"/>
                     </StackPanel>
                 </PivotItem>
             </Pivot>
