@@ -109,6 +109,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\more_calendar333.png" />
+    <Content Include="Assets\more_empty333.png" />
+    <Content Include="Assets\more_exam333.png" />
+    <Content Include="Assets\more_reexam333.png" />
+    <Content Include="Assets\more_score333.png" />
     <Content Include="Data\moreitems.json" />
     <None Include="project.json" />
     <None Include="ZSCY_Win10_TemporaryKey.pfx" />
@@ -120,6 +125,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Controls\NavMenuListView.cs" />
     <Compile Include="Data\ClassList.cs" />
     <Compile Include="Data\DataSource.cs" />

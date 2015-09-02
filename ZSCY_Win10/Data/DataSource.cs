@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Contacts;
 using Windows.Data.Json;
 using Windows.Storage;
 
-namespace ZSCY.Data
+namespace ZSCY_Win10.Data
 {
     public class Morepageclass
     {

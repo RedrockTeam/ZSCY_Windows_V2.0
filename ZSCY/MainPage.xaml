@@ -24,8 +24,8 @@
             <Setter Property ="Orientation" Value="Vertical"></Setter>
         </Style>
         <DataTemplate x:Key="Standard200X180TileItemTemplate">
-            <Grid Margin="0,0,9.5,9.5"  Background="#068cfd" Height="120" Width="120">  
-                <Image Source="{Binding Itemimgsrc}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Height="60" Width="60"/> 
+            <Grid Margin="0,0,9.5,9.5"  Background="#068cfd" Height="120" Width="120">
+                <Image Source="{Binding Itemimgsrc}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Height="60" Width="60"/>
                 <TextBlock Text="{Binding Itemname}" VerticalAlignment="Bottom" FontSize="15" HorizontalAlignment="Left"  Foreground="White" Margin="10,0,0,5" FontFamily="Microsoft Yahei UI"/>
             </Grid>
         </DataTemplate>
@@ -285,80 +285,13 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
-                                <!--<RowDefinition Height="Auto"/>-->
                             </Grid.RowDefinitions>
                             <Grid VerticalAlignment="Center" Grid.Row="0" Height="{Binding ElementName=BlueBackGrid,Path=Height}">
                                 <TextBlock Name="HubSectionMoreTitle" Text="更多" Foreground="White"  FontSize="35" VerticalAlignment="Bottom" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                             </Grid>
-
-                            <!--<Grid Name="MoreGRGrid" Margin="0" Grid.Row="1"  Height="100" Width="{Binding ElementName=JWHubSection,Path=Width,Converter={StaticResource KBGridWidthConverterKey}}" >
-                                <StackPanel>
-                                    <TextBlock Name="MoreGRNameTextBlock"  Foreground="Black"  FontSize="35" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
-                                    <TextBlock Name="MoreGRClassTextBlock"  Foreground="Black"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
-                                    <TextBlock Name="MoreGRNumTextBlock"  Foreground="Black"  FontSize="20" HorizontalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
-                                </StackPanel>
-                            </Grid>-->
-
-
-                            <!--<Grid Name="MoreBlueGRGrid" HorizontalAlignment="Left" Margin="-20,0,0,0" Background="#068cfd" Grid.Row="1" Width="20" Height="{Binding ElementName=MoreGRGrid,Path=Height}" Opacity="0">
-                                <Grid.Resources>
-                                    <Storyboard x:Name="MoveMoreBlueGRGrid">
-                                        <DoubleAnimation Storyboard.TargetName="MoreBlueGRGrid" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.5" />
-                                    </Storyboard>
-                                </Grid.Resources>
-                            </Grid>
-
-                            <Grid Name="MoreBlueGRGrid2" HorizontalAlignment="Right" Margin="0,0,-40,0" Background="#f68cfd" Grid.Row="1"  Width="40" Height="{Binding ElementName=MoreGRGrid,Path=Height}" Opacity="0">
-                                <Grid.Resources>
-                                    <Storyboard x:Name="MoveMoreBlueGRGrid2">
-                                        <DoubleAnimation Storyboard.TargetName="MoreBlueGRGrid2" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.5" />
-                                    </Storyboard>
-                                </Grid.Resources>
-                            </Grid>-->
                         </Grid>
-                        <!--<StackPanel  x:Name="more" VerticalAlignment="Bottom">
-
-                            <Grid Grid.Row="2" VerticalAlignment="Bottom" >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Row="0" Grid.Column="0"  Style="{StaticResource StackStyle }" Tapped="Calendar_OnTapped">
-                                    <Image  Source="Assets/more_calendar.png" Stretch="Fill"  Width="64" Height="64"/>
-                                    <TextBlock Text="校历查询" Foreground="Black" HorizontalAlignment="Center"/>
-                                </StackPanel >
-                                <StackPanel  Grid.Row="0" Grid.Column="1" Style="{StaticResource StackStyle }" Tapped="Empty_OnTapped">
-                                    <Image Source="Assets/more_empty.png" Stretch="Fill"  Width="64" Height="64"/>
-                                    <TextBlock Text="教室查询" Foreground="Black" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel  Grid.Row="0" Grid.Column="2"  Style="{StaticResource StackStyle }" Tapped="Exam_OnTapped">
-                                    <Image Source="Assets/more_exam.png" Stretch="Fill"  Width="64" Height="64"/>
-                                    <TextBlock Text="考试查询" Foreground="Black" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel  Grid.Row="1" Grid.Column="0" Style="{StaticResource StackStyle }" Tapped="Score_OnTapped">
-                                    <Image Source="Assets/more_score.png" Stretch="Fill"  Width="64" Height="64"/>
-                                    <TextBlock Text="成绩查询" Foreground="Black" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel  Grid.Row="1" Grid.Column="1" Style="{StaticResource StackStyle }" Tapped="ReExam_OnTapped">
-                                    <Image Source="Assets/more_reexam.png" Stretch="Fill"  Width="64" Height="64"/>
-                                    <TextBlock Text="补考查询" Foreground="Black" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel  Grid.Row="1" Grid.Column="2"  Style="{StaticResource StackStyle }" Tapped="Setting_OnTapped">
-                                    <Image Source="Assets/Settings-100.png" Stretch="Fill"  Width="64" Height="64"/>
-                                    <TextBlock Text="设置" Foreground="Black" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Grid>
-                        </StackPanel>-->
-
                     </StackPanel>
-
                 </HubSection.Header>
-
                 <DataTemplate>
                     <GridView
                         ItemsSource="{Binding items}"
@@ -369,29 +302,11 @@
                         ContinuumNavigationTransitionInfo.ExitElementContainer="True">
                         <GridView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                    <ItemsWrapGrid Orientation="Horizontal" FlowDirection="LeftToRight"></ItemsWrapGrid>
-                                
-                <!--<VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
-
-                <ItemsWrapGrid />-->
-
+                                <ItemsWrapGrid Orientation="Horizontal" FlowDirection="LeftToRight"></ItemsWrapGrid>
                             </ItemsPanelTemplate>
                         </GridView.ItemsPanel>
                     </GridView>
                 </DataTemplate>
-                <!--<ListView x:Name="hahaha" ItemsSource="morepageclass">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Itemname}"></TextBlock>
-                                        <Image Source="{Binding Itemimgsrc}"></Image>
-                                    </StackPanel>
-                                 </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>-->
-
-
-
             </HubSection>
         </Hub>
     </Grid>

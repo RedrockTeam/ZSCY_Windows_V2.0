@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ZSCY.Data;
+using ZSCY_Win10.Common;
+using ZSCY_Win10.Data;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -24,7 +26,7 @@ namespace ZSCY_Win10
     /// </summary>
     public sealed partial class MorePage : Page
     {
-        ObservableCollection<Morepageclass> morepageclass = new ObservableCollection<Morepageclass>();
+        ObservableDictionary morepageclass = new ObservableDictionary();
         public MorePage()
         {
             this.InitializeComponent();
@@ -50,9 +52,17 @@ namespace ZSCY_Win10
                 cutoffLine.Y2 = e.NewSize.Height;
             };
         }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        public ObservableDictionary Morepageclass
         {
+            get
+            {
+                return morepageclass;
+            }
+        }
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var group = await DataSource.Get();
+            this.Morepageclass["Group"] = group;
             InitMore();
         }
 
