@@ -63,9 +63,8 @@
             </StackPanel>
         </Grid>
 
-
-        <ScrollViewer Grid.Row="1" Margin="10" Background="White">
-            <Grid >
+        <ScrollViewer Grid.Row="1" Background="White">
+            <Grid  Margin="10">
                 <GridView Name="EmptyGridView">
                     <GridView.ItemTemplate>
                         <DataTemplate>
