@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Store;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -80,9 +82,15 @@ namespace ZSCY_Win10
             this.frame.Visibility = Visibility.Visible;
             this.frame.Navigate(typeof(AboutPage));
             //Frame.Visibility = Visibility.Collapsed;
-            
+            AboutAppBarToggleButton.IsChecked = false;
+            HubSectionKBTitle.Text = "关于我们";
+            BackAppBarToggleButton.Visibility = Visibility.Visible;
         }
-
+        private async void LikeAppBarToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            LikeAppBarToggleButton.IsChecked = false;
+            await Launcher.LaunchUriAsync(new Uri("zune:reviewapp?appid=" + CurrentApp.AppId)); //用于商店app，自动获取ID
+        }
         private async void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             var dig = new MessageDialog("若应用无法使用，请尝试清除数据，清除数据后会自动退出应用。\n\n是否继续？", "警告");
@@ -110,5 +118,15 @@ namespace ZSCY_Win10
             {
             }
         }
+
+        private void BackAppBarToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackAppBarToggleButton.IsChecked = false;
+            BackAppBarToggleButton.Visibility = Visibility.Collapsed;
+            HubSectionKBTitle.Text = "设置";
+            frame.Visibility = Visibility.Collapsed;
+        }
+
+
     }
 }

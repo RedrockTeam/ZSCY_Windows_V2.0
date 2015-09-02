@@ -51,32 +51,9 @@ namespace ZSCY_Win10
             //HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
             //UmengSDK.UmengAnalytics.TrackPageEnd("AboutPage");
         }
-        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)//重写后退按钮，如果要对所有页面使用，可以放在App.Xaml.cs的APP初始化函数中重写。
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-            if (rootFrame != null && rootFrame.CanGoBack)
-            {
-                rootFrame.GoBack();
-                e.Handled = true;
-            }
 
-        }
+       
 
-        private async void LikeAppBarToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            await Launcher.LaunchUriAsync(new Uri("zune:reviewapp?appid=" + CurrentApp.AppId)); //用于商店app，自动获取ID
-        }
-
-        private void BackAppBarToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-            if (rootFrame == null)
-                return;
-            if (rootFrame.CanGoBack)
-            {
-                rootFrame.GoBack();
-            }
-            Frame.Navigate(typeof(SettingPage));
-        }
+       
     }
 }
