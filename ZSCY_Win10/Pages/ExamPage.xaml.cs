@@ -55,7 +55,7 @@ namespace ZSCY.Pages
             string exam = "";
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
 
-            await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在紧张安排考试...", isIndeterminate: true);
+            //await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在紧张安排考试...", isIndeterminate: true);
             if (IsExamOrRe == 2)
             {
                 paramList.Add(new KeyValuePair<string, string>("stuNum", appSetting.Values["stuNum"].ToString()));
@@ -136,16 +136,16 @@ namespace ZSCY.Pages
                 ListFailedStackPanelImage.Visibility = Visibility.Visible;
                 ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
             }
-            StatusBar statusBar = StatusBar.GetForCurrentView();
-            await statusBar.ProgressIndicator.HideAsync();
+            //StatusBar statusBar = StatusBar.GetForCurrentView();
+            //await statusBar.ProgressIndicator.HideAsync();
         }
 
 
         //离开页面时，取消事件
         protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            StatusBar statusBar = StatusBar.GetForCurrentView();
-            await statusBar.ProgressIndicator.HideAsync();
+            //StatusBar statusBar = StatusBar.GetForCurrentView();
+            //await statusBar.ProgressIndicator.HideAsync();
             //UmengSDK.UmengAnalytics.TrackPageEnd("ExamPage");
         }
 

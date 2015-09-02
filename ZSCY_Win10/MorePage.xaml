@@ -19,12 +19,17 @@
                         <Setter Target="MoreContentGrid.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="MoreTitleGrid.(FrameworkElement.HorizontalAlignment)" Value="Stretch"/>
                         <Setter Target="cutoffLine.(FrameworkElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="MoreContentGrid.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>-1,0,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="VisualState750">
+                <VisualState x:Name="VisualState700">
                     <VisualState.Setters>
-                        <Setter Target="MoreTitleGrid.(FrameworkElement.Width)" Value="400"/>
-                        <Setter Target="MoreListgrid.(FrameworkElement.Width)" Value="400"/>
+                        <Setter Target="MoreTitleGrid.(FrameworkElement.Width)" Value="300"/>
+                        <Setter Target="MoreListgrid.(FrameworkElement.Width)" Value="300"/>
                         <Setter Target="MoreTitleGrid.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
                         <Setter Target="TitlecutoffLineGrid.(FrameworkElement.Visibility)" Value="Visible"/>
                     </VisualState.Setters>
@@ -43,8 +48,9 @@
                     <TextBlock Name="HubSectionKBTitle" Text="更多" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
                 </StackPanel>
             </Grid>
-            <Grid Name="TitlecutoffLineGrid" Visibility="Collapsed" Margin="400,0,0,0" Width="1"  HorizontalAlignment="Left">
-                <Line Y1="0" Y2="48" Stroke="Gray" StrokeThickness="1"/>
+            <Grid Name="TitlecutoffLineGrid" Visibility="Collapsed" Margin="300,0,0,0" HorizontalAlignment="Left">
+                <Line Y1="0" Y2="48" Width="1" Stroke="#58b3ff" HorizontalAlignment="Left" StrokeThickness="1"/>
+                <TextBlock Name="MoreContentTitleTextBlock" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
             </Grid>
         </Grid>
 
@@ -61,17 +67,13 @@
                     <ListView Name="MoreListView" IsItemClickEnabled="True" ItemClick="MoreListView_ItemClick" ItemsSource="{Binding items}">
                         <ListView.ItemTemplate>
                             <DataTemplate >
-                                <Grid Margin="0,10">
-                                    <!--<Grid Margin="15,10" >
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>-->
+                                <Grid Margin="-12,0">
+                                    <Grid Margin="15,10">
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
                                             <Image Grid.Column="0" Source="{Binding Itemimgsrc}" Width="30" />
                                             <TextBlock Grid.Column="1" Text="{Binding Itemname}" FontSize="15" Foreground="#333" VerticalAlignment="Center" />
                                         </StackPanel>
-                                    <!--</Grid>-->
+                                    </Grid>
                                     <Line X1="0" X2="750" Y1="0" Y2="1" Height="1" VerticalAlignment="Bottom" Stroke="#E6E6E6" StrokeThickness="1"></Line>
                                     <Line X1="0" X2="750" Y1="1" Y2="0" Height="1" VerticalAlignment="Bottom" Stroke="#E6E6E6" StrokeThickness="1"></Line>
                                 </Grid>

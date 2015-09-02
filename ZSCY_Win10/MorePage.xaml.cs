@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -14,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ZSCY.Data;
+using ZSCY.Pages;
 using ZSCY_Win10.Common;
 using ZSCY_Win10.Data;
 
@@ -35,18 +37,19 @@ namespace ZSCY_Win10
                 var state = "VisualState000";
                 if (e.NewSize.Width > 000 && e.NewSize.Width < 750)
                 {
-                    //if (JWListView.SelectedIndex != -1)
-                    //{
-                    //    JWBackAppBarButton.Visibility = Visibility.Visible;
-                    //}
-                    //JWListView.Width = e.NewSize.Width;
+                    if (MoreListView.SelectedIndex != -1)
+                    {
+                        MoreBackAppBarButton.Visibility = Visibility.Visible;
+                        HubSectionKBTitle.Text = MoreContentTitleTextBlock.Text;
+                    }
+                    MoreListView.Width = e.NewSize.Width;
                 }
-                if (e.NewSize.Width > 750)
+                if (e.NewSize.Width > 700)
                 {
-                    //JWBackAppBarButton.Visibility = Visibility.Collapsed;
-                    //JWRefreshAppBarButton.Visibility = Visibility.Visible;
-                    //JWListView.Width = 400;
-                    state = "VisualState750";
+                    MoreBackAppBarButton.Visibility = Visibility.Collapsed;
+                    HubSectionKBTitle.Text = "更多";
+                    MoreListView.Width = 300;
+                    state = "VisualState700";
                 }
                 VisualStateManager.GoToState(this, state, true);
                 cutoffLine.Y2 = e.NewSize.Height;
@@ -87,12 +90,43 @@ namespace ZSCY_Win10
             //}
             MoreBackAppBarButton.Visibility = Visibility.Collapsed;
             MoreFrame.Visibility = Visibility.Collapsed;
-            //JWListView.SelectedIndex = -1;
+            MoreContentTitleTextBlock.Text = "";
+            HubSectionKBTitle.Text = "更多";
+            MoreListView.SelectedIndex = -1;
         }
 
         private void MoreListView_ItemClick(object sender, ItemClickEventArgs e)
         {
 
+            var item = e.ClickedItem as Morepageclass;
+            if (MoreListgrid.Width != null && MoreListgrid.Width == 300)
+            {
+                MoreBackAppBarButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MoreBackAppBarButton.Visibility = Visibility.Visible;
+                HubSectionKBTitle.Text = item.Itemname;
+            }
+            MoreFrame.Visibility = Visibility.Visible;
+            MoreContentTitleTextBlock.Text = item.Itemname;
+            Debug.WriteLine(item.UniqueID);
+            {
+                switch (item.UniqueID)
+                {
+                    case "ReExam": MoreFrame.Navigate(typeof(ExamPage), 3); break;
+                    case "Exam": MoreFrame.Navigate(typeof(ExamPage), 2); break;
+                    case "Socre": MoreFrame.Navigate(typeof(ScorePage)); break;
+                    case "ClassRoom":
+                        MoreFrame.Navigate(typeof(EmptyRoomsPage));
+                        break;
+                    case "Calendar":
+                        MoreFrame.Navigate(typeof(CalendarPage));
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

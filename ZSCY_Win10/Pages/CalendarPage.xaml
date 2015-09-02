@@ -10,7 +10,7 @@
     FontFamily="Microsoft YaHei UI"
     FontWeight="Light">
 
-    <ScrollViewer ZoomMode="Enabled" MinZoomFactor="0.8" MaxZoomFactor="2.5" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" >
+    <ScrollViewer ZoomMode="Enabled" MinZoomFactor="0.8" MaxZoomFactor="2.5" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
         <ScrollViewer.Content>
             <Grid>
                 <ProgressBar IsIndeterminate="True"/>

@@ -10,14 +10,19 @@
     FontWeight="Light"
     x:Name="itemPage">
 
-    <ScrollViewer Background="White">
+    <Grid Background="White">
+        <ScrollViewer Background="White">
             <Grid>
                 <ListView Name="ScoreListView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                        <Grid Margin="0,0,0,15" Background="#58b3ff"  Width="{Binding ActualWidth, ElementName=itemPage, Mode=OneWay}">
-                                <TextBlock Text="{Binding Course}" FontSize="20" Foreground="White" Margin="15" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
-                            <TextBlock Text="{Binding Grade}" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="15" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                            <Grid Margin="-12,0">
+                                <Grid Margin="15,20">
+                                    <TextBlock Text="{Binding Course}" FontSize="20" Foreground="#068cfd" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                                    <TextBlock Text="{Binding Grade}" HorizontalAlignment="Right" FontSize="20" Foreground="#333" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                                </Grid>
+                                <Line X1="0" X2="999999" Y1="0" Y2="1" Height="1" VerticalAlignment="Top" Stroke="#E6E6E6" StrokeThickness="1"></Line>
+                                <Line X1="0" X2="999999" Y1="1" Y2="0" Height="1" VerticalAlignment="Bottom" Stroke="#E6E6E6" StrokeThickness="1"></Line>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -28,4 +33,5 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
+    </Grid>
 </Page>

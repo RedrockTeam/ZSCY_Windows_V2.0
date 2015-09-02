@@ -242,6 +242,8 @@ namespace ZSCY_Win10
 
         private void JWListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+
+
             JWList JWItem = new JWList(((JWList)e.ClickedItem).ID, ((JWList)e.ClickedItem).Title, ((JWList)e.ClickedItem).Date, ((JWList)e.ClickedItem).Read, ((JWList)e.ClickedItem).Content == null ? "加载中..." : ((JWList)e.ClickedItem).Content);
 
             Debug.WriteLine("JWListgrid.Width" + JWListgrid.Width);

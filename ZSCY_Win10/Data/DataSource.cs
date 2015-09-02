@@ -12,12 +12,14 @@ namespace ZSCY_Win10.Data
     {
         public string UniqueID { get; set; }
         public string Itemname { get; set; }
+        public string ItemPage { get; set; }
         public string Itemimgsrc { get; set; }
 
-        public Morepageclass(string name, string src,string id)
+        public Morepageclass(string name, string src,string id,string page)
         {
             this.Itemimgsrc = src;
             this.Itemname = name;
+            this.ItemPage = page;
             this.UniqueID = id;
         }
 
@@ -67,7 +69,7 @@ namespace ZSCY_Win10.Data
             foreach (JsonValue item in jsonArray)
             {
                 JsonObject i = item.GetObject();
-                g.items.Add(new Morepageclass(i["Itemname"].GetString(),i["Itemimgsrc"].GetString(),i["UniqueId"].GetString()));
+                g.items.Add(new Morepageclass(i["Itemname"].GetString(),i["Itemimgsrc"].GetString(),i["UniqueId"].GetString(),i["ItemPage"].GetString()));
             }
             this.Group.Add(g);
             }

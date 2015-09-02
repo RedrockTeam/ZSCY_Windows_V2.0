@@ -86,8 +86,8 @@ namespace ZSCY.Pages
         //离开页面时，取消事件
         protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            StatusBar statusBar = StatusBar.GetForCurrentView();
-            await statusBar.ProgressIndicator.HideAsync();
+            //StatusBar statusBar = StatusBar.GetForCurrentView();
+            //await statusBar.ProgressIndicator.HideAsync();
             //UmengSDK.UmengAnalytics.TrackPageEnd("EmptyRoomsPage");
         }
 
@@ -202,45 +202,45 @@ namespace ZSCY.Pages
         }
 
 
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-            JXLButton.Content = (sender as MenuFlyoutItem).Text;
-            switch (JXLButton.Content.ToString())
-            {
-                case "二教":
-                    buildNum = "2";
-                    break;
-                case "三教":
-                    buildNum = "3";
-                    break;
-                case "四教":
-                    buildNum = "4";
-                    break;
-                case "五教":
-                    buildNum = "5";
-                    break;
-                case "八教":
-                    buildNum = "8";
-                    break;
-            }
-            emptyRoomList.Clear();
+        //private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        //{
+        //    JXLButton.Content = (sender as MenuFlyoutItem).Text;
+        //    switch (JXLButton.Content.ToString())
+        //    {
+        //        case "二教":
+        //            buildNum = "2";
+        //            break;
+        //        case "三教":
+        //            buildNum = "3";
+        //            break;
+        //        case "四教":
+        //            buildNum = "4";
+        //            break;
+        //        case "五教":
+        //            buildNum = "5";
+        //            break;
+        //        case "八教":
+        //            buildNum = "8";
+        //            break;
+        //    }
+        //    emptyRoomList.Clear();
 
-            Time08Grid.Background = new SolidColorBrush(gridColorGray);
-            Time10Grid.Background = new SolidColorBrush(gridColorGray);
-            Time14Grid.Background = new SolidColorBrush(gridColorGray);
-            Time16Grid.Background = new SolidColorBrush(gridColorGray);
-            Time19Grid.Background = new SolidColorBrush(gridColorGray);
-            Time21Grid.Background = new SolidColorBrush(gridColorGray);
-            for (int i = 0; i < 6; i++)
-            {
-                gridColor[i] = false;
-            }
-            for (int i = 0; i < 6; i++)
-            {
-                for (int j = 0; j < emptyRoomReslut[i].Length; j++)
-                    emptyRoomReslut[i][j] = "";
-            }
-        }
+        //    Time08Grid.Background = new SolidColorBrush(gridColorGray);
+        //    Time10Grid.Background = new SolidColorBrush(gridColorGray);
+        //    Time14Grid.Background = new SolidColorBrush(gridColorGray);
+        //    Time16Grid.Background = new SolidColorBrush(gridColorGray);
+        //    Time19Grid.Background = new SolidColorBrush(gridColorGray);
+        //    Time21Grid.Background = new SolidColorBrush(gridColorGray);
+        //    for (int i = 0; i < 6; i++)
+        //    {
+        //        gridColor[i] = false;
+        //    }
+        //    for (int i = 0; i < 6; i++)
+        //    {
+        //        for (int j = 0; j < emptyRoomReslut[i].Length; j++)
+        //            emptyRoomReslut[i][j] = "";
+        //    }
+        //}
 
         /// <summary>
         /// 空教室网络请求
@@ -254,7 +254,7 @@ namespace ZSCY.Pages
             paramList.Add(new KeyValuePair<string, string>("sectionNum", sectionNum.ToString()));
             paramList.Add(new KeyValuePair<string, string>("week", appSetting.Values["nowWeek"].ToString()));
             paramList.Add(new KeyValuePair<string, string>("weekdayNum", NowWeekday));
-            await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在查询空教室...", isIndeterminate: true);
+            //await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在查询空教室...", isIndeterminate: true);
             string emptyRoom = await NetWork.getHttpWebRequest("api/roomEmpty", paramList);
             Debug.WriteLine("emptyRoom->" + emptyRoom);
             if (emptyRoom != "")
@@ -281,8 +281,8 @@ namespace ZSCY.Pages
                 emptyRoomList.Clear();
                 isShowEmpty = false;
             }
-            StatusBar statusBar = StatusBar.GetForCurrentView();
-            await statusBar.ProgressIndicator.HideAsync();
+            //StatusBar statusBar = StatusBar.GetForCurrentView();
+            //await statusBar.ProgressIndicator.HideAsync();
         }
 
         private void ShowEmpty()
@@ -382,5 +382,65 @@ namespace ZSCY.Pages
         }
 
 
+        private MenuFlyoutItem getJXLMenuFlyoutItem(string text)
+        {
+            MenuFlyoutItem menuFlyoutItem = new MenuFlyoutItem();
+            menuFlyoutItem.Text = text;
+            menuFlyoutItem.Click += JXLMenuFlyoutItem_click;
+            return menuFlyoutItem;
+        }
+
+        private void JXLMenuFlyoutItem_click(object sender, RoutedEventArgs e)
+        {
+            MenuFlyoutItem menuFlyoutItem = sender as MenuFlyoutItem;
+            FilterAppBarToggleButton.Label = menuFlyoutItem.Text;
+            switch (menuFlyoutItem.Text)
+            {
+                case "二教":
+                    buildNum = "2";
+                    break;
+                case "三教":
+                    buildNum = "3";
+                    break;
+                case "四教":
+                    buildNum = "4";
+                    break;
+                case "五教":
+                    buildNum = "5";
+                    break;
+                case "八教":
+                    buildNum = "8";
+                    break;
+            }
+            emptyRoomList.Clear();
+
+            Time08Grid.Background = new SolidColorBrush(gridColorGray);
+            Time10Grid.Background = new SolidColorBrush(gridColorGray);
+            Time14Grid.Background = new SolidColorBrush(gridColorGray);
+            Time16Grid.Background = new SolidColorBrush(gridColorGray);
+            Time19Grid.Background = new SolidColorBrush(gridColorGray);
+            Time21Grid.Background = new SolidColorBrush(gridColorGray);
+            for (int i = 0; i < 6; i++)
+            {
+                gridColor[i] = false;
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < emptyRoomReslut[i].Length; j++)
+                    emptyRoomReslut[i][j] = "";
+            }
+        }
+
+        private void FilterAppBarToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            MenuFlyout JXLMenuFlyout = new MenuFlyout();
+
+            JXLMenuFlyout.Items.Add(getJXLMenuFlyoutItem("二教"));
+            JXLMenuFlyout.Items.Add(getJXLMenuFlyoutItem("三教"));
+            JXLMenuFlyout.Items.Add(getJXLMenuFlyoutItem("四教"));
+            JXLMenuFlyout.Items.Add(getJXLMenuFlyoutItem("五教"));
+            JXLMenuFlyout.Items.Add(getJXLMenuFlyoutItem("八教"));
+            JXLMenuFlyout.ShowAt(FilterAppBarToggleButton);
+        }
     }
 }

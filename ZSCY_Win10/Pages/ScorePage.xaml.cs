@@ -35,6 +35,7 @@ namespace ZSCY.Pages
         {
             appSetting = ApplicationData.Current.LocalSettings; //本地存储
             this.InitializeComponent();
+            Debug.WriteLine("init");
         }
 
         /// <summary>
@@ -51,19 +52,22 @@ namespace ZSCY.Pages
         //离开页面时，取消事件
         protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            StatusBar statusBar = StatusBar.GetForCurrentView();
+            //StatusBar statusBar = StatusBar.GetForCurrentView();
             //UmengSDK.UmengAnalytics.TrackPageEnd("ScorePage");
-            await statusBar.ProgressIndicator.HideAsync();
+            //await statusBar.ProgressIndicator.HideAsync();
         }
 
         private async void initScore()
         {
-            await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在紧张批改试卷...", isIndeterminate: true);
+            //await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在紧张批改试卷...", isIndeterminate: true);
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
             paramList.Add(new KeyValuePair<string, string>("stuNum", appSetting.Values["stuNum"].ToString()));
             paramList.Add(new KeyValuePair<string, string>("idNum", appSetting.Values["idNum"].ToString()));
             string score = await NetWork.getHttpWebRequest("api/examGrade", paramList);
             Debug.WriteLine("score->" + score);
+#if DEBUG
+            score = "{\"status\":200,\"term\":\"20151\",\"info\":\"success\",\"data\":[{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"},{\"student\":\"2013211594\",\"course\":\"英语口笔译基础\",\"grade\":\"99\",\"property\":\"必修\",\"status\":\"1\",\"term\":\"2\"}],\"version\":\"0.1.0\",\"stuNum\":\"2013211594\",\"idNum\":\"160155\"}";
+#endif
             if (score != "")
             {
                 JObject obj = JObject.Parse(score);
@@ -105,8 +109,8 @@ namespace ZSCY.Pages
                 ListFailedStackPanelTextBlock.Visibility = Visibility.Visible;
             }
 
-            StatusBar statusBar = StatusBar.GetForCurrentView();
-            await statusBar.ProgressIndicator.HideAsync();
+            //StatusBar statusBar = StatusBar.GetForCurrentView();
+            //await statusBar.ProgressIndicator.HideAsync();
         }
 
         private void ListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)

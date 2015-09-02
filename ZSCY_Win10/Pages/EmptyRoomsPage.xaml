@@ -12,22 +12,12 @@
     Background="#068cfd">
 
 
-    <StackPanel Name="itemStackPanel">
-        <Grid Background="#068cfd" Height="70">
-            <TextBlock Text="空教室查询" Foreground="White" FontWeight="Light" FontFamily="Microsoft YaHei UI" VerticalAlignment="Center" Margin="15,0" FontSize="40"></TextBlock>
-            <Button Name="JXLButton" Content="二教" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0">
-                <Button.Flyout>
-                    <MenuFlyout >
-                        <MenuFlyoutItem Text="二教" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
-                        <MenuFlyoutItem Text="三教" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
-                        <MenuFlyoutItem Text="四教" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
-                        <MenuFlyoutItem Text="五教" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
-                        <MenuFlyoutItem Text="八教" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
-                    </MenuFlyout>
-                </Button.Flyout>
-            </Button>
-        </Grid>
-        <Grid Background="LightGray" Height="80">
+    <Grid Name="itemStackPanel">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="LightGray">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1 *"/>
                 <ColumnDefinition Width="1 *"/>
@@ -38,47 +28,49 @@
             </Grid.ColumnDefinitions>
             <Grid Name="Time08Grid" Tapped="Time08Grid_Tapped" Background="#d3d3d3" Grid.Column="0"></Grid>
             <StackPanel VerticalAlignment="Center" Margin="5" Grid.Column="0" Tapped="Time08Grid_Tapped">
-                <Image Source="../Assets/ic_time08.png" Width="40" Height="40"></Image>
-                <TextBlock Text="1~2" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                <Image Source="../Assets/ic_time08.png" Width="30" Height="30"></Image>
+                <TextBlock Text="1~2" Margin="0,5,0,0" Foreground="White" HorizontalAlignment="Center" FontSize="20"></TextBlock>
             </StackPanel>
 
             <Grid Name="Time10Grid" Background="#d3d3d3" Tapped="Time10Grid_Tapped" Grid.Column="1"></Grid>
             <StackPanel VerticalAlignment="Center" Margin="5" Grid.Column="1" Tapped="Time10Grid_Tapped">
-                <Image Source="../Assets/ic_time10.png" Width="40" Height="40"></Image>
-                <TextBlock Text="3~4" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                <Image Source="../Assets/ic_time10.png" Width="30" Height="30"></Image>
+                <TextBlock Text="3~4" Margin="0,5,0,0" Foreground="White" HorizontalAlignment="Center" FontSize="20"></TextBlock>
             </StackPanel>
 
             <Grid Name="Time14Grid" Background="#d3d3d3" Tapped="Time14Grid_Tapped" Grid.Column="2"></Grid>
             <StackPanel VerticalAlignment="Center" Margin="5" Grid.Column="2" Tapped="Time14Grid_Tapped">
-                <Image Source="../Assets/ic_time14.png" Width="40" Height="40"></Image>
-                <TextBlock Text="5~6" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                <Image Source="../Assets/ic_time14.png" Width="30" Height="30"></Image>
+                <TextBlock Text="5~6" Margin="0,5,0,0" Foreground="White" HorizontalAlignment="Center" FontSize="20"></TextBlock>
             </StackPanel>
 
             <Grid Name="Time16Grid" Background="#d3d3d3" Tapped="Time16Grid_Tapped" Grid.Column="3"></Grid>
             <StackPanel VerticalAlignment="Center" Margin="5" Grid.Column="3" Tapped="Time16Grid_Tapped">
-                <Image Source="../Assets/ic_time16.png" Width="40" Height="40"></Image>
-                <TextBlock Text="7~8" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                <Image Source="../Assets/ic_time16.png" Width="30" Height="30"></Image>
+                <TextBlock Text="7~8" Margin="0,5,0,0" Foreground="White" HorizontalAlignment="Center" FontSize="20"></TextBlock>
             </StackPanel>
 
             <Grid Name="Time19Grid" Background="#d3d3d3" Tapped="Time19Grid_Tapped" Grid.Column="4"></Grid>
             <StackPanel VerticalAlignment="Center" Margin="5" Grid.Column="4" Tapped="Time19Grid_Tapped">
-                <Image Source="../Assets/ic_time19.png" Width="40" Height="40"></Image>
-                <TextBlock Text="9~10" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                <Image Source="../Assets/ic_time19.png" Width="30" Height="30"></Image>
+                <TextBlock Text="9~10" Margin="0,5,0,0" Foreground="White" HorizontalAlignment="Center" FontSize="20"></TextBlock>
             </StackPanel>
 
             <Grid Name="Time21Grid" Background="#d3d3d3" Tapped="Time21Grid_Tapped" Grid.Column="5"></Grid>
             <StackPanel VerticalAlignment="Center" Margin="5" Grid.Column="5" Tapped="Time21Grid_Tapped">
-                <Image Source="../Assets/ic_time21.png" Width="40" Height="40"></Image>
-                <TextBlock Text="11~12" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                <Image Source="../Assets/ic_time21.png" Width="30" Height="30"></Image>
+                <TextBlock Text="11~12" Margin="0,5,0,0" Foreground="White" HorizontalAlignment="Center" FontSize="20"></TextBlock>
             </StackPanel>
         </Grid>
-        <ScrollViewer Background="#f8f8f8">
+
+
+        <ScrollViewer Grid.Row="1" Margin="10" Background="White">
             <Grid >
                 <GridView Name="EmptyGridView">
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <Grid >
-                                <TextBlock  Text="{Binding Room}" HorizontalAlignment="Center"   FontSize="20" Foreground="Black"></TextBlock>
+                                <TextBlock  Text="{Binding Room}" HorizontalAlignment="Center"   FontSize="20" Foreground="#333"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </GridView.ItemTemplate>
@@ -89,5 +81,11 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-    </StackPanel>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarToggleButton Name="FilterAppBarToggleButton" Icon="Filter" Label="二教" Click="FilterAppBarToggleButton_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
