@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="ZSCY.Pages.CalendarPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZSCY.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Name="itemPage"
+    FontFamily="Microsoft YaHei UI"
+    FontWeight="Light">
+
+    <ScrollViewer ZoomMode="Enabled" MinZoomFactor="0.8" MaxZoomFactor="2.5" HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" >
+        <ScrollViewer.Content>
+            <Grid>
+                <ProgressBar IsIndeterminate="True"/>
+                <Image Name="CalendarImage" Source="http://www.cqupt.edu.cn/cqupt/img/public/xl.png" Stretch="UniformToFill" ></Image>
+            </Grid>
+        </ScrollViewer.Content>
+    </ScrollViewer>
+</Page>

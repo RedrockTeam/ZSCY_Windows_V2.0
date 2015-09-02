@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ZSCY.Data;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -22,6 +24,7 @@ namespace ZSCY_Win10
     /// </summary>
     public sealed partial class MorePage : Page
     {
+        ObservableCollection<Morepageclass> morepageclass = new ObservableCollection<Morepageclass>();
         public MorePage()
         {
             this.InitializeComponent();
@@ -48,6 +51,20 @@ namespace ZSCY_Win10
             };
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            InitMore();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+        }
+
+        private void InitMore()
+        {
+        }
+
+
         public Frame MoreFrame { get { return this.frame; } }
 
         private void MoreBackAppBarButton_Click(object sender, RoutedEventArgs e)
@@ -61,6 +78,11 @@ namespace ZSCY_Win10
             MoreBackAppBarButton.Visibility = Visibility.Collapsed;
             MoreFrame.Visibility = Visibility.Collapsed;
             //JWListView.SelectedIndex = -1;
-    }
+        }
+
+        private void MoreListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }

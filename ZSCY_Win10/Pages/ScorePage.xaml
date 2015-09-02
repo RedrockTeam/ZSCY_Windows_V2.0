@@ -1,0 +1,31 @@
+﻿<Page
+    x:Class="ZSCY.Pages.ScorePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZSCY.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="Microsoft YaHei UI"
+    FontWeight="Light"
+    x:Name="itemPage">
+
+    <ScrollViewer Background="White">
+            <Grid>
+                <ListView Name="ScoreListView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                        <Grid Margin="0,0,0,15" Background="#58b3ff"  Width="{Binding ActualWidth, ElementName=itemPage, Mode=OneWay}">
+                                <TextBlock Text="{Binding Course}" FontSize="20" Foreground="White" Margin="15" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                            <TextBlock Text="{Binding Grade}" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="15" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Name="ListFailedStackPanel" Visibility="Collapsed" VerticalAlignment="Center"  Margin="0,20" Tapped="ListFailedStackPanel_Tapped">
+                    <Image Name="ListFailedStackPanelImage" Source="../Assets/ic_failed.png" Height="80" Width="80" HorizontalAlignment="Center" />
+                    <TextBlock Name="ListFailedStackPanelTextBlock" Text="加载失败，点击重试" HorizontalAlignment="Center" FontWeight="Light" Foreground="Gray" FontSize="15" FontFamily="Microsoft YaHei UI"  />
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+</Page>
