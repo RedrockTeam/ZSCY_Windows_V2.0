@@ -65,7 +65,7 @@
                     <FlyoutBase.AttachedFlyout>
                         <Flyout x:Name="KBNumFlyout" >
                             <StackPanel Margin="10" Width="300">
-                                <TextBlock Text="输入要查询的周次" FontSize="15"/>
+                                <TextBlock Text="输入要查询的周次" Foreground="#333" FontSize="15"/>
                                 <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
@@ -84,7 +84,7 @@
                         <FlyoutBase.AttachedFlyout >
                             <Flyout x:Name="KBZoomFlyout" >
                                 <StackPanel Margin="10" Width="300">
-                                    <TextBlock Text="输入学号以查询" FontSize="15"/>
+                                    <TextBlock Text="输入学号以查询" Foreground="#333" FontSize="15"/>
                                     <Grid >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -267,15 +267,15 @@
                                                                     <RowDefinition Height="1 *"/>
                                                                     <RowDefinition Height="1 *"/>
                                                                 </Grid.RowDefinitions>
-                                                                <TextBlock Text="教室" Grid.Column="0" Grid.Row="0" FontSize="18" Margin="0,2.5,5,2.5"/>
-                                                                <TextBlock Text="教师" Grid.Column="0" Grid.Row="1" FontSize="18" Margin="0,2.5,5,2.5"/>
-                                                                <TextBlock Text="类型" Grid.Column="0" Grid.Row="2" FontSize="18" Margin="0,2.5,5,2.5"/>
-                                                                <TextBlock Text="周数" Grid.Column="0" Grid.Row="3" FontSize="18" Margin="0,2.5,5,2.5"/>
+                                                                <TextBlock Text="教室" Foreground="#333" Grid.Column="0" Grid.Row="0" FontSize="18" Margin="0,2.5,5,2.5"/>
+                                                                <TextBlock Text="教师" Foreground="#333" Grid.Column="0" Grid.Row="1" FontSize="18" Margin="0,2.5,5,2.5"/>
+                                                                <TextBlock Text="类型" Foreground="#333" Grid.Column="0" Grid.Row="2" FontSize="18" Margin="0,2.5,5,2.5"/>
+                                                                <TextBlock Text="周数" Foreground="#333" Grid.Column="0" Grid.Row="3" FontSize="18" Margin="0,2.5,5,2.5"/>
 
-                                                                <TextBlock Text="{Binding Classroom}" Grid.Column="1" Grid.Row="0" FontSize="18" VerticalAlignment="Center"/>
-                                                                <TextBlock Text="{Binding Teacher}" Grid.Column="1" Grid.Row="1" FontSize="18" VerticalAlignment="Center"/>
-                                                                <TextBlock Text="{Binding Type}" Grid.Column="1" Grid.Row="2" FontSize="18" VerticalAlignment="Center"/>
-                                                                <TextBlock Text="{Binding RawWeek}" Grid.Column="1" Grid.Row="3" FontSize="18" VerticalAlignment="Center"/>
+                                                                <TextBlock Text="{Binding Classroom}" Foreground="#333" Grid.Column="1" Grid.Row="0" FontSize="18" VerticalAlignment="Center"/>
+                                                                <TextBlock Text="{Binding Teacher}" Foreground="#333" Grid.Column="1" Grid.Row="1" FontSize="18" VerticalAlignment="Center"/>
+                                                                <TextBlock Text="{Binding Type}" Foreground="#333" Grid.Column="1" Grid.Row="2" FontSize="18" VerticalAlignment="Center"/>
+                                                                <TextBlock Text="{Binding RawWeek}" Foreground="#333" Grid.Column="1" Grid.Row="3" FontSize="18" VerticalAlignment="Center"/>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ListView.ItemTemplate>
