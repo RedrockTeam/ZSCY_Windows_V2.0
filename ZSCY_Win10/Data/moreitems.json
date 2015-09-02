@@ -3,32 +3,27 @@
     {
       "UniqueId": "Calendar",
       "Itemname": "校历查询",
-      "Itemimgsrc": " Assets/more_calendar.png"
+      "Itemimgsrc": " Assets/more_calendar333.png"
     },
     {
       "UniqueId": "ClassRoom",
       "Itemname": "教室查询",
-      "Itemimgsrc": "Assets/more_empty.png"
+      "Itemimgsrc": "Assets/more_empty333.png"
     },
     {
       "UniqueId": "Exam",
       "Itemname": "考试查询",
-      "Itemimgsrc": "Assets/more_exam.png"
+      "Itemimgsrc": "Assets/more_exam333.png"
     },
     {
       "UniqueId": "ReExam",
       "Itemname": "补考查询",
-      "Itemimgsrc": "Assets/more_reexam.png"
+      "Itemimgsrc": "Assets/more_reexam333.png"
     },
     {
       "UniqueId": "Socre",
       "Itemname": "成绩查询",
-      "Itemimgsrc": "Assets/more_score.png"
-    },
-    {
-      "UniqueId": "Setting",
-      "Itemname": "设置",
-      "Itemimgsrc": "Assets/Settings-100.png"
+      "Itemimgsrc": "Assets/more_score333.png"
     }
   ]
 }
