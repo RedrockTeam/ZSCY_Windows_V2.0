@@ -76,7 +76,11 @@ namespace ZSCY_Win10
 
         private void AboutAppBarToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(AboutPage));
+            //Frame.Navigate(typeof(AboutPage));
+            this.frame.Visibility = Visibility.Visible;
+            this.frame.Navigate(typeof(AboutPage));
+            //Frame.Visibility = Visibility.Collapsed;
+            
         }
 
         private async void ClearButton_Click(object sender, RoutedEventArgs e)

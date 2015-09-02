@@ -35,37 +35,53 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="48"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid Background="#068cfd" Grid.Row="0">
-            <Grid Name="JWTitleGrid"  HorizontalAlignment="Stretch">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock Name="HubSectionKBTitle" Text="设置" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
-                </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Background="#068cfd" Grid.Row="0">
+                <Grid Name="JWTitleGrid"  HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Name="HubSectionKBTitle" Text="设置" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Name="TitlecutoffLineGrid" Visibility="Collapsed" Margin="400,0,0,0" Width="1"  HorizontalAlignment="Left">
+                    <Line Y1="0" Y2="48" Stroke="Gray" StrokeThickness="1"/>
+                </Grid>
             </Grid>
-            <Grid Name="TitlecutoffLineGrid" Visibility="Collapsed" Margin="400,0,0,0" Width="1"  HorizontalAlignment="Left">
-                <Line Y1="0" Y2="48" Stroke="Gray" StrokeThickness="1"/>
+            <Grid Margin="10" Grid.Row="1">
+                <Pivot>
+                    <PivotItem Header="功能">
+                        <StackPanel Margin="0,10">
+                            <TextBlock Text="实验室功能" Margin="0,0,0,10" Foreground="#333" Style="{StaticResource TitleTextBlockStyle}"/>
+                            <Button Name="importKB2calendarButton" Foreground="#333" HorizontalAlignment="Stretch"    Content="订阅当前账号课表到日历"  Click="importKB2calendarButton_Click"/>
+
+                        </StackPanel>
+                    </PivotItem>
+                    <PivotItem Header="重置"  >
+                        <StackPanel Margin="0,10">
+                            <TextBlock Text="删除缓存" Margin="0,0,0,10" Foreground="#333" Style="{StaticResource TitleTextBlockStyle}"/>
+                            <Button Name="ClearButton" HorizontalAlignment="Stretch"  Foreground="#333" Content="删除所有缓存"    Click="ClearButton_Click"/>
+                        </StackPanel>
+                    </PivotItem>
+                </Pivot>
             </Grid>
         </Grid>
-        <Grid Margin="10" Grid.Row="1">
-            <Pivot>
-                <PivotItem Header="功能">
-                    <StackPanel Margin="0,10">
-                        <TextBlock Text="实验室功能" Margin="0,0,0,10" Foreground="#333" Style="{StaticResource TitleTextBlockStyle}"/>
-                        <Button Name="importKB2calendarButton" Foreground="#333" HorizontalAlignment="Stretch"    Content="订阅当前账号课表到日历"  Click="importKB2calendarButton_Click"/>
-
-                    </StackPanel>
-                </PivotItem>
-                <PivotItem Header="重置"  >
-                    <StackPanel Margin="0,10">
-                        <TextBlock Text="删除缓存" Margin="0,0,0,10" Foreground="#333" Style="{StaticResource TitleTextBlockStyle}"/>
-                        <Button Name="ClearButton" HorizontalAlignment="Stretch"  Foreground="#333" Content="删除所有缓存"    Click="ClearButton_Click"/>
-                    </StackPanel>
-                </PivotItem>
-            </Pivot>
+        <Grid x:Name="about" >
+            <Frame x:Name="frame" Margin="1,0,0,0">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition>
+                            <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                <EntranceNavigationTransitionInfo/>
+                            </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                        </NavigationThemeTransition>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
         </Grid>
     </Grid>
     <Page.BottomAppBar>
