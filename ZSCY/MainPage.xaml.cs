@@ -390,13 +390,20 @@ namespace ZSCY
                         if (jwContent != "")
                         {
                             string JWContentText = jwContent.Replace("(\r?\n(\\s*\r?\n)+)", "\r\n");
-                            while (JWContentText.StartsWith("\r\n "))
-                                JWContentText = JWContentText.Substring(3);
-                            while (JWContentText.StartsWith("\r\n"))
-                                JWContentText = JWContentText.Substring(2);
+
                             JObject jwContentobj = JObject.Parse(JWContentText);
                             if (Int32.Parse(jwContentobj["status"].ToString()) == 200)
+                            {
                                 JWitem.Content = jwContentobj["data"]["content"].ToString();
+                                while (JWitem.Content.StartsWith("\r\n "))
+                                    JWitem.Content = JWitem.Content.Substring(3);
+                                while (JWitem.Content.StartsWith("\r\n"))
+                                    JWitem.Content = JWitem.Content.Substring(2);
+                                while (JWitem.Content.StartsWith("\n\t"))
+                                    JWitem.Content = JWitem.Content.Substring(2);
+                                while (JWitem.Content.StartsWith("\n"))
+                                    JWitem.Content = JWitem.Content.Substring(1);
+                            }
                             else
                             {
                                 JWitem.Content = "";
@@ -413,13 +420,19 @@ namespace ZSCY
                                 if (jwContent != "")
                                 {
                                     string JWContentText = jwContent.Replace("(\r?\n(\\s*\r?\n)+)", "\r\n");
-                                    while (JWContentText.StartsWith("\r\n "))
-                                        JWContentText = JWContentText.Substring(3);
-                                    while (JWContentText.StartsWith("\r\n"))
-                                        JWContentText = JWContentText.Substring(2);
                                     JObject jwContentobj = JObject.Parse(JWContentText);
                                     if (Int32.Parse(jwContentobj["status"].ToString()) == 200)
+                                    {
                                         JWitem.Content = jwContentobj["data"]["content"].ToString();
+                                        while (JWitem.Content.StartsWith("\r\n "))
+                                            JWitem.Content = JWitem.Content.Substring(3);
+                                        while (JWitem.Content.StartsWith("\r\n"))
+                                            JWitem.Content = JWitem.Content.Substring(2);
+                                        while (JWitem.Content.StartsWith("\n\t"))
+                                            JWitem.Content = JWitem.Content.Substring(2);
+                                        while (JWitem.Content.StartsWith("\n"))
+                                            JWitem.Content = JWitem.Content.Substring(1);
+                                    }
                                     else
                                     {
                                         JWitem.Content = "";

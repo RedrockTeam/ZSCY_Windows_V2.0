@@ -20,13 +20,13 @@
         </Grid>
         <ScrollViewer Background="White" Height="{Binding ActualHeight, Converter={StaticResource itemScrollViewerHeighConverter}, ElementName=itemPage, Mode=OneWay}" >
             <StackPanel Margin="15">
-                <TextBlock Name="TitleTextBlock" Foreground="Black" FontSize="30" TextWrapping="WrapWholeWords" FontWeight="Bold"></TextBlock>
+                <TextBlock Name="TitleTextBlock" Foreground="#333" FontSize="30" TextWrapping="WrapWholeWords" FontWeight="Bold"></TextBlock>
                 <Grid Margin="0,10,0,0">
-                    <TextBlock Name="DateTextBlock" Foreground="Black" FontSize="14"></TextBlock>
-                    <TextBlock Name="ReadTextBlock" Foreground="Black" FontSize="14" HorizontalAlignment="Right"></TextBlock>
+                    <TextBlock Name="DateTextBlock" Foreground="#737373" FontSize="14"></TextBlock>
+                    <TextBlock Name="ReadTextBlock" Foreground="#737373" FontSize="14" HorizontalAlignment="Right"></TextBlock>
                 </Grid>
-                <Line Margin="-15,0,-15,20" X1="0" X2="600" Stroke="Black" StrokeThickness="1"></Line>
-                <TextBlock Name="ContentTextBlock" TextWrapping="WrapWholeWords" Foreground="Black" FontSize="20"></TextBlock>
+                <Line Margin="-15,0,-15,20" X1="0" X2="600" Stroke="#E6E6E6" StrokeThickness="1"></Line>
+                <TextBlock Name="ContentTextBlock" TextWrapping="WrapWholeWords" Foreground="#333" FontSize="20"></TextBlock>
             </StackPanel>
         </ScrollViewer>
     </StackPanel>

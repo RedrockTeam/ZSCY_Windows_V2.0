@@ -25,6 +25,42 @@ namespace ZSCY_Win10
         public MorePage()
         {
             this.InitializeComponent();
+            this.SizeChanged += (s, e) =>
+            {
+                var state = "VisualState000";
+                if (e.NewSize.Width > 000 && e.NewSize.Width < 750)
+                {
+                    //if (JWListView.SelectedIndex != -1)
+                    //{
+                    //    JWBackAppBarButton.Visibility = Visibility.Visible;
+                    //}
+                    //JWListView.Width = e.NewSize.Width;
+                }
+                if (e.NewSize.Width > 750)
+                {
+                    //JWBackAppBarButton.Visibility = Visibility.Collapsed;
+                    //JWRefreshAppBarButton.Visibility = Visibility.Visible;
+                    //JWListView.Width = 400;
+                    state = "VisualState750";
+                }
+                VisualStateManager.GoToState(this, state, true);
+                cutoffLine.Y2 = e.NewSize.Height;
+            };
         }
+
+        public Frame MoreFrame { get { return this.frame; } }
+
+        private void MoreBackAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            //if (JWFrame == null)
+            //    return;
+            //if (JWFrame.CanGoBack)
+            //{
+            //    JWFrame.GoBack();
+            //}
+            MoreBackAppBarButton.Visibility = Visibility.Collapsed;
+            MoreFrame.Visibility = Visibility.Collapsed;
+            //JWListView.SelectedIndex = -1;
+    }
     }
 }

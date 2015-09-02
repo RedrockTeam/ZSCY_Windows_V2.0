@@ -52,13 +52,19 @@ namespace ZSCY_Win10
             if (jwContent != "")
             {
                 string JWContentText = jwContent.Replace("(\r?\n(\\s*\r?\n)+)", "\r\n");
-                while (JWContentText.StartsWith("\r\n "))
-                    JWContentText = JWContentText.Substring(3);
-                while (JWContentText.StartsWith("\r\n"))
-                    JWContentText = JWContentText.Substring(2);
                 JObject jwContentobj = JObject.Parse(JWContentText);
                 if (Int32.Parse(jwContentobj["status"].ToString()) == 200)
-                    ContentTextBlock.Text = jwContentobj["data"]["content"].ToString();
+                {
+                    string JWitemContent = jwContentobj["data"]["content"].ToString();
+                    while (JWitemContent.StartsWith("\r\n "))
+                        JWitemContent = JWContentText.Substring(3);
+                    while (JWitemContent.StartsWith("\r\n"))
+                        JWitemContent = JWContentText.Substring(2);
+                    while (JWitemContent.StartsWith("\n\t"))
+                        JWitemContent = JWContentText.Substring(2);
+                    while (JWitemContent.StartsWith("\n"))
+                        JWitemContent = JWitemContent.Substring(1);
+                }
                 else
                     ContentTextBlock.Text = "加载失败";
             }
