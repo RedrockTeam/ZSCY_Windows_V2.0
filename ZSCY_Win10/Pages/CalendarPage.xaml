@@ -8,13 +8,16 @@
     mc:Ignorable="d"
     x:Name="itemPage"
     FontFamily="Microsoft YaHei UI"
-    FontWeight="Light">
+    FontWeight="Light"
+    Background="White">
 
     <ScrollViewer ZoomMode="Enabled" MinZoomFactor="0.8" MaxZoomFactor="2.5" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
         <ScrollViewer.Content>
             <Grid>
                 <ProgressBar IsIndeterminate="True"/>
-                <Image Name="CalendarImage" Source="http://www.cqupt.edu.cn/cqupt/img/public/xl.png" Stretch="UniformToFill" ></Image>
+                <Grid Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Image Name="CalendarImage" Source="http://www.cqupt.edu.cn/cqupt/img/public/xl.png" Stretch="Uniform" ></Image>
+                </Grid>
             </Grid>
         </ScrollViewer.Content>
     </ScrollViewer>

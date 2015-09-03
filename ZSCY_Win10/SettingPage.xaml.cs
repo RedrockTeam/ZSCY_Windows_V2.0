@@ -93,7 +93,7 @@ namespace ZSCY_Win10
         }
         private async void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            var dig = new MessageDialog("若应用无法使用，请尝试清除数据，清除数据后会自动退出应用。\n\n是否继续？", "警告");
+            var dig = new MessageDialog("若应用无法使用，请尝试清除数据，清除数据后会应用将返回登陆界面。\n\n是否继续？", "警告");
             var btnOk = new UICommand("是");
             dig.Commands.Add(btnOk);
             var btnCancel = new UICommand("否");
@@ -112,7 +112,8 @@ namespace ZSCY_Win10
                 {
                     Debug.WriteLine("设置 -> 重置应用异常");
                 }
-                Application.Current.Exit();
+                //Application.Current.Exit();
+                Frame.Navigate(typeof(LoginPage));
             }
             else if (null != result && result.Label == "否")
             {
@@ -127,6 +128,20 @@ namespace ZSCY_Win10
             frame.Visibility = Visibility.Collapsed;
         }
 
-
+        private async void SwitchAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            appSetting.Values.Remove("idNum");
+            IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
+            IStorageFile storageFileWR = await applicationFolder.CreateFileAsync("kb", CreationCollisionOption.OpenIfExists);
+            try
+            {
+                storageFileWR.DeleteAsync();
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("个人 -> 切换账号删除课表数据异常");
+            }
+            Frame.Navigate(typeof(LoginPage));
+        }
     }
 }
