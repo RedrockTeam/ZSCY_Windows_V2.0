@@ -33,9 +33,9 @@ namespace ZSCY_Win10
             {
                 Debug.WriteLine(e.NewSize.Height);
                 var state = "VisualState_W0H0";
-                if (e.NewSize.Height > 380)
+                if (e.NewSize.Height > 280)
                     state = "VisualState_W0H1";
-                if (e.NewSize.Height > 500)
+                if (e.NewSize.Height > 400)
                     state = "VisualState_W0H2";
                 VisualStateManager.GoToState(this, state, true);
             };
