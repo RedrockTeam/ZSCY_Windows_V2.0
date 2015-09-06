@@ -113,7 +113,8 @@ namespace ZSCY_Win10
                     Debug.WriteLine("设置 -> 重置应用异常");
                 }
                 //Application.Current.Exit();
-                Frame.Navigate(typeof(LoginPage));
+                Frame rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(LoginPage));
             }
             else if (null != result && result.Label == "否")
             {
@@ -141,7 +142,8 @@ namespace ZSCY_Win10
             {
                 Debug.WriteLine("个人 -> 切换账号删除课表数据异常");
             }
-            Frame.Navigate(typeof(LoginPage));
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(LoginPage));
         }
     }
 }
