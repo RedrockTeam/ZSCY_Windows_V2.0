@@ -93,6 +93,10 @@ namespace ZSCY_Win10
             MoreContentTitleTextBlock.Text = "";
             HubSectionKBTitle.Text = "更多";
             MoreListView.SelectedIndex = -1;
+
+            CommandBar c = new CommandBar();
+            this.BottomAppBar = c;
+            c.Visibility = Visibility.Collapsed;
         }
 
         private void MoreListView_ItemClick(object sender, ItemClickEventArgs e)

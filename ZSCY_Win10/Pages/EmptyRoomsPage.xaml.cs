@@ -361,9 +361,16 @@ namespace ZSCY.Pages
                 }
                 for (int i = 0; i < 100; i++)
                 {
-                    if (emptyClassUnrepeat[i] == "")
-                        break;
-                    emptyRoomList.Add(new EmptyRoomList { Room = emptyClassUnrepeat[i] });
+                    if (i > 1)
+                    {
+                        if (emptyClassUnrepeat[i] != "" && Int16.Parse(emptyClassUnrepeat[i]) < Int16.Parse(emptyClassUnrepeat[i - 1]))
+                            break;
+                        else if (emptyClassUnrepeat[i] == "")
+                            break;
+                    }
+
+                    if (emptyClassUnrepeat[i] != "")
+                        emptyRoomList.Add(new EmptyRoomList { Room = emptyClassUnrepeat[i] });
                 }
             }
         }
