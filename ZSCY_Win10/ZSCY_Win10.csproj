@@ -17,10 +17,11 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>ZSCY_Win10_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>ZSCY_Win10_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>23371A81609C0813A9C6703238B4A9DD466BF855</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>0D5024808084CC75FE49CFA59F0348BB5AB50338</PackageCertificateThumbprint>
+    <AppxBundle>Auto</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -120,6 +121,7 @@
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Data\moreitems.json" />
     <None Include="project.json" />
+    <None Include="ZSCY_Win10_StoreKey.pfx" />
     <None Include="ZSCY_Win10_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +293,7 @@
     <Content Include="Assets\WideLogo.scale-240.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
