@@ -43,14 +43,14 @@ namespace ZSCY.Pages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //UmengSDK.UmengAnalytics.TrackPageStart("CalendarPage");
+            UmengSDK.UmengAnalytics.TrackPageStart("CalendarPage");
         }
 
 
         //离开页面时，取消事件
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            //UmengSDK.UmengAnalytics.TrackPageEnd("CalendarPage");
+            UmengSDK.UmengAnalytics.TrackPageEnd("CalendarPage");
         }
 
     }

@@ -40,13 +40,13 @@ namespace ZSCY.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             URLTextBlock.Text = "http://hongyan.cqupt.edu.cn/api/kebiao_ics?xh=" + appSetting.Values["stuNum"].ToString();
-            //UmengSDK.UmengAnalytics.TrackPageStart("ImportKB2CalendarPage");
+            UmengSDK.UmengAnalytics.TrackPageStart("ImportKB2CalendarPage");
         }
 
         //离开页面时，取消事件
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            //UmengSDK.UmengAnalytics.TrackPageEnd("ImportKB2CalendarPage");
+            UmengSDK.UmengAnalytics.TrackPageEnd("ImportKB2CalendarPage");
         }
 
 

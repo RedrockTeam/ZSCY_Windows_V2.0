@@ -67,10 +67,12 @@ namespace ZSCY_Win10
             var group = await DataSource.Get();
             this.Morepageclass["Group"] = group;
             InitMore();
+            UmengSDK.UmengAnalytics.TrackPageStart("MorePage");
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            UmengSDK.UmengAnalytics.TrackPageEnd("MorePage");
         }
 
         private void InitMore()
@@ -132,5 +134,7 @@ namespace ZSCY_Win10
                 }
             }
         }
+
+
     }
 }

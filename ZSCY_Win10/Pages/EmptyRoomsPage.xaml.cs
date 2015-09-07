@@ -79,7 +79,7 @@ namespace ZSCY.Pages
         /// 此参数通常用于配置页。</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //UmengSDK.UmengAnalytics.TrackPageStart("EmptyRoomsPage");
+            UmengSDK.UmengAnalytics.TrackPageStart("EmptyRoomsPage");
         }
 
 
@@ -88,7 +88,7 @@ namespace ZSCY.Pages
         {
             //StatusBar statusBar = StatusBar.GetForCurrentView();
             //await statusBar.ProgressIndicator.HideAsync();
-            //UmengSDK.UmengAnalytics.TrackPageEnd("EmptyRoomsPage");
+            UmengSDK.UmengAnalytics.TrackPageEnd("EmptyRoomsPage");
         }
 
         private async void Time08Grid_Tapped(object sender, TappedRoutedEventArgs e)

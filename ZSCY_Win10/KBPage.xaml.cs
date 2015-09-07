@@ -87,6 +87,7 @@ namespace ZSCY_Win10
             stuNum = appSetting.Values["stuNum"].ToString();
             initKB();
             initToday();
+            UmengSDK.UmengAnalytics.TrackPageStart("KBPage");
         }
 
 
@@ -94,6 +95,7 @@ namespace ZSCY_Win10
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             Debug.WriteLine("OnNavigatedFrom");
+            UmengSDK.UmengAnalytics.TrackPageEnd("KBPage");
         }
 
         private void SetKebiaoGridBorder()

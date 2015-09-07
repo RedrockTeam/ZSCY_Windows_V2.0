@@ -40,6 +40,7 @@ namespace ZSCY_Win10
             TitleTextBlock.Text = JWItem.Title;
             ContentTextBlock.Text = JWItem.Content;
             DateReadTextBlock.Text = "发布时间:" + JWItem.Date + "阅读人数:" + JWItem.Read;
+            UmengSDK.UmengAnalytics.TrackPageStart("JWContentPage");
         }
 
 
@@ -72,6 +73,7 @@ namespace ZSCY_Win10
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            UmengSDK.UmengAnalytics.TrackPageEnd("JWContentPage");
         }
     }
 }
