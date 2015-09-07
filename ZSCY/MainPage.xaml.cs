@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.Networking.PushNotifications;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -489,6 +491,51 @@ namespace ZSCY
             this.Morepageclass["Group"] = group;
             if (e.NavigationMode == NavigationMode.Forward || e.NavigationMode == NavigationMode.New)
                 initKB();
+
+
+
+            //PushNotificationChannel channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+            // 如果本地设置中没有相关键，表明是第一次使用
+            // 需要存储URL，并发送给服务器
+            //if (Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("url")==false)
+            //{
+            //    Windows.Storage.ApplicationData.Current.LocalSettings.Values["url"] = channel.Uri;
+            //    SendURL(channel.Uri);
+            //}
+            //else
+            //{
+            //    string savedUrl = Windows.Storage.ApplicationData.Current.LocalSettings.Values["url"] as string;
+            //    // 当URL改变了，就重新发给服务器
+            //    if (savedUrl != channel.Uri)
+            //    {
+            //        // 再次保存本地设置
+            //        Windows.Storage.ApplicationData.Current.LocalSettings.Values["url"] = channel.Uri;
+            //        SendURL(channel.Uri);
+            //    }
+            //}
+
+            //System.Diagnostics.Debug.WriteLine(channel.Uri);
+            //SendURL(channel.Uri);
+
+        }
+
+        /// <summary>
+        /// 通道URL发送给服务器
+        /// </summary>
+        /// <param name="url"></param>
+        private async void SendURL(string url)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(url);
+                ByteArrayContent content = new ByteArrayContent(data);
+                try
+                {
+                    await client.PostAsync("http://113.251.216.116/svr/", content);
+                    Debug.WriteLine(content);
+                }
+                catch { }
+            }
         }
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)

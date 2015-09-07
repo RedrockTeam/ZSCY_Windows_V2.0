@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -9,6 +10,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.PushNotifications;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,6 +30,10 @@ namespace ZSCY
     /// </summary>
     public sealed partial class App : Application
     {
+        // http://go.microsoft.com/fwlink/?LinkId=290986&clcid=0x804
+
+
+
         private TransitionCollection transitions;
         private ApplicationDataContainer appSetting;
 
@@ -156,11 +162,11 @@ namespace ZSCY
                 }
 
             }
-
             // 确保当前窗口处于活动状态
             Window.Current.Activate();
             await UmengAnalytics.StartTrackAsync("55cd8c8be0f55a20ba00440d", "Marketplace");
         }
+
 
         /// <summary>
         /// 启动应用程序后还原内容转换。
@@ -185,8 +191,12 @@ namespace ZSCY
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             await UmengAnalytics.EndTrackAsync();
-              // TODO: 保存应用程序状态并停止任何后台活动
+            // TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
         }
+
+
+
+
     }
 }
