@@ -77,7 +77,6 @@ namespace ZSCY_Win10
                 // 将框架放在当前窗口中
                 Window.Current.Content = rootFrame;
             }
-
             if (rootFrame.Content == null)
             {
                 // 当导航堆栈尚未还原时，导航到第一页，
@@ -101,6 +100,7 @@ namespace ZSCY_Win10
             // 确保当前窗口处于活动状态
             Window.Current.Activate();
             await UmengAnalytics.StartTrackAsync("55cd8c8be0f55a20ba00440d", "Marketplace_Win10");
+
         }
 
 
