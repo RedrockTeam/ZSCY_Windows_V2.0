@@ -45,7 +45,7 @@ namespace ZSCY.Pages
         /// 此参数通常用于配置页。</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //UmengSDK.UmengAnalytics.TrackPageStart("ScorePage");
+            UmengSDK.UmengAnalytics.TrackPageStart("ScorePage");
             initScore();
         }
 
@@ -53,7 +53,7 @@ namespace ZSCY.Pages
         protected async override void OnNavigatedFrom(NavigationEventArgs e)
         {
             //StatusBar statusBar = StatusBar.GetForCurrentView();
-            //UmengSDK.UmengAnalytics.TrackPageEnd("ScorePage");
+            UmengSDK.UmengAnalytics.TrackPageEnd("ScorePage");
             //await statusBar.ProgressIndicator.HideAsync();
         }
 

@@ -44,12 +44,12 @@ namespace ZSCY_Win10
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //HardwareButtons.BackPressed += HardwareButtons_BackPressed;//注册重写后退按钮事件
-            //UmengSDK.UmengAnalytics.TrackPageStart("AboutPage");
+            UmengSDK.UmengAnalytics.TrackPageStart("AboutPage");
         }
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             //HardwareButtons.BackPressed -= HardwareButtons_BackPressed;//注册重写后退按钮事件
-            //UmengSDK.UmengAnalytics.TrackPageEnd("AboutPage");
+            UmengSDK.UmengAnalytics.TrackPageEnd("AboutPage");
         }
 
        

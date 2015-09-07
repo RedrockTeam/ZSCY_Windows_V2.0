@@ -67,10 +67,12 @@ namespace ZSCY_Win10
             var group = await DataSource.Get();
             this.Morepageclass["Group"] = group;
             InitMore();
+            UmengSDK.UmengAnalytics.TrackPageStart("MorePage");
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            UmengSDK.UmengAnalytics.TrackPageEnd("MorePage");
         }
 
         private void InitMore()
@@ -93,6 +95,10 @@ namespace ZSCY_Win10
             MoreContentTitleTextBlock.Text = "";
             HubSectionKBTitle.Text = "更多";
             MoreListView.SelectedIndex = -1;
+
+            CommandBar c = new CommandBar();
+            this.BottomAppBar = c;
+            c.Visibility = Visibility.Collapsed;
         }
 
         private void MoreListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -128,5 +134,7 @@ namespace ZSCY_Win10
                 }
             }
         }
+
+
     }
 }

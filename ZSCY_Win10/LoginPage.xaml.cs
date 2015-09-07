@@ -100,5 +100,16 @@ namespace ZSCY_Win10
             else
                 LoginButton.IsEnabled = false;
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            UmengSDK.UmengAnalytics.TrackPageStart("LoginPage");
+        }
+
+        //离开页面时，取消事件
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            UmengSDK.UmengAnalytics.TrackPageEnd("LoginPage");
+        }
     }
 }

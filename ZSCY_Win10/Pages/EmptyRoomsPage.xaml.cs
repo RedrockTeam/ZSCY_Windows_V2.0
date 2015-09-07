@@ -79,7 +79,7 @@ namespace ZSCY.Pages
         /// 此参数通常用于配置页。</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //UmengSDK.UmengAnalytics.TrackPageStart("EmptyRoomsPage");
+            UmengSDK.UmengAnalytics.TrackPageStart("EmptyRoomsPage");
         }
 
 
@@ -88,7 +88,7 @@ namespace ZSCY.Pages
         {
             //StatusBar statusBar = StatusBar.GetForCurrentView();
             //await statusBar.ProgressIndicator.HideAsync();
-            //UmengSDK.UmengAnalytics.TrackPageEnd("EmptyRoomsPage");
+            UmengSDK.UmengAnalytics.TrackPageEnd("EmptyRoomsPage");
         }
 
         private async void Time08Grid_Tapped(object sender, TappedRoutedEventArgs e)
@@ -361,9 +361,16 @@ namespace ZSCY.Pages
                 }
                 for (int i = 0; i < 100; i++)
                 {
-                    if (emptyClassUnrepeat[i] == "")
-                        break;
-                    emptyRoomList.Add(new EmptyRoomList { Room = emptyClassUnrepeat[i] });
+                    if (i > 1)
+                    {
+                        if (emptyClassUnrepeat[i] != "" && Int16.Parse(emptyClassUnrepeat[i]) < Int16.Parse(emptyClassUnrepeat[i - 1]))
+                            break;
+                        else if (emptyClassUnrepeat[i] == "")
+                            break;
+                    }
+
+                    if (emptyClassUnrepeat[i] != "")
+                        emptyRoomList.Add(new EmptyRoomList { Room = emptyClassUnrepeat[i] });
                 }
             }
         }
