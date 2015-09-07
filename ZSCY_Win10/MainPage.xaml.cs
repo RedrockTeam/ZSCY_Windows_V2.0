@@ -80,6 +80,7 @@ namespace ZSCY_Win10
             NavMenuList.ItemsSource = navlist;
             NavMenuList.SelectedIndex = 0;
         }
+
         public Frame AppFrame { get { return this.frame; } }
 
         private void SystemNavigationManager_BackRequseted(object sender, BackRequestedEventArgs e)

@@ -137,7 +137,6 @@ namespace ZSCY
 
                 rootFrame.ContentTransitions = null;
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
-
                 // 当导航堆栈尚未还原时，导航到第一页，
                 // 并通过将所需信息作为导航参数传入来配置
                 // 新页面
@@ -186,7 +185,7 @@ namespace ZSCY
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             await UmengAnalytics.EndTrackAsync();
-            // TODO: 保存应用程序状态并停止任何后台活动
+              // TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
         }
     }
