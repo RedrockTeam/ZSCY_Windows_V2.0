@@ -156,9 +156,13 @@ namespace ZSCY
 
             string kbtemp = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList); //新
             //string kbtemp = await NetWork.getHttpWebRequest("api/kebiao", paramList); //旧
-
+            if (!appSetting.Values.ContainsKey("HttpTime"))
+                appSetting.Values["HttpTime"] = DateTimeOffset.Now.ToString();
             if (kbtemp != "")
+            {
                 kb = kbtemp;
+                appSetting.Values["HttpTime"] = DateTimeOffset.Now.ToString();
+            }
             Debug.WriteLine("kb->" + kb);
             if (kb != "")
             {
@@ -175,8 +179,29 @@ namespace ZSCY
                         Debug.WriteLine("主页 -> 课表缓存，读取异常");
                     }
                     //保存当前星期
-                    appSetting.Values["nowWeek"] = obj["nowWeek"].ToString();
-                    HubSectionKBNum.Text = "第" + obj["nowWeek"].ToString() + "周";
+
+                    if (kbtemp == "")
+                    {
+                        Debug.WriteLine(appSetting.Values["HttpTime"].ToString());
+                        DateTimeOffset d = DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString());
+                        int httpweekday = (Int16)DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString()).DayOfWeek == 0 ? 7 : (Int16)DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString()).DayOfWeek;
+
+                        Debug.WriteLine((DateTimeOffset.Now - DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString())).TotalDays);
+                        double weekday = (DateTimeOffset.Now - DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString())).TotalDays - (7 - httpweekday);
+                        Debug.WriteLine("weekday_前" + weekday);
+                        //if (weekday % ((Int16)weekday) > 0 || weekday > 0 && weekday < 1)
+                        //    weekday = (Int16)weekday + 1;
+                        weekday = (Int16)weekday;
+                        Debug.WriteLine("weekday_后" + weekday);
+                        if (weekday > 0)
+                            appSetting.Values["nowWeek"] = Int16.Parse(obj["nowWeek"].ToString()) + (Int16)(weekday+6) / 7;
+                        else
+                            appSetting.Values["nowWeek"] = obj["nowWeek"].ToString();
+                        Debug.WriteLine(" appSetting.Values[\"nowWeek\"]" + appSetting.Values["nowWeek"].ToString());
+                    }
+                    else
+                        appSetting.Values["nowWeek"] = obj["nowWeek"].ToString();
+                    HubSectionKBNum.Text = "第" + appSetting.Values["nowWeek"].ToString() + "周";
                     //showKB(2, Int32.Parse(appSetting.Values["nowWeek"].ToString()));
 #if DEBUG
                     showKB(2);
