@@ -539,6 +539,7 @@ namespace ZSCY_Win10
 
         private void KBSearchButton_Click(object sender, RoutedEventArgs e)
         {
+            KBSearchButton.IsChecked = false;
             if (KBZoomFlyoutTextBox.Text != "" && KBZoomFlyoutTextBox.Text.Length == 10 && KBZoomFlyoutTextBox.Text.IndexOf(".") == -1)
             {
                 stuNum = KBZoomFlyoutTextBox.Text;
@@ -559,6 +560,7 @@ namespace ZSCY_Win10
 
         private void KBNumSearchButton_Click(object sender, RoutedEventArgs e)
         {
+            KBNumSearchButton.IsChecked = false;
             if (KBNumFlyoutTextBox.Text != "" && KBNumFlyoutTextBox.Text.IndexOf(".") == -1)
             {
                 showKB(2, Int16.Parse(KBNumFlyoutTextBox.Text));

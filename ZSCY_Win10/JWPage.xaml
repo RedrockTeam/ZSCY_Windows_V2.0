@@ -49,7 +49,7 @@
                 </StackPanel>
             </Grid>
             <Grid Name="TitlecutoffLineGrid" Visibility="Collapsed" Margin="400,0,0,0" Width="1"  HorizontalAlignment="Left">
-                <Line Y1="0" Y2="48" Stroke="Gray" StrokeThickness="1"/>
+                <Line Y1="0" Y2="48" Stroke="#58b3ff" StrokeThickness="1"/>
             </Grid>
         </Grid>
 
