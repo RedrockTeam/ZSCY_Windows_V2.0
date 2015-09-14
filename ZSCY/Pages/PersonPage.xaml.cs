@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using Windows.ApplicationModel.Store;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -21,7 +19,7 @@ namespace ZSCY.Pages
     {
 
         private ApplicationDataContainer appSetting;
-        public PersonalIno personinfo=new PersonalIno();
+        public PersonalIno personinfo = new PersonalIno();
         public PersonPage()
         {
             appSetting = ApplicationData.Current.LocalSettings; //本地存储
@@ -65,17 +63,13 @@ namespace ZSCY.Pages
             IStorageFile storageFileWR = await applicationFolder.CreateFileAsync("kb", CreationCollisionOption.OpenIfExists);
             try
             {
-                storageFileWR.DeleteAsync();
+                await storageFileWR.DeleteAsync();
             }
             catch (Exception)
             {
                 Debug.WriteLine("个人 -> 切换账号删除课表数据异常");
             }
             Frame.Navigate(typeof(LoginPage));
-        }
-        private async void LikeAppBarToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            await Launcher.LaunchUriAsync(new Uri("zune:reviewapp?appid=" + CurrentApp.AppId)); //用于商店app，自动获取ID
         }
     }
 }

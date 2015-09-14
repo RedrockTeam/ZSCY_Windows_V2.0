@@ -314,7 +314,7 @@
     <Page.BottomAppBar >
         <CommandBar Name="AppCommandBar" >
             <AppBarButton Name="KBRefreshAppBarButton" Icon="Refresh" Label="刷新" Click="KBRefreshAppBarButton_Click"/>
-            <AppBarButton Name="KBZoomAppBarButton" Icon="Zoom" Label="查看他人" Click="KBZoomAppBarButton_Click">
+            <AppBarButton Name="KBZoomAppBarButton" Icon="View" Label="Ta的课表" Click="KBZoomAppBarButton_Click">
                 <FlyoutBase.AttachedFlyout>
                     <Flyout x:Name="KBZoomFlyout" >
                         <StackPanel Margin="10">

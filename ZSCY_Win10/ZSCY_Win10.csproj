@@ -20,7 +20,7 @@
     <PackageCertificateKeyFile>ZSCY_Win10_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>23371A81609C0813A9C6703238B4A9DD466BF855</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>CFB15CE27EDFD2FB8AE566240044FE85071088A3</PackageCertificateThumbprint>
     <AppxBundle>Never</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
