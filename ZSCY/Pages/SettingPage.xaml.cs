@@ -100,7 +100,7 @@ namespace ZSCY.Pages
                 IStorageFile storageFileWR = await applicationFolder.CreateFileAsync("kb", CreationCollisionOption.OpenIfExists);
                 try
                 {
-                    storageFileWR.DeleteAsync();
+                    await storageFileWR.DeleteAsync();
                 }
                 catch (Exception)
                 {

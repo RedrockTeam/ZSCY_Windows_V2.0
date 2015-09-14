@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Windows.Networking.PushNotifications;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -44,8 +43,6 @@ namespace ZSCY
         //private  ObservableCollection<Group>  morepageclass=new ObservableCollection<Group>();
         private ObservableDictionary morepageclass = new ObservableDictionary();
         //private  ObservableCollection<Morepageclass> morepageclass= new ObservableCollection<Morepageclass>();
-        private readonly NavigationHelper navigationHelper;
-
         //private string[,,] classtime = new string[7, 6,*];
         string[,][] classtime = new string[7, 6][];
 
@@ -210,6 +207,7 @@ namespace ZSCY
 #endif
                 }
             }
+            this.HubSectionKBDate.Text = DateTime.Now.Month + "月" + DateTime.Now.Day + "日";
             StatusBar statusBar = StatusBar.GetForCurrentView();
             await statusBar.ProgressIndicator.HideAsync();
         }

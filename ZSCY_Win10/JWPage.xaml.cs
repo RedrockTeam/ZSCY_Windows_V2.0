@@ -59,7 +59,7 @@ namespace ZSCY_Win10
             Debug.WriteLine("Init");
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected  override void OnNavigatedTo(NavigationEventArgs e)
         {
             JWListView.ItemsSource = JWList;
             //if (App.JWListCache.Count == 0)
