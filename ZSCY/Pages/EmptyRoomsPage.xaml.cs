@@ -103,7 +103,7 @@ namespace ZSCY.Pages
             UmengSDK.UmengAnalytics.TrackPageEnd("EmptyRoomsPage");
         }
 
-        private async void Time08Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        private  void Time08Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (!gridColor[0])
             {

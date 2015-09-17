@@ -207,7 +207,6 @@ namespace ZSCY
 #endif
                 }
             }
-            this.HubSectionKBDate.Text = DateTime.Now.Month + "月" + DateTime.Now.Day + "日";
             DateTime now = DateTime.Now;
             DateTime weekstart = GetWeekFirstDayMon(now);
             DateTime weekend = GetWeekLastDaySun(now);
@@ -717,6 +716,7 @@ namespace ZSCY
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+           static string datetxt = "";
         private void KBCalendarAppBarButton_Click(object sender, RoutedEventArgs e)
         {
             showKB(wOa);
@@ -724,11 +724,14 @@ namespace ZSCY
             {
                 wOa = 2;
                 HubSectionKBNum.Visibility = Visibility.Collapsed;
+                datetxt = HubSectionKBDate.Text;
+                HubSectionKBDate.Text = "学期课表";
                 HubSectionKBNum.Text = "第" + appSetting.Values["nowWeek"].ToString() + "周";
             }
             else
             {
                 wOa = 1;
+                HubSectionKBDate.Text = datetxt;
                 HubSectionKBNum.Visibility = Visibility.Visible;
             }
         }
