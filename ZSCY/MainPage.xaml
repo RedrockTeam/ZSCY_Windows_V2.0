@@ -19,6 +19,7 @@
         <converter:KBGridHeighConverter x:Key="KBGridHeighConverterKey"/>
         <converter:KBScrollViewerHeighConverter x:Key="KBScrollViewerHeighConverterKey"/>
         <converter:JWScrollViewerHeighConverter x:Key="JWScrollViewerHeighConverter"/>
+        <converter:LongClassRoomConverter x:Key="LongClassRoomConverter"/>
         <Style x:Key="StackStyle" TargetType="StackPanel" >
             <Setter Property="Margin" Value="0,20,20,0"></Setter>
             <Setter Property ="Orientation" Value="Vertical"></Setter>
@@ -195,7 +196,7 @@
                                                                         <TextBlock Text="类型" Grid.Column="0" Grid.Row="2" FontSize="18" Margin="0,2.5,5,2.5"/>
                                                                         <TextBlock Text="周数" Grid.Column="0" Grid.Row="3" FontSize="18" Margin="0,2.5,5,2.5"/>
 
-                                                                        <TextBlock Text="{Binding Classroom}" Grid.Column="1" Grid.Row="0" FontSize="18" VerticalAlignment="Center"/>
+                                                                        <TextBlock Text="{Binding Classroom,Converter={StaticResource LongClassRoomConverter},Mode=OneWay}" Grid.Column="1" Grid.Row="0" FontSize="18" VerticalAlignment="Center"/>
                                                                         <TextBlock Text="{Binding Teacher}" Grid.Column="1" Grid.Row="1" FontSize="18" VerticalAlignment="Center"/>
                                                                         <TextBlock Text="{Binding Type}" Grid.Column="1" Grid.Row="2" FontSize="18" VerticalAlignment="Center"/>
                                                                         <TextBlock Text="{Binding RawWeek}" Grid.Column="1" Grid.Row="3" FontSize="18" VerticalAlignment="Center"/>
