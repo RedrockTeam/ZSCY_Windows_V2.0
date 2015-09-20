@@ -71,5 +71,6 @@ namespace ZSCY.Pages
             }
             Frame.Navigate(typeof(LoginPage));
         }
+
     }
 }
