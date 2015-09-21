@@ -112,5 +112,10 @@ namespace ZSCY.Pages
             {
             }
         }
+
+        private void SearchFreeTime_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SearchFreeTimeNumPage));
+        }
     }
 }
