@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -27,10 +28,13 @@ namespace ZSCY.Pages
     /// </summary>
     public sealed partial class SearchFreeTimeNumPage : Page
     {
+        private ApplicationDataContainer appSetting;
         private ObservableCollection<uIdList> muIdList = new ObservableCollection<uIdList>();
         public SearchFreeTimeNumPage()
         {
+            appSetting = ApplicationData.Current.LocalSettings; //本地存储
             this.InitializeComponent();
+            HubSectionKBNum.Text = appSetting.Values["nowWeek"].ToString();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -76,8 +80,8 @@ namespace ZSCY.Pages
                 Utils.Message("此学号已添加");
             else
             {
-                for (int i = 0; i < 15; i++)
-                    muIdList.Add(new uIdList { uId = AddTextBox.Text });
+                //for (int i = 0; i < 15; i++)
+                muIdList.Add(new uIdList { uId = AddTextBox.Text });
                 AddTextBox.Text = "";
             }
         }
@@ -102,6 +106,22 @@ namespace ZSCY.Pages
         private void ForwardAppBarToggleButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void HubSectionKBNum_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            KBNumFlyout.ShowAt(page);
+            HubSectionKBNum.SelectAll();
+        }
+        private void KBNumSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (KBNumFlyoutTextBox.Text != "" && KBNumFlyoutTextBox.Text.IndexOf(".") == -1)
+            {
+                HubSectionKBNum.Text = KBNumFlyoutTextBox.Text;
+                KBNumFlyout.Hide();
+            }
+            else
+                Utils.Message("请输入正确的周次");
         }
     }
 }
