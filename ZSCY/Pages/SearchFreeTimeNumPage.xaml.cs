@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ZSCY.Data;
 using ZSCY.Util;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkID=390556 上有介绍
@@ -35,6 +36,7 @@ namespace ZSCY.Pages
             appSetting = ApplicationData.Current.LocalSettings; //本地存储
             this.InitializeComponent();
             HubSectionKBNum.Text = appSetting.Values["nowWeek"].ToString();
+            appSetting.Values["FreeWeek"] = appSetting.Values["nowWeek"];
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -63,11 +65,6 @@ namespace ZSCY.Pages
 
         }
 
-        public class uIdList
-        {
-            public string uId { get; set; }
-        }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -80,8 +77,8 @@ namespace ZSCY.Pages
                 Utils.Message("此学号已添加");
             else
             {
-                //for (int i = 0; i < 15; i++)
-                muIdList.Add(new uIdList { uId = AddTextBox.Text });
+                for (int i = 0; i < 15; i++)
+                    muIdList.Add(new uIdList { uId = AddTextBox.Text });
                 AddTextBox.Text = "";
             }
         }
@@ -105,7 +102,15 @@ namespace ZSCY.Pages
 
         private void ForwardAppBarToggleButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (muIdList.Count < 2)
+            {
+                Utils.Message("请至少输入2个要查询学号");
+            }
+            else
+            {
+                AuIdList Au = new AuIdList { muIdList = muIdList, week = HubSectionKBNum.Text };
+                Frame.Navigate(typeof(SearchFreeTimeResultPage), Au);
+            }
         }
 
         private void HubSectionKBNum_Tapped(object sender, TappedRoutedEventArgs e)
@@ -118,6 +123,7 @@ namespace ZSCY.Pages
             if (KBNumFlyoutTextBox.Text != "" && KBNumFlyoutTextBox.Text.IndexOf(".") == -1)
             {
                 HubSectionKBNum.Text = KBNumFlyoutTextBox.Text;
+                appSetting.Values["FreeWeek"] = KBNumFlyoutTextBox.Text;
                 KBNumFlyout.Hide();
             }
             else

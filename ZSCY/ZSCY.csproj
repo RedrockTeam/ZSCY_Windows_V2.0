@@ -93,6 +93,7 @@
     <Compile Include="Data\ClassList.cs" />
     <Compile Include="Data\EmptyRoomList.cs" />
     <Compile Include="Data\ExamList.cs" />
+    <Compile Include="Data\IdList.cs" />
     <Compile Include="Data\JWList.cs" />
     <Compile Include="Data\DataSource.cs" />
     <Compile Include="Data\PersonalIno.cs" />
