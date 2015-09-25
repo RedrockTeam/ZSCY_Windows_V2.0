@@ -56,7 +56,6 @@ namespace ZSCY.Data
             }
             Week = temp;
             //Classtime = (RawWeek != "单周" && RawWeek !="双周" ? RawWeek : "") + " " +( WeekModel == "all" ? "" : (WeekModel == "double" ? "双周" : "单周")) ;
-            Debug.WriteLine(RawWeek);
         }
 
     }

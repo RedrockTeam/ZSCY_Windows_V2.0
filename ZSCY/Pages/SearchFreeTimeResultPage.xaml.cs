@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -30,6 +31,7 @@ namespace ZSCY.Pages
         private ObservableCollection<uIdList> muIdList = new ObservableCollection<uIdList>();
         string[] kb;
         private string week;
+        int[,] freeclasstime = new int[7, 6]; //7*6数组
         public SearchFreeTimeResultPage()
         {
             this.InitializeComponent();
@@ -72,22 +74,8 @@ namespace ZSCY.Pages
             kb = new string[muIdList.Count];
             for (int i = 0; i < muIdList.Count; i++)
             {
-                List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
-                paramList.Add(new KeyValuePair<string, string>("stuNum", muIdList[i].uId));
-                string kbtemp = await NetWork.getHttpWebRequest("redapi2/api/kebiao", paramList); //新
-                if (kbtemp != "")
-                {
-                    kb[i] = kbtemp;
-                }
-                else
-                    kb[i] = "";
-                FreeLoddingProgressBar.Value = FreeLoddingProgressBar.Value + 100.0 / muIdList.Count;
-                Debug.WriteLine(FreeLoddingProgressBar.Value);
-            }
-            FreeLoddingStackPanel.Visibility = Visibility.Collapsed;
-            for(int i = 0; i < kb.Length; i++)
-            {
-                if(kb[i]=="")
+                int issuccess = 0;
+                while (issuccess < 2)
                 {
                     List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
                     paramList.Add(new KeyValuePair<string, string>("stuNum", muIdList[i].uId));
@@ -95,13 +83,48 @@ namespace ZSCY.Pages
                     if (kbtemp != "")
                     {
                         kb[i] = kbtemp;
+                        issuccess = 2;
                     }
                     else
+                    {
                         kb[i] = "";
+                        issuccess++;
+                    }
                 }
+                FreeLoddingProgressBar.Value = FreeLoddingProgressBar.Value + 100.0 / muIdList.Count;
+                Debug.WriteLine(FreeLoddingProgressBar.Value);
             }
-
+            initFreeList();
         }
 
+        private void initFreeList()
+        {
+            FreeLoddingTextBlock.Text = "处理中...";
+            FreeLoddingProgressBar.Value = 0;
+            for (int i = 0; i < kb.Length; i++)
+            {
+                if (kb[i] != "")
+                {
+                    JObject obj = JObject.Parse(kb[i]);
+                    if (Int32.Parse(obj["status"].ToString()) == 200)
+                    {
+                        JArray ClassListArray = Utils.ReadJso(kb[i]);
+                        for (int j = 0; j < ClassListArray.Count; j++)
+                        {
+
+                            ClassList classitem = new ClassList();
+                            classitem.GetAttribute((JObject)ClassListArray[i]);
+                            if (Array.IndexOf(classitem.Week, week) != -1)
+                            {
+                                freeclasstime[classitem.Hash_day, classitem.Hash_lesson] = 1;
+                            }
+                        }
+                    }
+                }
+                FreeLoddingProgressBar.Value = FreeLoddingProgressBar.Value + 100.0 / muIdList.Count;
+                Debug.WriteLine(FreeLoddingProgressBar.Value);
+            }
+            FreeLoddingStackPanel.Visibility = Visibility.Collapsed;
+        }
     }
 }

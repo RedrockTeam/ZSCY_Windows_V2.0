@@ -6,7 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Name="page"
+    xmlns:converter="using:ZSCY.Util.Converter"
     Background="#068cfd">
+
+    <Page.Resources>
+        <converter:FreeisTiVisConverter x:Key="FreeisTiVisConverter"/>
+        <converter:FreeisCoVisConverter x:Key="FreeisCoVisConverter"/>
+    </Page.Resources>
 
     <Grid Background="#f8f8f8">
         <Grid.RowDefinitions>
@@ -17,7 +24,26 @@
             <TextBlock Text="找空闲" FontSize="35" VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI" Margin="15,0,0,0"></TextBlock>
         </StackPanel>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="15">
+
+            <ListView Name="FreeListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding weekday}" Visibility="{Binding Converter={StaticResource FreeisTiVisConverter}}" FontSize="15" Foreground="#068cfd"/>
+                            <StackPanel Visibility="{Binding Converter={StaticResource FreeisCoVisConverter}}" >
+                                <TextBlock Text="{Binding time}" Margin="0,0,0,1" FontSize="25" Foreground="#333" VerticalAlignment="Center"></TextBlock>
+                                <Line Margin="0,0,0,10" X1="0" X2="{Binding ActualWidth, ElementName=page, Mode=OneWay}" Stroke="Black" StrokeThickness="1"></Line>
+                            </StackPanel>
+                        </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+
+
             <StackPanel Name="FreeLoddingStackPanel" VerticalAlignment="Center">
                 <TextBlock Name="FreeLoddingTextBlock" HorizontalAlignment="Center" FontSize="15" Margin="0,0,0,5" Foreground="#333" Text="正在加载..."/>
                 <ProgressBar Name="FreeLoddingProgressBar" IsIndeterminate="False" Value="0"/>
