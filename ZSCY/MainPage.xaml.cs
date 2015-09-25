@@ -191,7 +191,7 @@ namespace ZSCY
                         weekday = (Int16)weekday;
                         Debug.WriteLine("weekday_后" + weekday);
                         if (weekday > 0)
-                            appSetting.Values["nowWeek"] = Int16.Parse(obj["nowWeek"].ToString()) + (Int16)(weekday+6) / 7;
+                            appSetting.Values["nowWeek"] = Int16.Parse(obj["nowWeek"].ToString()) + (Int16)(weekday + 6) / 7;
                         else
                             appSetting.Values["nowWeek"] = obj["nowWeek"].ToString();
                         Debug.WriteLine(" appSetting.Values[\"nowWeek\"]" + appSetting.Values["nowWeek"].ToString());
@@ -210,7 +210,7 @@ namespace ZSCY
             DateTime now = DateTime.Now;
             DateTime weekstart = GetWeekFirstDayMon(now);
             DateTime weekend = GetWeekLastDaySun(now);
-            this.HubSectionKBDate.Text = weekstart.Month+"."+weekstart.Day + "--" + weekend.Month+"."+weekend.Day;
+            this.HubSectionKBDate.Text = weekstart.Month + "." + weekstart.Day + "--" + weekend.Month + "." + weekend.Day;
             StatusBar statusBar = StatusBar.GetForCurrentView();
             await statusBar.ProgressIndicator.HideAsync();
         }
@@ -716,7 +716,6 @@ namespace ZSCY
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-           static string datetxt = "";
         private void KBCalendarAppBarButton_Click(object sender, RoutedEventArgs e)
         {
             showKB(wOa);
@@ -724,15 +723,17 @@ namespace ZSCY
             {
                 wOa = 2;
                 HubSectionKBNum.Visibility = Visibility.Collapsed;
-                datetxt = HubSectionKBDate.Text;
                 HubSectionKBDate.Text = "学期课表";
                 HubSectionKBNum.Text = "第" + appSetting.Values["nowWeek"].ToString() + "周";
             }
             else
             {
                 wOa = 1;
-                HubSectionKBDate.Text = datetxt;
                 HubSectionKBNum.Visibility = Visibility.Visible;
+                DateTime now = DateTime.Now;
+                DateTime weekstart = GetWeekFirstDayMon(now);
+                DateTime weekend = GetWeekLastDaySun(now);
+                HubSectionKBDate.Text = weekstart.Month + "." + weekstart.Day + "--" + weekend.Month + "." + weekend.Day;
             }
         }
 
@@ -785,6 +786,10 @@ namespace ZSCY
             {
                 showKB(2, Int16.Parse(KBNumFlyoutTextBox.Text));
                 HubSectionKBNum.Text = "第" + KBNumFlyoutTextBox.Text + "周";
+                DateTime now = DateTime.Now;
+                DateTime weekstart = GetWeekFirstDayMon(KBNumFlyoutTextBox.Text == "" ? now : now.AddDays((Int16.Parse(KBNumFlyoutTextBox.Text) - Int16.Parse(appSetting.Values["nowWeek"].ToString())) * 7));
+                DateTime weekend = GetWeekLastDaySun(KBNumFlyoutTextBox.Text == "" ? now : now.AddDays((Int16.Parse(KBNumFlyoutTextBox.Text) - Int16.Parse(appSetting.Values["nowWeek"].ToString())) * 7));
+                this.HubSectionKBDate.Text = weekstart.Month + "." + weekstart.Day + "--" + weekend.Month + "." + weekend.Day;
                 KBNumFlyout.Hide();
             }
             else

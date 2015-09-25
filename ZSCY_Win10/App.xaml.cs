@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -82,6 +83,13 @@ namespace ZSCY_Win10
                 // 当导航堆栈尚未还原时，导航到第一页，
                 // 并通过将所需信息作为导航参数传入来配置
                 // 参数
+#if WINDOWS_PHONE_APP
+                Debug.WriteLine("#if WINDOWS_PHONE_APP");
+#endif
+                if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+                {
+                    Debug.WriteLine("Windows.Phone.UI.Input.HardwareButtons");
+                }
                 if (!appSetting.Values.ContainsKey("idNum"))
                 {
                     if (!rootFrame.Navigate(typeof(LoginPage), e.Arguments))
