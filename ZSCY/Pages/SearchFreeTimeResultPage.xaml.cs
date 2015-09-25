@@ -29,12 +29,14 @@ namespace ZSCY.Pages
     public sealed partial class SearchFreeTimeResultPage : Page
     {
         private ObservableCollection<uIdList> muIdList = new ObservableCollection<uIdList>();
+        private ObservableCollection<FreeList> mFreeList = new ObservableCollection<FreeList>();
         string[] kb;
-        private string week;
+        private int week;
         int[,] freeclasstime = new int[7, 6]; //7*6数组
         public SearchFreeTimeResultPage()
         {
             this.InitializeComponent();
+            FreeListView.ItemsSource = mFreeList;
         }
 
         /// <summary>
@@ -111,9 +113,9 @@ namespace ZSCY.Pages
                         JArray ClassListArray = Utils.ReadJso(kb[i]);
                         for (int j = 0; j < ClassListArray.Count; j++)
                         {
-
                             ClassList classitem = new ClassList();
-                            classitem.GetAttribute((JObject)ClassListArray[i]);
+                            classitem.GetAttribute((JObject)ClassListArray[j]);
+                            Debug.WriteLine(Array.IndexOf(classitem.Week, week));
                             if (Array.IndexOf(classitem.Week, week) != -1)
                             {
                                 freeclasstime[classitem.Hash_day, classitem.Hash_lesson] = 1;
@@ -125,6 +127,32 @@ namespace ZSCY.Pages
                 Debug.WriteLine(FreeLoddingProgressBar.Value);
             }
             FreeLoddingStackPanel.Visibility = Visibility.Collapsed;
+
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    if (freeclasstime[i, j] == 0)
+                    {
+                        FreeList ft = new FreeList();
+                        ft.vis = 1;
+                        ft.weekday = i;
+                        mFreeList.Add(ft);
+                        break;
+                    }
+                }
+
+                for (int j = 0; j < 6; j++)
+                {
+                    if (freeclasstime[i, j] == 0)
+                    {
+                        FreeList fc = new FreeList();
+                        fc.vis = 0;
+                        fc.time = j;
+                        mFreeList.Add(fc);
+                    }
+                }
+            }
         }
     }
 }

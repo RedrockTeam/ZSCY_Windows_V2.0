@@ -77,8 +77,8 @@ namespace ZSCY.Pages
                 Utils.Message("此学号已添加");
             else
             {
-                for (int i = 0; i < 15; i++)
-                    muIdList.Add(new uIdList { uId = AddTextBox.Text });
+                //for (int i = 0; i < 15; i++)
+                muIdList.Add(new uIdList { uId = AddTextBox.Text });
                 AddTextBox.Text = "";
             }
         }
@@ -108,7 +108,7 @@ namespace ZSCY.Pages
             }
             else
             {
-                AuIdList Au = new AuIdList { muIdList = muIdList, week = HubSectionKBNum.Text };
+                AuIdList Au = new AuIdList { muIdList = muIdList, week = int.Parse(HubSectionKBNum.Text) };
                 Frame.Navigate(typeof(SearchFreeTimeResultPage), Au);
             }
         }

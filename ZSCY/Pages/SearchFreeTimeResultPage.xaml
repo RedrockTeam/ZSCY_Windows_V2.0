@@ -13,6 +13,8 @@
     <Page.Resources>
         <converter:FreeisTiVisConverter x:Key="FreeisTiVisConverter"/>
         <converter:FreeisCoVisConverter x:Key="FreeisCoVisConverter"/>
+        <converter:FreeWeekdayCoVisConverter x:Key="FreeWeekdayCoVisConverter"/>
+        <converter:FreeTimeCoVisConverter x:Key="FreeTimeCoVisConverter"/>
     </Page.Resources>
 
     <Grid Background="#f8f8f8">
@@ -30,9 +32,9 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock Text="{Binding weekday}" Visibility="{Binding Converter={StaticResource FreeisTiVisConverter}}" FontSize="15" Foreground="#068cfd"/>
-                            <StackPanel Visibility="{Binding Converter={StaticResource FreeisCoVisConverter}}" >
-                                <TextBlock Text="{Binding time}" Margin="0,0,0,1" FontSize="25" Foreground="#333" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding weekday,Converter={StaticResource FreeWeekdayCoVisConverter}}" Visibility="{Binding vis,Converter={StaticResource FreeisTiVisConverter}}" FontSize="15" Foreground="#068cfd"/>
+                            <StackPanel Visibility="{Binding vis,Converter={StaticResource FreeisCoVisConverter}}" >
+                                <TextBlock Text="{Binding time,Converter={StaticResource FreeTimeCoVisConverter}}" Margin="0,0,0,1" FontSize="25" Foreground="#333" VerticalAlignment="Center"></TextBlock>
                                 <Line Margin="0,0,0,10" X1="0" X2="{Binding ActualWidth, ElementName=page, Mode=OneWay}" Stroke="Black" StrokeThickness="1"></Line>
                             </StackPanel>
                         </Grid>
