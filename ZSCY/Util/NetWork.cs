@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Popups;
 
+
 namespace ZSCY.Util
 {
     class NetWork
@@ -27,7 +28,8 @@ namespace ZSCY.Util
                        string uri = "http://hongyan.cqupt.edu.cn/" + api;
                        httpClient.DefaultRequestHeaders.Add("API_APP", "winphone");
                        httpClient.DefaultRequestHeaders.Add("API_TOKEN", "0zLUZA0j+OL77OsjXC0ulOz50KaI6yANZtkOk2vQIDg=");
-                       HttpResponseMessage response = httpClient.PostAsync(new Uri(uri), new FormUrlEncodedContent(paramList)).Result;
+                       HttpRequestMessage requst = new HttpRequestMessage(HttpMethod.Post, new Uri(uri));
+                       System.Net.Http.HttpResponseMessage response = httpClient.PostAsync(new Uri(uri), new FormUrlEncodedContent(paramList)).Result;
                        if (response.StatusCode == HttpStatusCode.OK)
                            content = response.Content.ReadAsStringAsync().Result;
                        else if (response.StatusCode == HttpStatusCode.NotFound)
@@ -49,7 +51,6 @@ namespace ZSCY.Util
 
            });
         }
-
     }
 
 

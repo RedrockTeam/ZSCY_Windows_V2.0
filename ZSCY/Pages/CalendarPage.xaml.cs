@@ -27,6 +27,12 @@ namespace ZSCY.Pages
         public CalendarPage()
         {
             this.InitializeComponent();
+            CalendarImage.ImageOpened += CalendarImage_ImageOpened;
+        }
+
+        private void CalendarImage_ImageOpened(object sender, RoutedEventArgs e)
+        {
+            this.progress.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
