@@ -32,6 +32,12 @@ namespace ZSCY.Pages
                 CalendarImage.Width = e.NewSize.Width;
                 CalendarImage.Height = e.NewSize.Height;
             };
+            this.CalendarImage.ImageOpened += CalendarImage_ImageOpened;
+        }
+
+        private void CalendarImage_ImageOpened(object sender, RoutedEventArgs e)
+        {
+            this.progress.IsActive = false;
         }
 
 

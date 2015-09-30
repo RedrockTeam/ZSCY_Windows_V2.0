@@ -47,6 +47,7 @@ namespace ZSCY.Pages
         {
             UmengSDK.UmengAnalytics.TrackPageStart("ScorePage");
             initScore();
+            this.progress.IsActive = false;
         }
 
         //离开页面时，取消事件

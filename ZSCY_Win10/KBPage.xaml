@@ -23,8 +23,8 @@
                 </VisualState>
                 <VisualState x:Name="VisualState550">
                     <VisualState.Setters>
-                        <Setter Target="KBAllGrid.(FrameworkElement.Width)" Value="360"/>
-                        <Setter Target="KBTitleGrid.(FrameworkElement.Width)" Value="360"/>
+                        <Setter Target="KBAllGrid.(FrameworkElement.Width)" Value="400"/>
+                        <Setter Target="KBTitleGrid.(FrameworkElement.Width)" Value="400"/>
                         <Setter Target="mKBDayGrid.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="KBtoDayGrid.(Grid.Column)" Value="1"/>
                         <Setter Target="KBtoDayGrid.(Grid.ColumnSpan)" Value="2"/>
@@ -58,9 +58,19 @@
         </Grid.RowDefinitions>
         <Grid  Background="#068cfd" Grid.Row="0">
             <Grid Name="KBTitleGrid"  HorizontalAlignment="Stretch">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock Name="HubSectionKBTitle" Text="我的课表" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
-                    <TextBlock Name="HubSectionKBNum" Text=" | 第  周"  Foreground="White"  FontSize="20"  VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI" Tapped="HubSectionKBNum_Tapped"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Name="HubSectionKBTitle" Text="我的课表 |" Foreground="White" Margin="10,0,0,0"  FontSize="20" FontWeight="Light" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI"/>
+                    <TextBlock Grid.Column="1"  Name="HubSectionKBNum" Text=" 第  周"  Foreground="White"  FontSize="14"  VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI" Tapped="HubSectionKBNum_Tapped"/>
+                    <TextBlock Grid.Column="2" Name="HubSectionKBDate" Margin="5,0,0,0" Text=""  Foreground="White"  FontSize="14"  VerticalAlignment="Center" FontWeight="Light" FontFamily="Microsoft YaHei UI"/>
                     <FlyoutBase.AttachedFlyout>
                         <Flyout x:Name="KBNumFlyout" >
                             <StackPanel Margin="10" Width="300">
@@ -76,10 +86,15 @@
                             </StackPanel>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <AppBarButton Name="KBRefreshAppBarButton" Icon="Refresh" Foreground="White" Click="KBRefreshAppBarButton_Click"/>
-                    <AppBarButton Name="KBZoomAppBarButton" Icon="Zoom" Foreground="White" Click="KBZoomAppBarButton_Click">
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <AppBarButton Grid.Column="0" Name="KBRefreshAppBarButton" Icon="Refresh" Foreground="White" Click="KBRefreshAppBarButton_Click"/>
+                    <AppBarButton Grid.Column="1" Name="KBZoomAppBarButton" Icon="Zoom" Foreground="White" Click="KBZoomAppBarButton_Click">
                         <FlyoutBase.AttachedFlyout >
                             <Flyout x:Name="KBZoomFlyout" >
                                 <StackPanel Margin="10" Width="300">
@@ -96,8 +111,8 @@
                             </Flyout>
                         </FlyoutBase.AttachedFlyout>
                     </AppBarButton>
-                    <AppBarButton Name="KBCalendarAppBarButton" Icon="Calendar" Foreground="White" Click="KBCalendarAppBarButton_Click"/>
-                </StackPanel>
+                    <AppBarButton Grid.Column="2" Name="KBCalendarAppBarButton" Icon="Calendar" Foreground="White" Click="KBCalendarAppBarButton_Click"/>
+                </Grid>
             </Grid>
 
             <StackPanel Name="TodayTitleStackPanel" Orientation="Horizontal" Margin="360,0,0,0" Visibility="Collapsed">

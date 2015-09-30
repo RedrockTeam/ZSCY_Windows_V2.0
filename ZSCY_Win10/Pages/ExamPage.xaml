@@ -48,6 +48,8 @@
                     <Image Name="ListFailedStackPanelImage" Source="../Assets/ic_failed.png" Height="80" Width="80" HorizontalAlignment="Center" />
                     <TextBlock Name="ListFailedStackPanelTextBlock" Text="加载失败，点击重试" HorizontalAlignment="Center" FontWeight="Light" Foreground="Gray" FontSize="15" FontFamily="Microsoft YaHei UI"  />
                 </StackPanel>
+                <ProgressRing Name="progress" Visibility="Visible" IsActive="True"  Height="60" Width="60"/>
+
             </Grid>
         </ScrollViewer>
     </Grid>

@@ -51,9 +51,9 @@ namespace ZSCY_Win10
                 {
                     TodayTitleStackPanel.Visibility = Visibility.Collapsed;
                 }
-                if (e.NewSize.Width > 550)
+                if (e.NewSize.Width > 600)
                 {
-                    TodayTitleStackPanel.Margin = new Thickness(360, 0, 0, 0);
+                    TodayTitleStackPanel.Margin = new Thickness(400, 0, 0, 0);
                     TodayTitleStackPanel.Visibility = Visibility.Visible;
                     state = "VisualState550";
                 }
@@ -224,6 +224,35 @@ namespace ZSCY_Win10
 #endif
                 }
             }
+            DateTime now = DateTime.Now;
+            DateTime weekstart = GetWeekFirstDayMon(now);
+            DateTime weekend = GetWeekLastDaySun(now);
+            this.HubSectionKBDate.Text = weekstart.Month + "." + weekstart.Day + "--" + weekend.Month + "." + weekend.Day;
+        }
+        public DateTime GetWeekFirstDayMon(DateTime datetime)
+        {
+            //星期一为第一天   
+            int weeknow = Convert.ToInt32(datetime.DayOfWeek);
+
+            //因为是以星期一为第一天，所以要判断weeknow等于0时，要向前推6天。   
+            weeknow = (weeknow == 0 ? (7 - 1) : (weeknow - 1));
+            int daydiff = (-1) * weeknow;
+
+            //本周第一天   
+            string FirstDay = datetime.AddDays(daydiff).ToString("yyyy-MM-dd");
+            return Convert.ToDateTime(FirstDay);
+        }
+
+        public DateTime GetWeekLastDaySun(DateTime datetime)
+        {
+            //星期天为最后一天   
+            int weeknow = Convert.ToInt32(datetime.DayOfWeek);
+            weeknow = (weeknow == 0 ? 7 : weeknow);
+            int daydiff = (7 - weeknow);
+
+            //本周最后一天   
+            string LastDay = datetime.AddDays(daydiff).ToString("yyyy-MM-dd");
+            return Convert.ToDateTime(LastDay);
         }
 
         private void showKB(int weekOrAll = 1, int week = 0)
@@ -535,6 +564,10 @@ namespace ZSCY_Win10
             {
                 wOa = 1;
                 HubSectionKBNum.Visibility = Visibility.Visible;
+                DateTime now = DateTime.Now;
+                DateTime weekstart = GetWeekFirstDayMon(now);
+                DateTime weekend = GetWeekLastDaySun(now);
+                HubSectionKBDate.Text = weekstart.Month + "." + weekstart.Day + "--" + weekend.Month + "." + weekend.Day;
             }
         }
 
@@ -568,6 +601,10 @@ namespace ZSCY_Win10
             {
                 showKB(2, Int16.Parse(KBNumFlyoutTextBox.Text));
                 HubSectionKBNum.Text = " | 第" + KBNumFlyoutTextBox.Text + "周";
+                DateTime now = DateTime.Now;
+                DateTime weekstart = GetWeekFirstDayMon(KBNumFlyoutTextBox.Text == "" ? now : now.AddDays((Int16.Parse(KBNumFlyoutTextBox.Text) - Int16.Parse(appSetting.Values["nowWeek"].ToString())) * 7));
+                DateTime weekend = GetWeekLastDaySun(KBNumFlyoutTextBox.Text == "" ? now : now.AddDays((Int16.Parse(KBNumFlyoutTextBox.Text) - Int16.Parse(appSetting.Values["nowWeek"].ToString())) * 7));
+                this.HubSectionKBDate.Text = weekstart.Month + "." + weekstart.Day + "--" + weekend.Month + "." + weekend.Day;
                 KBNumFlyout.Hide();
             }
             else
