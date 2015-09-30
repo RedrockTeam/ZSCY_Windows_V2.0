@@ -56,7 +56,6 @@
             <RowDefinition Height="48"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <Grid  Background="#068cfd" Grid.Row="0">
             <Grid Name="KBTitleGrid"  HorizontalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -423,7 +422,9 @@
                 </Grid>
             </Grid>
         </Grid>
-
+        <Grid Grid.Row="1">
+            <ProgressRing Name="progress" IsActive="True" Height="60" Width="60"/>
+        </Grid>
 
 
 

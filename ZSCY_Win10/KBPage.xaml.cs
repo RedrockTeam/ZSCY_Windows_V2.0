@@ -86,6 +86,7 @@ namespace ZSCY_Win10
             Debug.WriteLine("OnNavigatedTo");
             stuNum = appSetting.Values["stuNum"].ToString();
             initKB();
+            this.progress.IsActive = false;
             initToday();
             UmengSDK.UmengAnalytics.TrackPageStart("KBPage");
         }
@@ -498,9 +499,11 @@ namespace ZSCY_Win10
         /// <param name="e"></param>
         private void KBRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            this.progress.IsActive = true;
             stuNum = appSetting.Values["stuNum"].ToString();
             wOa = 1;
             initKB(true);
+            this.progress.IsActive = false;
         }
 
         /// <summary>
