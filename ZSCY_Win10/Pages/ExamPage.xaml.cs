@@ -47,6 +47,7 @@ namespace ZSCY.Pages
         {
             IsExamOrRe = System.Int32.Parse(e.Parameter.ToString());
             initExam();
+            this.progress.IsActive = false;
             UmengSDK.UmengAnalytics.TrackPageStart("ExamPage");
         }
 
