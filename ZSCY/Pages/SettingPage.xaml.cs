@@ -117,5 +117,10 @@ namespace ZSCY.Pages
         {
             Frame.Navigate(typeof(SearchFreeTimeNumPage));
         }
+
+        //private void OpacityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        //{
+
+        //}
     }
 }
