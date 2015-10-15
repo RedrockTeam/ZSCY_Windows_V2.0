@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.System;
 using Windows.UI;
 using Windows.UI.Text;
 using Windows.UI.ViewManagement;
@@ -804,7 +805,7 @@ namespace ZSCY
         }
 
 
-        private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as Morepageclass;
             Debug.WriteLine(item.UniqueID);
@@ -820,6 +821,12 @@ namespace ZSCY
                     break;
                 case "Calendar":
                     Frame.Navigate(typeof(CalendarPage));
+                    break;
+                case "FreeTime":
+                    Frame.Navigate(typeof(SearchFreeTimeNumPage));
+                    break;
+                case "Card":
+                    await Launcher.LaunchUriAsync(new Uri("cquptcard://"));
                     break;
                 default:
                     break;
