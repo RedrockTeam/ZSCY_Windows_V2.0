@@ -826,7 +826,8 @@ namespace ZSCY
                     Frame.Navigate(typeof(SearchFreeTimeNumPage));
                     break;
                 case "Card":
-                    await Launcher.LaunchUriAsync(new Uri("cquptcard://"));
+                    var a= await Launcher.LaunchUriAsync(new Uri("cquptcard:"));
+                    Debug.WriteLine(a);
                     break;
                 default:
                     break;

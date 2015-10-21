@@ -294,86 +294,87 @@ namespace ZSCY.Pages
                 Debug.WriteLine(i + "  " + emptyRoomReslut[i][0]);
             }
 #endif
-            string[] emptyClassUnrepeat = new string[100];
+            List<string[]> emptyRoomReslutuse = new List<string[]>();
 
-
-            for (int i = 0; i < 100; i++)
-                emptyClassUnrepeat[i] = "";
-
-            int[] item = new int[] { -1, -1, -1, -1, -1, -1, -1 };
-
-            for (int i = 0, j = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)
             {
-                if (emptyRoomReslut[i][0] == "")
+                if (emptyRoomReslut[i][0] != "")
                 {
-                    continue;
-                }
-                else
-                {
-                    item[j] = i;
-                    j++;
+                    emptyRoomReslutuse.Add(emptyRoomReslut[i]);
                 }
             }
 
-            for (int i = 0, j = 0; i < 6; i++)
+            for (int i = 1; i < emptyRoomReslutuse.Count; i++)
             {
-                Debug.WriteLine("item" + i + "   " + item[i]);
+                emptyRoomReslutuse[0] = emptyRoomReslutuse[0].Intersect(emptyRoomReslutuse[i]).ToArray();
             }
 
-            if (item[0] == -1)
+            emptyRoomList.Clear();
+            for (int i = 0; i < emptyRoomReslutuse[0].Length; i++)
             {
-                emptyRoomList.Clear();
+                emptyRoomList.Add(new EmptyRoomList { Room = emptyRoomReslutuse[0][i] });
             }
-            else if (item[1] == -1)
-            {
-                emptyRoomList.Clear();
-                for (int i = 0; i < emptyRoomReslut[item[0]].Length; i++)
-                {
-                    if (emptyRoomReslut[item[0]][i] == null || emptyRoomReslut[item[0]][i] == "")
-                        break;
-                    emptyRoomList.Add(new EmptyRoomList { Room = emptyRoomReslut[item[0]][i] });
-                }
-            }
-            else
-            {
-                emptyRoomList.Clear();
-                for (int i = 0; i < emptyRoomReslut[item[0]].Length; i++)
-                    emptyClassUnrepeat[i] = emptyRoomReslut[item[0]][i];
-                for (int i = 0; item[i + 1] != -1; i++)
-                {
-                    if (item[i + 1] == -1)
-                        break;
-                    IEnumerable<string> skip = emptyClassUnrepeat.Skip(0);
-                    IEnumerable<string> take = emptyRoomReslut[item[i + 1]].Skip(0);
-                    IEnumerable<string> intersect = skip.Intersect(take);
 
-                    int j = 0;
-                    foreach (var s in intersect)
-                    {
-                        Debug.WriteLine(s);
-                        emptyClassUnrepeat[j] = s;
-                        j++;
-                    }
+            //for (int i = 0, j = 0; i < 6; i++)
+            //{
+            //    Debug.WriteLine("item" + i + "   " + item[i]);
+            //}
 
-                    if (i == 5)
-                        break;
+            //if (item[0] == -1)
+            //{
+            //    emptyRoomList.Clear();
+            //}
+            //else if (item[1] == -1)
+            //{
+            //    emptyRoomList.Clear();
+            //    for (int i = 0; i < emptyRoomReslut[item[0]].Length; i++)
+            //    {
+            //        if (emptyRoomReslut[item[0]][i] == null || emptyRoomReslut[item[0]][i] == "")
+            //            break;
+            //        emptyRoomList.Add(new EmptyRoomList { Room = emptyRoomReslut[item[0]][i] });
+            //    }
+            //}
+            //else
+            //{
+            //    emptyRoomList.Clear();
+            //    for (int i = 0; i < emptyRoomReslut[item[0]].Length; i++)
+            //        emptyClassUnrepeat[i] = emptyRoomReslut[item[0]][i];
+            //    for (int i = 0; item[i + 1] != -1; i++)
+            //    {
+            //        if (item[i + 1] == -1)
+            //            break;
+            //        IEnumerable<string> skip = emptyClassUnrepeat.Skip(0);
+            //        IEnumerable<string> take = emptyRoomReslut[item[i + 1]].Skip(0);
+            //        IEnumerable<string> intersect = skip.Intersect(take);
 
-                }
-                for (int i = 0; i < 100; i++)
-                {
-                    if (i > 1)
-                    {
-                        if (emptyClassUnrepeat[i] != "" && Int16.Parse(emptyClassUnrepeat[i]) < Int16.Parse(emptyClassUnrepeat[i - 1]))
-                            break;
-                        else if (emptyClassUnrepeat[i] == "")
-                            break;
-                    }
+            //        int j = 0;
+            //        foreach (var s in intersect)
+            //        {
+            //            Debug.WriteLine(s);
+            //            emptyClassUnrepeat[j] = s;
+            //            j++;
+            //        }
 
-                    if (emptyClassUnrepeat[i] != "")
-                        emptyRoomList.Add(new EmptyRoomList { Room = emptyClassUnrepeat[i] });
-                }
-            }
+            //        if (i == 5)
+            //            break;
+
+            //    }
+            //    for (int i = 0; i < 100; i++)
+            //    {
+            //        if (i > 1)
+            //        {
+            //            if (emptyClassUnrepeat[i] != "" && Int16.Parse(emptyClassUnrepeat[i]) < Int16.Parse(emptyClassUnrepeat[i - 1]))
+            //                break;
+            //            else if (emptyClassUnrepeat[i] == "")
+            //                break;
+            //        }
+
+            //        if (emptyClassUnrepeat[i] != "")
+            //            emptyRoomList.Add(new EmptyRoomList { Room = emptyClassUnrepeat[i] });
+            //    }
+            //}
         }
+
 
         private void ListFailedStackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
