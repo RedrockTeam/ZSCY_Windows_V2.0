@@ -175,7 +175,8 @@ namespace ZSCY_Win10
             if (kbtemp != "")
             {
                 kb = kbtemp;
-                appSetting.Values["HttpTime"] = DateTimeOffset.Now.ToString();
+                Debug.WriteLine("DateTimeOffset.Now.ToString()"+ DateTimeOffset.Now.ToString());
+                appSetting.Values["HttpTime"] = DateTimeOffset.Now.Year.ToString() + "/"+ DateTimeOffset.Now.Month.ToString() + "/" + DateTimeOffset.Now.Day.ToString();
             }
             Debug.WriteLine("kb->" + kb);
             if (kb != "")
@@ -196,11 +197,12 @@ namespace ZSCY_Win10
 
                     if (kbtemp == "")
                     {
-                        Debug.WriteLine(appSetting.Values["HttpTime"].ToString());
-                        DateTimeOffset d = DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString());
+                        Debug.WriteLine("上次时间" + appSetting.Values["HttpTime"].ToString());
+                        //DateTimeOffset d = DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString());
+                        Debug.WriteLine("1");
                         int httpweekday = (Int16)DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString()).DayOfWeek == 0 ? 7 : (Int16)DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString()).DayOfWeek;
 
-                        Debug.WriteLine((DateTimeOffset.Now - DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString())).TotalDays);
+                        Debug.WriteLine("差"+(DateTimeOffset.Now - DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString())).TotalDays);
                         double weekday = (DateTimeOffset.Now - DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString())).TotalDays - (7 - httpweekday);
                         Debug.WriteLine("weekday_前" + weekday);
                         //if (weekday % ((Int16)weekday) > 0 || weekday > 0 && weekday < 1)
