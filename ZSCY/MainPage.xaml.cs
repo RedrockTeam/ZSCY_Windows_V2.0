@@ -159,6 +159,7 @@ namespace ZSCY
             if (kbtemp != "")
             {
                 kb = kbtemp;
+                Debug.WriteLine("DateTimeOffset.Now.ToString()"+ DateTimeOffset.Now.ToString());
                 appSetting.Values["HttpTime"] = DateTimeOffset.Now.ToString();
             }
             Debug.WriteLine("kb->" + kb);

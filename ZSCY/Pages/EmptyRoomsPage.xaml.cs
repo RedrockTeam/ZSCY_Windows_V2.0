@@ -316,16 +316,19 @@ namespace ZSCY.Pages
                     emptyRoomReslutuse.Add(emptyRoomReslut[i]);
                 }
             }
-
-            for (int i = 1; i < emptyRoomReslutuse.Count; i++)
-            {
-                emptyRoomReslutuse[0] = emptyRoomReslutuse[0].Intersect(emptyRoomReslutuse[i]).ToArray();
-            }
-
             emptyRoomList.Clear();
-            for (int i = 0; i < emptyRoomReslutuse[0].Length; i++)
+
+            if (emptyRoomReslutuse.Count != 0)
             {
-                emptyRoomList.Add(new EmptyRoomList { Room = emptyRoomReslutuse[0][i] });
+                for (int i = 1; i < emptyRoomReslutuse.Count; i++)
+                {
+                    emptyRoomReslutuse[0] = emptyRoomReslutuse[0].Intersect(emptyRoomReslutuse[i]).ToArray();
+                }
+
+                for (int i = 0; i < emptyRoomReslutuse[0].Length; i++)
+                {
+                    emptyRoomList.Add(new EmptyRoomList { Room = emptyRoomReslutuse[0][i] });
+                }
             }
 
             //for (int i = 0, j = 0; i < 6; i++)
