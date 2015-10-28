@@ -133,7 +133,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Controls\NavMenuListView.cs" />
     <Compile Include="Data\ClassList.cs" />
     <Compile Include="Data\DataSource.cs" />
@@ -153,6 +156,9 @@
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage_m.xaml.cs">
+      <DependentUpon>MainPage_m.xaml</DependentUpon>
     </Compile>
     <Compile Include="MorePage.xaml.cs">
       <DependentUpon>MorePage.xaml</DependentUpon>
@@ -180,7 +186,12 @@
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\Converter\FreeConverter.cs" />
+    <Compile Include="Util\Converter\GenderConverter.cs" />
+    <Compile Include="Util\Converter\itemPageConverter.cs" />
+    <Compile Include="Util\Converter\KBGridConverter.cs" />
     <Compile Include="Util\Converter\KBPageConverter.cs" />
+    <Compile Include="Util\Converter\LongClassRoomConverter.cs" />
     <Compile Include="Util\NetWork.cs" />
     <Compile Include="Util\Utils.cs" />
   </ItemGroup>
@@ -340,6 +351,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainPage_m.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MorePage.xaml">
       <SubType>Designer</SubType>

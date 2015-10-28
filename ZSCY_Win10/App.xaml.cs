@@ -96,9 +96,17 @@ namespace ZSCY_Win10
                 }
                 else
                 {
-                    if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.Phone.UI.Input") && Utils.getPhoneWidth() < 400)
+                    if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar") && Utils.getPhoneWidth() < 400)
                     {
-                        Debug.WriteLine("小于400的Phone");
+                        Debug.WriteLine("小于400的Phone"+ Utils.getPhoneWidth());
+                        //if (!rootFrame.Navigate(typeof(MainPage_m), e.Arguments))
+                        //{
+                        //    throw new Exception("Failed to create initial page");
+                        //}
+                        if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                        {
+                            throw new Exception("Failed to create initial page");
+                        }
                     }
                     else
                     {
