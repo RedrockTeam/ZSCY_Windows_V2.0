@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ZSCY.Data;
+using ZSCY_Win10.Util;
 
 namespace ZSCY_Win10
 {
@@ -86,10 +87,6 @@ namespace ZSCY_Win10
 #if WINDOWS_PHONE_APP
                 Debug.WriteLine("#if WINDOWS_PHONE_APP");
 #endif
-                if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
-                {
-                    Debug.WriteLine("Windows.Phone.UI.Input.HardwareButtons");
-                }
                 if (!appSetting.Values.ContainsKey("idNum"))
                 {
                     if (!rootFrame.Navigate(typeof(LoginPage), e.Arguments))
@@ -99,9 +96,17 @@ namespace ZSCY_Win10
                 }
                 else
                 {
-                    if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                    if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.Phone.UI.Input") && Utils.getPhoneWidth() < 400)
                     {
-                        throw new Exception("Failed to create initial page");
+                        Debug.WriteLine("小于400的Phone");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("大于400的phone OR PC");
+                        if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                        {
+                            throw new Exception("Failed to create initial page");
+                        }
                     }
                 }
             }
