@@ -5,11 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -118,9 +121,92 @@ namespace ZSCY.Pages
             Frame.Navigate(typeof(SearchFreeTimeNumPage));
         }
 
-        //private void OpacityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        //private async void OpacityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         //{
+        //    Uri logo1 = null;
+        //    Uri logo2 = null;
+
+        //    var useLogo1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Logo.scale-240.png", UriKind.Absolute));
+        //    var useLogo2 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square71x71Logo.scale-240.png", UriKind.Absolute));
+
+        //    try
+        //    {
+        //        if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == true)
+        //        {
+
+        //            logo1 = new Uri("ms-appx:///Assets/AlphaLogo/Logo.scale-240.png");
+        //            logo2 = new Uri("ms-appx:///Assets/AlphaLogo/Square71x71Logo.scale-240.png");
+        //            await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
+        //            await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
+
+        //        }
+        //        else if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == false)
+        //        {
+        //            logo1 = new Uri("ms-appx:///Assets/BlueLogo/Logo.scale-240.png");
+        //            logo2 = new Uri("ms-appx:///Assets/BlueLogo/Square71x71Logo.scale-240.png");
+        //            await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
+        //            await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
+
+        //        }
+
+
+        //        //Uri logo1 = new Uri("ms-appx:///Assets/AlphaLogo/Logo.scale-240.png");
+        //        string tileString150 = "<tile>" +
+        //                        "<visual version=\"2\">" +
+        //                            "<binding template=\"TileSquare150x150Image\">" +
+        //                                "<image id=\"1\" src=\"" + logo1 + "\" alt=\"alt text\"/>" +
+        //                            "</binding>" +
+        //                        "</visual>" +
+        //                    "</tile>";
+        //        XmlDocument tileXML150 = new XmlDocument();
+        //        tileXML150.LoadXml(tileString150);
+        //        TileNotification newTile150 = new TileNotification(tileXML150);
+        //        TileUpdater updater150 = TileUpdateManager.CreateTileUpdaterForApplication();
+        //        updater150.EnableNotificationQueue(false);
+        //        updater150.Update(newTile150);
+
+
+        //        string tileString71 = "<tile>" +
+        //                        "<visual version=\"2\">" +
+        //                            "<binding template=\"TileSquare71x71Image\">" +
+        //                                "<image id=\"1\" src=\"" + logo2 + "\" alt=\"alt text\"/>" +
+        //                            "</binding>" +
+        //                        "</visual>" +
+        //                    "</tile>";
+
+        //        XmlDocument tileXML71 = new XmlDocument();
+        //        tileXML71.LoadXml(tileString71);
+        //        TileNotification newTile71 = new TileNotification(tileXML71);
+        //        TileUpdater updater71 = TileUpdateManager.CreateTileUpdaterForApplication();
+        //        updater71.EnableNotificationQueue(false);
+        //        updater71.Update(newTile71);
+        //    }
+        //    catch (Exception) { }
+
+
+
+
+        //    //XmlDocument TileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Image);
+        //    //XmlNodeList TileImage = TileXml.GetElementsByTagName("image");
+        //    //((XmlElement)TileImage[0]).SetAttribute("src", "ms-appx:///Assets/AlphaLogo/Logo.scale-240.png");
+
+        //    //var TileUpdater = TileUpdateManager.CreateTileUpdaterForApplication();
+        //    //ScheduledTileNotification Schedule = new ScheduledTileNotification(TileXml, DateTimeOffset.Now.AddSeconds(5));
+        //    //TileUpdater.Clear();
+        //    //TileUpdater.EnableNotificationQueue(true);
+        //    //TileUpdater.AddToSchedule(Schedule);
+
+
+        //    //TileNotification newTile = new TileNotification(TileXml);
+        //    //TileUpdater updater = TileUpdateManager.CreateTileUpdaterForApplication();
+        //    //updater.EnableNotificationQueue(false);
+        //    //updater.Update(newTile);
+
+
+        //    //var Logo1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/SmallLogo.scale-240.png", UriKind.Absolute));
+        //    //var Logo2 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square71x71Logo.scale-240.png", UriKind.Absolute));
 
         //}
+
     }
 }

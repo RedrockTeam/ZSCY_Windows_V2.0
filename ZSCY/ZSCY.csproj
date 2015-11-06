@@ -152,6 +152,12 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AlphaLogo\Logo.scale-240.png" />
+    <Content Include="Assets\AlphaLogo\SmallLogo.scale-240.png" />
+    <Content Include="Assets\AlphaLogo\Square71x71Logo.scale-240.png" />
+    <Content Include="Assets\BlueLogo\Logo.scale-240.png" />
+    <Content Include="Assets\BlueLogo\SmallLogo.scale-240.png" />
+    <Content Include="Assets\BlueLogo\Square71x71Logo.scale-240.png" />
     <Content Include="Assets\Boy-100.png" />
     <Content Include="Assets\Contacts-100.png" />
     <Content Include="Assets\dialog_course_add.png" />
@@ -280,6 +286,7 @@
     <Content Include="Data\moreitems.json" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
