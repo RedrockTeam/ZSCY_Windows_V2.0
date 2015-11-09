@@ -11,9 +11,11 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
+using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.StartScreen;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -132,11 +134,13 @@ namespace ZSCY.Pages
             var useLogo1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Logo.scale-240.png", UriKind.Absolute));
             var useLogo2 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square71x71Logo.scale-240.png", UriKind.Absolute));
 
+           
             try
             {
-                if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == true)
+                if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == true && bool.Parse(appSetting.Values["OpacityTile"].ToString()) ==false)
                 {
-
+                    await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在更新磁贴...请稍后...", isIndeterminate: true);
+                    OpacityToggleSwitch.IsEnabled = false;
                     logo1 = new Uri("ms-appx:///Assets/AlphaLogo/Logo.scale-240.png");
                     logo2 = new Uri("ms-appx:///Assets/AlphaLogo/Square71x71Logo.scale-240.png");
                     await (await StorageFile.GetFileFromApplicationUriAsync(logo1)).CopyAndReplaceAsync(useLogo1);
@@ -144,9 +148,12 @@ namespace ZSCY.Pages
                     //await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
                     //await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
                     appSetting.Values["OpacityTile"] = true;
+                    Debug.WriteLine("Alpha->Blue");
                 }
-                else if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == false)
+                else if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == false && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == true)
                 {
+                    await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在更新磁贴...请稍后...", isIndeterminate: true);
+                    OpacityToggleSwitch.IsEnabled = false;
                     logo1 = new Uri("ms-appx:///Assets/BlueLogo/Logo.scale-240.png");
                     logo2 = new Uri("ms-appx:///Assets/BlueLogo/Square71x71Logo.scale-240.png");
                     await (await StorageFile.GetFileFromApplicationUriAsync(logo1)).CopyAndReplaceAsync(useLogo1);
@@ -154,46 +161,60 @@ namespace ZSCY.Pages
                     //await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
                     //await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
                     appSetting.Values["OpacityTile"] = false;
+                    Debug.WriteLine("Blue->Alpha");
 
                 }
 
-
-                //Uri logo1 = new Uri("ms-appx:///Assets/AlphaLogo/Logo.scale-240.png");
-                string tileString150 = "<tile>" +
-                                "<visual version=\"2\">" +
-                                    "<binding template=\"TileSquare150x150Image\">" +
-                                        "<image id=\"1\" src=\"" + logo1 + "\" alt=\"alt text\"/>" +
-                                    "</binding>" +
-                                "</visual>" +
-                            "</tile>";
-                XmlDocument tileXML150 = new XmlDocument();
-                tileXML150.LoadXml(tileString150);
-                TileNotification newTile150 = new TileNotification(tileXML150);
-                TileUpdater updater150 = TileUpdateManager.CreateTileUpdaterForApplication();
-                //ScheduledTileNotification Schedule = new ScheduledTileNotification(tileXML150, DateTimeOffset.Now.AddSeconds(5));
-                updater150.EnableNotificationQueue(false);
-                //updater150.AddToSchedule(Schedule);
-                await Task.Delay(1000);
-                updater150.Update(newTile150);
+                await Task.Delay(3000);
+                StatusBar statusBar = StatusBar.GetForCurrentView();
+                await statusBar.ProgressIndicator.HideAsync();
+                OpacityToggleSwitch.IsEnabled = true;
 
 
-                string tileString71 = "<tile>" +
-                                "<visual version=\"2\">" +
-                                    "<binding template=\"TileSquare71x71Image\">" +
-                                        "<image id=\"1\" src=\"" + logo2 + "\" alt=\"alt text\"/>" +
-                                    "</binding>" +
-                                "</visual>" +
-                            "</tile>";
+                //string tileString150 = "<tile>" +
+                //                "<visual version=\"2\">" +
+                //                    "<binding template=\"TileSquare150x150Image\">" +
+                //                        "<image id=\"1\" src=\"" + logo1 + "\" alt=\"\"/>" +
+                //                    "</binding>" +
+                //                "</visual>" +
+                //            "</tile>";
+                //XmlDocument tileXML150 = new XmlDocument();
+                //tileXML150.LoadXml(tileString150);
+                //TileNotification newTile150 = new TileNotification(tileXML150);
+                //TileUpdater updater150 = TileUpdateManager.CreateTileUpdaterForApplication();
+                ////ScheduledTileNotification Schedule = new ScheduledTileNotification(tileXML150, DateTimeOffset.Now.AddSeconds(5));
+                //updater150.EnableNotificationQueue(false);
+                ////updater150.AddToSchedule(Schedule);
+                //await Task.Delay(1000);
+                //updater150.Update(newTile150);
 
-                XmlDocument tileXML71 = new XmlDocument();
-                tileXML71.LoadXml(tileString71);
-                TileNotification newTile71 = new TileNotification(tileXML71);
-                TileUpdater updater71 = TileUpdateManager.CreateTileUpdaterForApplication();
-                updater71.EnableNotificationQueue(false);
-                await Task.Delay(1000);
-                updater71.Update(newTile71);
+
+                //string tileString71 = "<tile>" +
+                //                "<visual version=\"2\">" +
+                //                    "<binding template=\"TileSquare71x71Image\">" +
+                //                        "<image id=\"1\" src=\"" + logo2 + "\" alt=\"\"/>" +
+                //                    "</binding>" +
+                //                "</visual>" +
+                //            "</tile>";
+
+                //XmlDocument tileXML71 = new XmlDocument();
+                //tileXML71.LoadXml(tileString71);
+                //TileNotification newTile71 = new TileNotification(tileXML71);
+                //TileUpdater updater71 = TileUpdateManager.CreateTileUpdaterForApplication();
+                //updater71.EnableNotificationQueue(false);
+                //await Task.Delay(1000);
+                //updater71.Update(newTile71);
+
+
+
+
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                StatusBar statusBar = StatusBar.GetForCurrentView();
+                await statusBar.ProgressIndicator.HideAsync();
+                OpacityToggleSwitch.IsEnabled = true;
+            }
 
 
 
@@ -220,5 +241,15 @@ namespace ZSCY.Pages
 
         }
 
+        public static async Task<string> copypic(StorageFile useLogo, Uri Logo)
+        {
+            return await Task.Run(async () =>
+            {
+                (await StorageFile.GetFileFromApplicationUriAsync(Logo)).CopyAndReplaceAsync(useLogo);
+                return "";
+            });
+
+
+        }
     }
 }

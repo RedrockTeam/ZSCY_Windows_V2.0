@@ -56,6 +56,7 @@ namespace ZSCY.Pages
             string exam = "";
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
 
+
             await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在紧张安排考试...", isIndeterminate: true);
             if (IsExamOrRe == 2)
             {
