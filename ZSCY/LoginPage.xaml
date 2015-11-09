@@ -10,7 +10,7 @@
 
 
     <Grid>
-        <Image Source="Assets/Logo.scale-240.png" VerticalAlignment="Top" Margin="15" Height="150" Width="150"></Image>
+        <Image Source="Assets/BlueLogo/Logo.scale-240.png" VerticalAlignment="Top" Margin="15" Height="150" Width="150"></Image>
         <StackPanel VerticalAlignment="Center" Margin="30,-85,30,0">
             <TextBox Name="StuNumTextBox" InputScope="Number" PlaceholderText="学号" Foreground="Black" TextChanged="StuNumTextBox_TextChanged"></TextBox>
             <PasswordBox Name="IdNumPasswordBox" PlaceholderText="身份证后六位" Foreground="Black" PasswordChanged="IdNumPasswordBox_PasswordChanged"></PasswordBox>

@@ -99,6 +99,24 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\AlphaLogo\Logo.scale-240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AlphaLogo\SmallLogo.scale-240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AlphaLogo\Square71x71Logo.scale-240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BlueLogo\Logo.scale-240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BlueLogo\SmallLogo.scale-240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BlueLogo\Square71x71Logo.scale-240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\dialog_course_add_white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -111,16 +129,36 @@
     <Content Include="Assets\dialog_course_type_white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Logo.scale-240.png" />
-    <Content Include="Assets\more_calendar333.png" />
-    <Content Include="Assets\more_empty333.png" />
-    <Content Include="Assets\more_exam333.png" />
-    <Content Include="Assets\more_reexam333.png" />
-    <Content Include="Assets\more_score333.png" />
-    <Content Include="Assets\Square150x150Logo.scale-400.png" />
-    <Content Include="Assets\Square44x44Logo.scale-400.png" />
-    <Content Include="Assets\Square71x71Logo.scale-400.png" />
-    <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Logo.scale-240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\more_calendar333.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\more_empty333.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\more_exam333.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\more_reexam333.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\more_score333.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Square150x150Logo.scale-400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Square44x44Logo.scale-400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Square71x71Logo.scale-400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\StoreLogo.scale-400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\moreitems.json" />
     <None Include="project.json" />
     <None Include="ZSCY_Win10_StoreKey.pfx" />
@@ -133,7 +171,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Controls\NavMenuListView.cs" />
     <Compile Include="Data\ClassList.cs" />
     <Compile Include="Data\DataSource.cs" />
@@ -153,6 +194,9 @@
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage_m.xaml.cs">
+      <DependentUpon>MainPage_m.xaml</DependentUpon>
     </Compile>
     <Compile Include="MorePage.xaml.cs">
       <DependentUpon>MorePage.xaml</DependentUpon>
@@ -180,7 +224,12 @@
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\Converter\FreeConverter.cs" />
+    <Compile Include="Util\Converter\GenderConverter.cs" />
+    <Compile Include="Util\Converter\itemPageConverter.cs" />
+    <Compile Include="Util\Converter\KBGridConverter.cs" />
     <Compile Include="Util\Converter\KBPageConverter.cs" />
+    <Compile Include="Util\Converter\LongClassRoomConverter.cs" />
     <Compile Include="Util\NetWork.cs" />
     <Compile Include="Util\Utils.cs" />
   </ItemGroup>
@@ -340,6 +389,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainPage_m.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MorePage.xaml">
       <SubType>Designer</SubType>
