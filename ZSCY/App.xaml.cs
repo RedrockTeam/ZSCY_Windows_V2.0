@@ -61,6 +61,9 @@ namespace ZSCY
                 appSetting.Values["donewVersion"] = 2;
                 newVersion();
             }
+            //byte[] myDeviceID = (byte[])Windows.Phone.Devices.Not .DeviceExtendedProperties.GetValue("DeviceUniqueId");
+            //string maAddress = BitConverter.ToString(myDeviceID);
+
         }
 
         private void newVersion()

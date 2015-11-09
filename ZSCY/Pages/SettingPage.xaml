@@ -26,8 +26,8 @@
                 <!--<Button Name="SearchFreeTime" HorizontalAlignment="Stretch" Content="查询多人空闲时段" RequestedTheme="Light" FontWeight="Light" FontFamily="Microsoft YaHei UI" Click="SearchFreeTime_Click"/>-->
 
 
-                <!--<TextBlock Text="使用透明磁贴" FontSize="20" Foreground="Gray" Margin="0,10"/>
-                <ToggleSwitch  Name="OpacityToggleSwitch" IsOn="True" OnContent="开" OffContent="关" Toggled="OpacityToggleSwitch_Toggled" Foreground="Black" />-->
+                <TextBlock Text="使用透明磁贴" FontSize="20" Foreground="Gray" Margin="0,10"/>
+                <ToggleSwitch  Name="OpacityToggleSwitch" IsOn="False" OnContent="开" OffContent="关" Toggled="OpacityToggleSwitch_Toggled" Foreground="Black" />
 
                 <TextBlock Text="重置本应用" FontSize="20" Foreground="Gray" Margin="0,10"/>
                 <Button Name="ClearButton" HorizontalAlignment="Stretch" Content="删除所有缓存" RequestedTheme="Light" FontWeight="Light" FontFamily="Microsoft YaHei UI" Click="ClearButton_Click"/>
