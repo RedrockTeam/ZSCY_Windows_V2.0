@@ -41,6 +41,11 @@ namespace ZSCY.Pages
             this.InitializeComponent();
             if (appSetting.Values.ContainsKey("OpacityTile"))
                 OpacityToggleSwitch.IsOn = bool.Parse(appSetting.Values["OpacityTile"].ToString());
+            else
+            {
+                OpacityToggleSwitch.IsOn = false;
+                appSetting.Values["OpacityTile"] = false;
+            }
         }
 
         /// <summary>
@@ -133,11 +138,24 @@ namespace ZSCY.Pages
 
             var useLogo1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Logo.scale-240.png", UriKind.Absolute));
             var useLogo2 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square71x71Logo.scale-240.png", UriKind.Absolute));
+            var filesinthefolder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFoldersAsync();
+#if DEBUG
+            foreach (var item in filesinthefolder)
+            {
 
-           
+                if (item.Name == "Assets")
+                {
+                    var f2 = await item.GetFilesAsync();
+                    foreach (var item2 in f2)
+                    {
+                        Debug.WriteLine(item2.Name);
+                    }
+                }
+            }
+#endif
             try
             {
-                if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == true && bool.Parse(appSetting.Values["OpacityTile"].ToString()) ==false)
+                if (OpacityToggleSwitch.IsOn == true && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == false)
                 {
                     await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在更新磁贴...请稍后...", isIndeterminate: true);
                     OpacityToggleSwitch.IsEnabled = false;
@@ -147,10 +165,25 @@ namespace ZSCY.Pages
                     await (await StorageFile.GetFileFromApplicationUriAsync(logo2)).CopyAndReplaceAsync(useLogo2);
                     //await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
                     //await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
+#if DEBUG
+                    var filesinthefolder2 = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFoldersAsync();
+                    foreach (var item in filesinthefolder2)
+                    {
+                        Debug.WriteLine(item.Name);
+                        if (item.Name == "Assets")
+                        {
+                            var f2 = await item.GetFilesAsync();
+                            foreach (var item2 in f2)
+                            {
+                                Debug.WriteLine(item2.Name);
+                            }
+                        }
+                    }
+#endif
                     appSetting.Values["OpacityTile"] = true;
                     Debug.WriteLine("Alpha->Blue");
                 }
-                else if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == false && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == true)
+                else if (OpacityToggleSwitch.IsOn == false && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == true)
                 {
                     await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在更新磁贴...请稍后...", isIndeterminate: true);
                     OpacityToggleSwitch.IsEnabled = false;
@@ -169,7 +202,7 @@ namespace ZSCY.Pages
                 StatusBar statusBar = StatusBar.GetForCurrentView();
                 await statusBar.ProgressIndicator.HideAsync();
                 OpacityToggleSwitch.IsEnabled = true;
-
+                await new MessageDialog("磁贴更新成功，请重新pin到主屏幕").ShowAsync();
 
                 //string tileString150 = "<tile>" +
                 //                "<visual version=\"2\">" +
@@ -245,7 +278,7 @@ namespace ZSCY.Pages
         {
             return await Task.Run(async () =>
             {
-                (await StorageFile.GetFileFromApplicationUriAsync(Logo)).CopyAndReplaceAsync(useLogo);
+                await (await StorageFile.GetFileFromApplicationUriAsync(Logo)).CopyAndReplaceAsync(useLogo);
                 return "";
             });
 

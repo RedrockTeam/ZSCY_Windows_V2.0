@@ -14,7 +14,7 @@
                 <TextBlock Name="ExamTextBlock" Text="关于我们" Foreground="White" Margin="15" FontSize="40"></TextBlock>
             </Grid>
             <StackPanel Name="ExamStackPanel" Margin="15">
-                <Image Margin="0,30,0,30" Source="../Assets/Logo.scale-240.png" Height="120" Width="120"></Image>
+                <Image Margin="0,30,0,30" Source="../Assets/BlueLogo/Logo.scale-240.png" Height="120" Width="120"></Image>
                 <TextBlock Margin="0,0,0,10" Text="掌上重邮 For Windows" Foreground="Black" FontSize="25" HorizontalAlignment="Center"></TextBlock>
                 <TextBlock Text="Version 2.0" HorizontalAlignment="Center" Foreground="Black" FontSize="20"></TextBlock>
             </StackPanel>
