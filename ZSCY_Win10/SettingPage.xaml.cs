@@ -36,6 +36,8 @@ namespace ZSCY_Win10
             appSetting = ApplicationData.Current.LocalSettings; //本地存储
 
             this.InitializeComponent();
+            if (appSetting.Values.ContainsKey("OpacityTile"))
+                OpacityToggleSwitch.IsOn = bool.Parse(appSetting.Values["OpacityTile"].ToString());
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
