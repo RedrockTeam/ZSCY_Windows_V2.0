@@ -225,7 +225,7 @@ namespace ZSCY_Win10
                 {
                     await Task.Delay(3000);
                     OpacityToggleSwitch.IsEnabled = true;
-                    await new MessageDialog("磁贴更新成功，如未生效请重新pin到主屏幕").ShowAsync();
+                    await new MessageDialog("磁贴更新成功，如未生效，请重新pin到主屏幕").ShowAsync();
                 }
                 //string tileString150 = "<tile>" +
                 //                "<visual version=\"2\">" +
