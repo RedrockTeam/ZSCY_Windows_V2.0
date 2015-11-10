@@ -155,6 +155,7 @@ namespace ZSCY.Pages
 #endif
             try
             {
+                bool copy = false;
                 if (OpacityToggleSwitch.IsOn == true && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == false)
                 {
                     await Utils.ShowSystemTrayAsync(Color.FromArgb(255, 2, 140, 253), Colors.White, text: "正在更新磁贴...请稍后...", isIndeterminate: true);
@@ -181,6 +182,7 @@ namespace ZSCY.Pages
                     }
 #endif
                     appSetting.Values["OpacityTile"] = true;
+                    copy = true;
                     Debug.WriteLine("Alpha->Blue");
                 }
                 else if (OpacityToggleSwitch.IsOn == false && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == true)
@@ -194,16 +196,18 @@ namespace ZSCY.Pages
                     //await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
                     //await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
                     appSetting.Values["OpacityTile"] = false;
+                    copy = true;
                     Debug.WriteLine("Blue->Alpha");
 
                 }
-
-                await Task.Delay(3000);
-                StatusBar statusBar = StatusBar.GetForCurrentView();
-                await statusBar.ProgressIndicator.HideAsync();
-                OpacityToggleSwitch.IsEnabled = true;
-                await new MessageDialog("磁贴更新成功，请重新pin到主屏幕").ShowAsync();
-
+                if (copy)
+                {
+                    await Task.Delay(3000);
+                    StatusBar statusBar = StatusBar.GetForCurrentView();
+                    await statusBar.ProgressIndicator.HideAsync();
+                    OpacityToggleSwitch.IsEnabled = true;
+                    await new MessageDialog("磁贴更新成功，如未生效,请重新pin到主屏幕").ShowAsync();
+                }
                 //string tileString150 = "<tile>" +
                 //                "<visual version=\"2\">" +
                 //                    "<binding template=\"TileSquare150x150Image\">" +

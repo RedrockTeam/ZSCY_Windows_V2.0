@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Store;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -38,6 +39,11 @@ namespace ZSCY_Win10
             this.InitializeComponent();
             if (appSetting.Values.ContainsKey("OpacityTile"))
                 OpacityToggleSwitch.IsOn = bool.Parse(appSetting.Values["OpacityTile"].ToString());
+            else
+            {
+                OpacityToggleSwitch.IsOn = false;
+                appSetting.Values["OpacityTile"] = false;
+            }
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -155,11 +161,25 @@ namespace ZSCY_Win10
 
             var useLogo1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Logo.scale-240.png", UriKind.Absolute));
             var useLogo2 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square71x71Logo.scale-240.png", UriKind.Absolute));
+            var filesinthefolder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFoldersAsync();
+#if DEBUG
+            foreach (var item in filesinthefolder)
+            {
 
-
+                if (item.Name == "Assets")
+                {
+                    var f2 = await item.GetFilesAsync();
+                    foreach (var item2 in f2)
+                    {
+                        Debug.WriteLine(item2.Name);
+                    }
+                }
+            }
+#endif
             try
             {
-                if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == true && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == false)
+                bool copy = false;
+                if (OpacityToggleSwitch.IsOn == true && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == false)
                 {
                     OpacityToggleSwitch.IsEnabled = false;
                     logo1 = new Uri("ms-appx:///Assets/AlphaLogo/Logo.scale-240.png");
@@ -168,10 +188,26 @@ namespace ZSCY_Win10
                     await (await StorageFile.GetFileFromApplicationUriAsync(logo2)).CopyAndReplaceAsync(useLogo2);
                     //await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
                     //await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
+#if DEBUG
+                    var filesinthefolder2 = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFoldersAsync();
+                    foreach (var item in filesinthefolder2)
+                    {
+                        Debug.WriteLine(item.Name);
+                        if (item.Name == "Assets")
+                        {
+                            var f2 = await item.GetFilesAsync();
+                            foreach (var item2 in f2)
+                            {
+                                Debug.WriteLine(item2.Name);
+                            }
+                        }
+                    }
+#endif
                     appSetting.Values["OpacityTile"] = true;
+                    copy = true;
                     Debug.WriteLine("Alpha->Blue");
                 }
-                else if (OpacityToggleSwitch.IsOn != null && OpacityToggleSwitch.IsOn == false && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == true)
+                else if (OpacityToggleSwitch.IsOn == false && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == true)
                 {
                     OpacityToggleSwitch.IsEnabled = false;
                     logo1 = new Uri("ms-appx:///Assets/BlueLogo/Logo.scale-240.png");
@@ -181,13 +217,16 @@ namespace ZSCY_Win10
                     //await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
                     //await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
                     appSetting.Values["OpacityTile"] = false;
+                    copy = true;
                     Debug.WriteLine("Blue->Alpha");
 
                 }
-
-                OpacityToggleSwitch.IsEnabled = true;
-
-
+                if (copy)
+                {
+                    await Task.Delay(3000);
+                    OpacityToggleSwitch.IsEnabled = true;
+                    await new MessageDialog("磁贴更新成功，如未生效请重新pin到主屏幕").ShowAsync();
+                }
                 //string tileString150 = "<tile>" +
                 //                "<visual version=\"2\">" +
                 //                    "<binding template=\"TileSquare150x150Image\">" +
