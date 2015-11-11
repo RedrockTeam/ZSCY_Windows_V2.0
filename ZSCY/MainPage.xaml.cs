@@ -80,7 +80,7 @@ namespace ZSCY
             initJW();
         }
 
-        private void SetKebiaoGridBorder()
+        private void SetKebiaoGridBorder(int week)
         {
             //边框
             //for (int i = 0; i < kebiaoGrid.RowDefinitions.Count; i++)
@@ -95,18 +95,28 @@ namespace ZSCY
             //}
 
             //星期背景色
-            Grid backgrid = new Grid();
-            backgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
-            backgrid.SetValue(Grid.RowProperty, 0);
-            backgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) + 6) % 7);
-            backgrid.SetValue(Grid.RowSpanProperty, 12);
-            kebiaoGrid.Children.Add(backgrid);
+            if (week == 0)
+            {
+                Grid backgrid = new Grid();
+                backgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
+                backgrid.SetValue(Grid.RowProperty, 0);
+                backgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) + 6) % 7);
+                backgrid.SetValue(Grid.RowSpanProperty, 12);
+                kebiaoGrid.Children.Add(backgrid);
 
-            backweekgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
-            backweekgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek())));
-            KebiaoWeekGrid.Children.Remove(backweekgrid);
-            KebiaoWeekGrid.Children.Add(backweekgrid);
-
+                backweekgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
+                backweekgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek())));
+                KebiaoWeekGrid.Children.Remove(backweekgrid);
+                KebiaoWeekGrid.Children.Add(backweekgrid);
+              
+            }
+            else
+            {
+                backweekgrid.Background = new SolidColorBrush(Color.FromArgb(255, 248, 248, 248));
+                backweekgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek())));
+                KebiaoWeekGrid.Children.Remove(backweekgrid);
+                KebiaoWeekGrid.Children.Add(backweekgrid);
+            }
             TextBlock KebiaoWeek = new TextBlock();
             KebiaoWeek.Text = Utils.GetWeek(2);
             KebiaoWeek.FontSize = 20;
@@ -159,7 +169,7 @@ namespace ZSCY
             if (kbtemp != "")
             {
                 kb = kbtemp;
-                Debug.WriteLine("DateTimeOffset.Now.ToString()"+ DateTimeOffset.Now.ToString());
+                Debug.WriteLine("DateTimeOffset.Now.ToString()" + DateTimeOffset.Now.ToString());
                 appSetting.Values["HttpTime"] = DateTimeOffset.Now.ToString();
             }
             Debug.WriteLine("kb->" + kb);
@@ -256,7 +266,7 @@ namespace ZSCY
 
 
             kebiaoGrid.Children.Clear();
-            SetKebiaoGridBorder();
+            SetKebiaoGridBorder(week);
             classList.Clear();
             JArray ClassListArray = Utils.ReadJso(kb);
             int ColorI = 0;
@@ -827,7 +837,7 @@ namespace ZSCY
                     Frame.Navigate(typeof(SearchFreeTimeNumPage));
                     break;
                 case "Card":
-                    var a= await Launcher.LaunchUriAsync(new Uri("cquptcard:"));
+                    var a = await Launcher.LaunchUriAsync(new Uri("cquptcard:"));
                     Debug.WriteLine(a);
                     break;
                 default:

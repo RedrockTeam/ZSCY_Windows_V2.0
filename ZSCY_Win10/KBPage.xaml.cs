@@ -99,7 +99,7 @@ namespace ZSCY_Win10
             UmengSDK.UmengAnalytics.TrackPageEnd("KBPage");
         }
 
-        private void SetKebiaoGridBorder()
+        private void SetKebiaoGridBorder(int week)
         {
             //边框
             //for (int i = 0; i < kebiaoGrid.RowDefinitions.Count; i++)
@@ -114,18 +114,28 @@ namespace ZSCY_Win10
             //}
 
             //星期背景色
-            Grid backgrid = new Grid();
-            backgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
-            backgrid.SetValue(Grid.RowProperty, 0);
-            backgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) + 6) % 7);
-            backgrid.SetValue(Grid.RowSpanProperty, 12);
-            kebiaoGrid.Children.Add(backgrid);
+            if (week == 0)
+            {
+                Grid backgrid = new Grid();
+                backgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
+                backgrid.SetValue(Grid.RowProperty, 0);
+                backgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) + 6) % 7);
+                backgrid.SetValue(Grid.RowSpanProperty, 12);
+                kebiaoGrid.Children.Add(backgrid);
 
-            backweekgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
-            backweekgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek())));
-            KebiaoWeekGrid.Children.Remove(backweekgrid);
-            KebiaoWeekGrid.Children.Add(backweekgrid);
+                backweekgrid.Background = new SolidColorBrush(Color.FromArgb(255, 254, 245, 207));
+                backweekgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek())));
+                KebiaoWeekGrid.Children.Remove(backweekgrid);
+                KebiaoWeekGrid.Children.Add(backweekgrid);
 
+            }
+            else
+            {
+                backweekgrid.Background = new SolidColorBrush(Color.FromArgb(255, 248, 248, 248));
+                backweekgrid.SetValue(Grid.ColumnProperty, (Int16.Parse(Utils.GetWeek()) == 0 ? 7 : Int16.Parse(Utils.GetWeek())));
+                KebiaoWeekGrid.Children.Remove(backweekgrid);
+                KebiaoWeekGrid.Children.Add(backweekgrid);
+            }
             TextBlock KebiaoWeek = new TextBlock();
             KebiaoWeek.Text = Utils.GetWeek(2);
             KebiaoWeek.FontSize = 20;
@@ -175,8 +185,8 @@ namespace ZSCY_Win10
             if (kbtemp != "")
             {
                 kb = kbtemp;
-                Debug.WriteLine("DateTimeOffset.Now.ToString()"+ DateTimeOffset.Now.ToString());
-                appSetting.Values["HttpTime"] = DateTimeOffset.Now.Year.ToString() + "/"+ DateTimeOffset.Now.Month.ToString() + "/" + DateTimeOffset.Now.Day.ToString();
+                Debug.WriteLine("DateTimeOffset.Now.ToString()" + DateTimeOffset.Now.ToString());
+                appSetting.Values["HttpTime"] = DateTimeOffset.Now.Year.ToString() + "/" + DateTimeOffset.Now.Month.ToString() + "/" + DateTimeOffset.Now.Day.ToString();
             }
             Debug.WriteLine("kb->" + kb);
             if (kb != "")
@@ -202,7 +212,7 @@ namespace ZSCY_Win10
                         Debug.WriteLine("1");
                         int httpweekday = (Int16)DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString()).DayOfWeek == 0 ? 7 : (Int16)DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString()).DayOfWeek;
 
-                        Debug.WriteLine("差"+(DateTimeOffset.Now - DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString())).TotalDays);
+                        Debug.WriteLine("差" + (DateTimeOffset.Now - DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString())).TotalDays);
                         double weekday = (DateTimeOffset.Now - DateTimeOffset.Parse(appSetting.Values["HttpTime"].ToString())).TotalDays - (7 - httpweekday);
                         Debug.WriteLine("weekday_前" + weekday);
                         //if (weekday % ((Int16)weekday) > 0 || weekday > 0 && weekday < 1)
@@ -265,7 +275,7 @@ namespace ZSCY_Win10
 
 
             kebiaoGrid.Children.Clear();
-            SetKebiaoGridBorder();
+            SetKebiaoGridBorder(week);
             classList.Clear();
             JArray ClassListArray = Utils.ReadJso(kb);
             int ColorI = 0;
@@ -327,7 +337,7 @@ namespace ZSCY_Win10
                     SetClassDay(classitem);
                 }
 #else
-                 if (Array.IndexOf(classitem.Week, Int32.Parse(appSetting.Values["nowWeek"].ToString())) != -1 && classitem.Hash_day == (Int16.Parse(Utils.GetWeek()) + 6) % 7)
+                if (Array.IndexOf(classitem.Week, Int32.Parse(appSetting.Values["nowWeek"].ToString())) != -1 && classitem.Hash_day == (Int16.Parse(Utils.GetWeek()) + 6) % 7)
                 {
                     SetClassDay(classitem);
                 }
