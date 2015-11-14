@@ -158,23 +158,27 @@ namespace ZSCY_Win10
         {
             Uri logo1 = null;
             Uri logo2 = null;
+            Uri logo3 = null;
+            Uri logo4 = null;
 
-            var useLogo1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Logo.scale-240.png", UriKind.Absolute));
-            var useLogo2 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square71x71Logo.scale-240.png", UriKind.Absolute));
+            var useLogo1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square71x71Logo.scale-240.png", UriKind.Absolute));
+            var useLogo2 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square71x71Logo.scale-400.png", UriKind.Absolute));
+            var useLogo3 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png", UriKind.Absolute));
+            var useLogo4 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Square150x150Logo.scale-400.png", UriKind.Absolute));
             var filesinthefolder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFoldersAsync();
 #if DEBUG
-            foreach (var item in filesinthefolder)
-            {
+            //foreach (var item in filesinthefolder)
+            //{
 
-                if (item.Name == "Assets")
-                {
-                    var f2 = await item.GetFilesAsync();
-                    foreach (var item2 in f2)
-                    {
-                        Debug.WriteLine(item2.Name);
-                    }
-                }
-            }
+            //    if (item.Name == "Assets")
+            //    {
+            //        var f2 = await item.GetFilesAsync();
+            //        foreach (var item2 in f2)
+            //        {
+            //            Debug.WriteLine(item2.Name);
+            //        }
+            //    }
+            //}
 #endif
             try
             {
@@ -182,26 +186,30 @@ namespace ZSCY_Win10
                 if (OpacityToggleSwitch.IsOn == true && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == false)
                 {
                     OpacityToggleSwitch.IsEnabled = false;
-                    logo1 = new Uri("ms-appx:///Assets/AlphaLogo/Logo.scale-240.png");
-                    logo2 = new Uri("ms-appx:///Assets/AlphaLogo/Square71x71Logo.scale-240.png");
+                    logo1 = new Uri("ms-appx:///Assets/AlphaLogo/Square71x71Logo.scale-240.png");
+                    logo2 = new Uri("ms-appx:///Assets/AlphaLogo/Square71x71Logo.scale-400.png");
+                    logo3 = new Uri("ms-appx:///Assets/AlphaLogo/Square150x150Logo.scale-200.png");
+                    logo4 = new Uri("ms-appx:///Assets/AlphaLogo/Square150x150Logo.scale-400.png");
                     await (await StorageFile.GetFileFromApplicationUriAsync(logo1)).CopyAndReplaceAsync(useLogo1);
                     await (await StorageFile.GetFileFromApplicationUriAsync(logo2)).CopyAndReplaceAsync(useLogo2);
+                    await (await StorageFile.GetFileFromApplicationUriAsync(logo3)).CopyAndReplaceAsync(useLogo3);
+                    await (await StorageFile.GetFileFromApplicationUriAsync(logo4)).CopyAndReplaceAsync(useLogo4);
                     //await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
                     //await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
 #if DEBUG
-                    var filesinthefolder2 = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFoldersAsync();
-                    foreach (var item in filesinthefolder2)
-                    {
-                        Debug.WriteLine(item.Name);
-                        if (item.Name == "Assets")
-                        {
-                            var f2 = await item.GetFilesAsync();
-                            foreach (var item2 in f2)
-                            {
-                                Debug.WriteLine(item2.Name);
-                            }
-                        }
-                    }
+                    //var filesinthefolder2 = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFoldersAsync();
+                    //foreach (var item in filesinthefolder2)
+                    //{
+                    //    Debug.WriteLine(item.Name);
+                    //    if (item.Name == "Assets")
+                    //    {
+                    //        var f2 = await item.GetFilesAsync();
+                    //        foreach (var item2 in f2)
+                    //        {
+                    //            Debug.WriteLine(item2.Name);
+                    //        }
+                    //    }
+                    //}
 #endif
                     appSetting.Values["OpacityTile"] = true;
                     copy = true;
@@ -210,10 +218,14 @@ namespace ZSCY_Win10
                 else if (OpacityToggleSwitch.IsOn == false && bool.Parse(appSetting.Values["OpacityTile"].ToString()) == true)
                 {
                     OpacityToggleSwitch.IsEnabled = false;
-                    logo1 = new Uri("ms-appx:///Assets/BlueLogo/Logo.scale-240.png");
-                    logo2 = new Uri("ms-appx:///Assets/BlueLogo/Square71x71Logo.scale-240.png");
+                    logo1 = new Uri("ms-appx:///Assets/BlueLogo/Square71x71Logo.scale-240.png");
+                    logo2 = new Uri("ms-appx:///Assets/BlueLogo/Square71x71Logo.scale-400.png");
+                    logo3 = new Uri("ms-appx:///Assets/BlueLogo/Square150x150Logo.scale-200.png");
+                    logo4 = new Uri("ms-appx:///Assets/BlueLogo/Square150x150Logo.scale-400.png");
                     await (await StorageFile.GetFileFromApplicationUriAsync(logo1)).CopyAndReplaceAsync(useLogo1);
                     await (await StorageFile.GetFileFromApplicationUriAsync(logo2)).CopyAndReplaceAsync(useLogo2);
+                    await (await StorageFile.GetFileFromApplicationUriAsync(logo3)).CopyAndReplaceAsync(useLogo3);
+                    await (await StorageFile.GetFileFromApplicationUriAsync(logo4)).CopyAndReplaceAsync(useLogo4);
                     //await useLogo1.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo1));
                     //await useLogo2.CopyAndReplaceAsync(await StorageFile.GetFileFromApplicationUriAsync(logo2));
                     appSetting.Values["OpacityTile"] = false;
