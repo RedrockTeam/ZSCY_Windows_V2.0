@@ -237,6 +237,7 @@ namespace ZSCY_Win10
 
         private void JWRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            page = 1;
             JWList.Clear();
             continueJWGrid.Visibility = Visibility.Collapsed;
             initJWList();
