@@ -29,6 +29,12 @@
       "Itemname": "成绩查询",
       "ItemPage": "ScorePage",
       "Itemimgsrc": "Assets/more_score333.png"
+    },
+    {
+      "UniqueId": "Card",
+      "Itemname": "一卡通",
+      "ItemPage": "CardApp",
+      "Itemimgsrc": "Assets/more_card333.png"
     }
   ]
 }

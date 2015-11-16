@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -101,7 +102,7 @@ namespace ZSCY_Win10
             c.Visibility = Visibility.Collapsed;
         }
 
-        private void MoreListView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void MoreListView_ItemClick(object sender, ItemClickEventArgs e)
         {
 
             var item = e.ClickedItem as Morepageclass;
@@ -120,14 +121,24 @@ namespace ZSCY_Win10
             {
                 switch (item.UniqueID)
                 {
-                    case "ReExam": MoreFrame.Navigate(typeof(ExamPage), 3); break;
-                    case "Exam": MoreFrame.Navigate(typeof(ExamPage), 2); break;
-                    case "Socre": MoreFrame.Navigate(typeof(ScorePage)); break;
+                    case "ReExam":
+                        MoreFrame.Navigate(typeof(ExamPage), 3); ;
+                        MoreFrame.Visibility = Visibility.Visible; break;
+                    case "Exam":
+                        MoreFrame.Navigate(typeof(ExamPage), 2);
+                        MoreFrame.Visibility = Visibility.Visible; break;
+                    case "Socre":
+                        MoreFrame.Navigate(typeof(ScorePage));
+                        MoreFrame.Visibility = Visibility.Visible; break;
                     case "ClassRoom":
                         MoreFrame.Navigate(typeof(EmptyRoomsPage));
-                        break;
+                        MoreFrame.Visibility = Visibility.Visible; break;
                     case "Calendar":
                         MoreFrame.Navigate(typeof(CalendarPage));
+                        MoreFrame.Visibility = Visibility.Visible; break;
+                    case "Card":
+                        var a = await Launcher.LaunchUriAsync(new Uri("cquptcard:"));
+                        MoreFrame.Visibility = Visibility.Collapsed;
                         break;
                     default:
                         break;

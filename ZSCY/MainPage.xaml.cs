@@ -756,6 +756,7 @@ namespace ZSCY
         /// <param name="e"></param>
         private void JWRefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            page = 1;
             JWList.Clear();
             continueJWGrid.Visibility = Visibility.Collapsed;
             initJW();

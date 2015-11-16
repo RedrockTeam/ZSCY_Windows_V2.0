@@ -139,6 +139,10 @@
     <Content Include="Assets\more_calendar333.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\more_card.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\more_card333.png" />
     <Content Include="Assets\more_empty333.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -163,7 +167,9 @@
     <Content Include="Assets\StoreLogo.scale-400.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\moreitems.json" />
+    <Content Include="Data\moreitems.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="project.json" />
     <None Include="ZSCY_Win10_StoreKey.pfx" />
     <None Include="ZSCY_Win10_TemporaryKey.pfx" />
