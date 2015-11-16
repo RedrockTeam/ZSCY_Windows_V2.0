@@ -39,7 +39,13 @@ namespace ZSCY_Win10
               };
         }
 
-        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+        private  void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            mlogin();
+           
+        }
+
+        private async void mlogin()
         {
             LoginProgressBar.Visibility = Visibility.Visible;
             List<KeyValuePair<String, String>> paramList = new List<KeyValuePair<String, String>>();
@@ -82,7 +88,6 @@ namespace ZSCY_Win10
             LoginProgressBar.Visibility = Visibility.Collapsed;
         }
 
-
         private void StuNumTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             isLoginButtonEnable();
@@ -99,6 +104,18 @@ namespace ZSCY_Win10
                 LoginButton.IsEnabled = true;
             else
                 LoginButton.IsEnabled = false;
+        }
+
+        private void TextBox_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                Debug.WriteLine("enter");
+                if (StuNumTextBox.Text != "" && IdNumPasswordBox.Password != "")
+                    mlogin();
+                else
+                    Utils.Message("信息不完全");
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
